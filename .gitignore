@@ -1,5 +1,5 @@
 # 忽略日志库、数学库和测试库的源代码
-armadilo/
+armadillo/
 glog/
 googletest
 vscode/
