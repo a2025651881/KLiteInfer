@@ -1,0 +1,9 @@
+libdir=/usr/lib/x86_64-linux-gnu
+includedir=/usr/include
+
+Name: armadillo
+Description: C++ library for linear algebra and scientific computing with MATLAB-like syntax
+URL: https://arma.sourceforge.net
+Version: 15.2.3
+Cflags: -I${includedir}
+Libs: -L${libdir} -larmadillo

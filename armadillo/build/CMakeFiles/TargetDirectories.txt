@@ -1,0 +1,16 @@
+/usr/kl/armadillo/build/CMakeFiles/armadillo.dir
+/usr/kl/armadillo/build/CMakeFiles/test.dir
+/usr/kl/armadillo/build/CMakeFiles/edit_cache.dir
+/usr/kl/armadillo/build/CMakeFiles/rebuild_cache.dir
+/usr/kl/armadillo/build/CMakeFiles/list_install_components.dir
+/usr/kl/armadillo/build/CMakeFiles/install.dir
+/usr/kl/armadillo/build/CMakeFiles/install/local.dir
+/usr/kl/armadillo/build/CMakeFiles/install/strip.dir
+/usr/kl/armadillo/build/tests1/CMakeFiles/smoke_test.dir
+/usr/kl/armadillo/build/tests1/CMakeFiles/test.dir
+/usr/kl/armadillo/build/tests1/CMakeFiles/edit_cache.dir
+/usr/kl/armadillo/build/tests1/CMakeFiles/rebuild_cache.dir
+/usr/kl/armadillo/build/tests1/CMakeFiles/list_install_components.dir
+/usr/kl/armadillo/build/tests1/CMakeFiles/install.dir
+/usr/kl/armadillo/build/tests1/CMakeFiles/install/local.dir
+/usr/kl/armadillo/build/tests1/CMakeFiles/install/strip.dir

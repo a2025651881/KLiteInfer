@@ -1,0 +1,22 @@
+#!/bin/sh
+
+ABORT=no
+
+check_cmake()
+  {
+  (cmake --version) </dev/null >/dev/null 2>&1 ||
+    {
+    echo "error: cmake 3.10+ is required to configure and install Armadillo"
+    echo ""
+    echo "cmake can be installed via your system's package manager,"
+    echo "or downloaded from https://cmake.org"
+    ABORT=yes
+    }
+  }
+
+check_cmake
+
+test "$ABORT" = yes && exit -1
+
+rm -f CMakeCache.txt
+cmake $@ .

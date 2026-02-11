@@ -1,0 +1,193 @@
+Determining if the include file sys/exec_elf.h exists failed with the following output:
+Change Dir: /usr/kl/glog/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_150cb/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_150cb.dir/build.make CMakeFiles/cmTC_150cb.dir/build
+gmake[1]: Entering directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_150cb.dir/CheckIncludeFile.cxx.o
+/usr/bin/c++   -fPIE -o CMakeFiles/cmTC_150cb.dir/CheckIncludeFile.cxx.o -c /usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckIncludeFile.cxx
+/usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckIncludeFile.cxx:1:10: fatal error: sys/exec_elf.h: No such file or directory
+    1 | #include <sys/exec_elf.h>
+      |          ^~~~~~~~~~~~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_150cb.dir/build.make:78: CMakeFiles/cmTC_150cb.dir/CheckIncludeFile.cxx.o] Error 1
+gmake[1]: Leaving directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_150cb/fast] Error 2
+
+
+
+Determining if the _chsize_s exist failed with the following output:
+Change Dir: /usr/kl/glog/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_d1042/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_d1042.dir/build.make CMakeFiles/cmTC_d1042.dir/build
+gmake[1]: Entering directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_d1042.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++   -fPIE -o CMakeFiles/cmTC_d1042.dir/CheckSymbolExists.cxx.o -c /usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:2:10: fatal error: io.h: No such file or directory
+    2 | #include <io.h>
+      |          ^~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_d1042.dir/build.make:78: CMakeFiles/cmTC_d1042.dir/CheckSymbolExists.cxx.o] Error 1
+gmake[1]: Leaving directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_d1042/fast] Error 2
+
+
+File /usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <io.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef _chsize_s
+  return ((int*)(&_chsize_s))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the UnDecorateSymbolName exist failed with the following output:
+Change Dir: /usr/kl/glog/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_c7fe4/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_c7fe4.dir/build.make CMakeFiles/cmTC_c7fe4.dir/build
+gmake[1]: Entering directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_c7fe4.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++   -fPIE -o CMakeFiles/cmTC_c7fe4.dir/CheckSymbolExists.cxx.o -c /usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:2:10: fatal error: windows.h: No such file or directory
+    2 | #include <windows.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_c7fe4.dir/build.make:78: CMakeFiles/cmTC_c7fe4.dir/CheckSymbolExists.cxx.o] Error 1
+gmake[1]: Leaving directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_c7fe4/fast] Error 2
+
+
+File /usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <windows.h>
+#include <dbghelp.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef UnDecorateSymbolName
+  return ((int*)(&UnDecorateSymbolName))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the __argv exist failed with the following output:
+Change Dir: /usr/kl/glog/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_fd656/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_fd656.dir/build.make CMakeFiles/cmTC_fd656.dir/build
+gmake[1]: Entering directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_fd656.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++   -fPIE -o CMakeFiles/cmTC_fd656.dir/CheckSymbolExists.cxx.o -c /usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function 'int main(int, char**)':
+/usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: '__argv' was not declared in this scope; did you mean 'argv'?
+    8 |   return ((int*)(&__argv))[argc];
+      |                   ^~~~~~
+      |                   argv
+gmake[1]: *** [CMakeFiles/cmTC_fd656.dir/build.make:78: CMakeFiles/cmTC_fd656.dir/CheckSymbolExists.cxx.o] Error 1
+gmake[1]: Leaving directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_fd656/fast] Error 2
+
+
+File /usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <cstdlib>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef __argv
+  return ((int*)(&__argv))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Determining if the getprogname exist failed with the following output:
+Change Dir: /usr/kl/glog/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_f499a/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_f499a.dir/build.make CMakeFiles/cmTC_f499a.dir/build
+gmake[1]: Entering directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_f499a.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++   -fPIE -o CMakeFiles/cmTC_f499a.dir/CheckSymbolExists.cxx.o -c /usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function 'int main(int, char**)':
+/usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: 'getprogname' was not declared in this scope
+    8 |   return ((int*)(&getprogname))[argc];
+      |                   ^~~~~~~~~~~
+gmake[1]: *** [CMakeFiles/cmTC_f499a.dir/build.make:78: CMakeFiles/cmTC_f499a.dir/CheckSymbolExists.cxx.o] Error 1
+gmake[1]: Leaving directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_f499a/fast] Error 2
+
+
+File /usr/kl/glog/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <cstdlib>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef getprogname
+  return ((int*)(&getprogname))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+Performing C++ SOURCE FILE Test HAVE_PC_FROM_UCONTEXT_uc_mcontext_gregs_REG_PC failed with the following output:
+Change Dir: /usr/kl/glog/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_9347b/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_9347b.dir/build.make CMakeFiles/cmTC_9347b.dir/build
+gmake[1]: Entering directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_9347b.dir/src.cxx.o
+/usr/bin/c++ -DHAVE_PC_FROM_UCONTEXT_uc_mcontext_gregs_REG_PC -D_GNU_SOURCE  -fPIE -o CMakeFiles/cmTC_9347b.dir/src.cxx.o -c /usr/kl/glog/build/CMakeFiles/CMakeTmp/src.cxx
+/usr/kl/glog/build/CMakeFiles/CMakeTmp/src.cxx: In function 'int main()':
+/usr/kl/glog/build/CMakeFiles/CMakeTmp/src.cxx:6:53: error: 'REG_PC' was not declared in this scope; did you mean 'REG_RCX'?
+    6 |   (void)sizeof(((ucontext_t *)0)->uc_mcontext.gregs[REG_PC]);
+      |                                                     ^~~~~~
+      |                                                     REG_RCX
+gmake[1]: *** [CMakeFiles/cmTC_9347b.dir/build.make:78: CMakeFiles/cmTC_9347b.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_9347b/fast] Error 2
+
+
+Source file was:
+
+#include <ucontext.h>
+
+int main()
+{
+  (void)sizeof(((ucontext_t *)0)->uc_mcontext.gregs[REG_PC]);
+  return 0;
+}
+
+Performing C++ SOURCE FILE Test HAVE_PC_FROM_UCONTEXT_uc_mcontext_gregs_REG_EIP failed with the following output:
+Change Dir: /usr/kl/glog/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_1905d/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_1905d.dir/build.make CMakeFiles/cmTC_1905d.dir/build
+gmake[1]: Entering directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_1905d.dir/src.cxx.o
+/usr/bin/c++ -DHAVE_PC_FROM_UCONTEXT_uc_mcontext_gregs_REG_EIP -D_GNU_SOURCE  -fPIE -o CMakeFiles/cmTC_1905d.dir/src.cxx.o -c /usr/kl/glog/build/CMakeFiles/CMakeTmp/src.cxx
+/usr/kl/glog/build/CMakeFiles/CMakeTmp/src.cxx: In function 'int main()':
+/usr/kl/glog/build/CMakeFiles/CMakeTmp/src.cxx:6:53: error: 'REG_EIP' was not declared in this scope; did you mean 'REG_RIP'?
+    6 |   (void)sizeof(((ucontext_t *)0)->uc_mcontext.gregs[REG_EIP]);
+      |                                                     ^~~~~~~
+      |                                                     REG_RIP
+gmake[1]: *** [CMakeFiles/cmTC_1905d.dir/build.make:78: CMakeFiles/cmTC_1905d.dir/src.cxx.o] Error 1
+gmake[1]: Leaving directory '/usr/kl/glog/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_1905d/fast] Error 2
+
+
+Source file was:
+
+#include <ucontext.h>
+
+int main()
+{
+  (void)sizeof(((ucontext_t *)0)->uc_mcontext.gregs[REG_EIP]);
+  return 0;
+}
+

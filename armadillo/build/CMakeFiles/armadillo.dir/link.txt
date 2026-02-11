@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -O2 -O3 -DNDEBUG  -Wl,--no-as-needed -shared -Wl,-soname,libarmadillo.so.15 -o libarmadillo.so.15.2.3 CMakeFiles/armadillo.dir/src/wrapper1.cpp.o CMakeFiles/armadillo.dir/src/wrapper2.cpp.o  /usr/lib/x86_64-linux-gnu/libopenblas.so /usr/lib/x86_64-linux-gnu/liblapack.so /usr/lib/x86_64-linux-gnu/libarpack.so /usr/lib/x86_64-linux-gnu/libsuperlu.so 
