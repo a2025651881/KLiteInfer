@@ -4,6 +4,7 @@
 
 class GpuAllocator: public DeviceAllocator {
     private:
+        GpuAllocator():DeviceAllocator(DeviceType::GPU){}
         void* allocate_from_BigBuffer(size_t size) {
             // Implementation to allocate from big buffer pool
             int id=cudaGetDevice();

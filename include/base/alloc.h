@@ -18,11 +18,16 @@ enum class MemcpyKind {
 // cudastream_t is a placeholder for CUDA stream type
 class DeviceAllocator {
     public:
-        explicit DeviceAllocator();
+        explicit DeviceAllocator(DeviceType device_type) : device_type_(device_type) {};
         virtual void* allocate(size_t size);
         virtual void release(void* ptr);
         virtual bool memcpy(void* dest, const void* src, size_t count, MemcpyKind kind);
         virtual bool memsetZero(void* dest,size_t count,);
+        DeviceType device_type() const {
+            return device_type_;
+        }
+    protected:
+        DeviceType device_type_ = DeviceType::UNKNOWN;
 };
 
 // CPUAllocator and GPUAllocator are derived classes for CPU and GPU memory management

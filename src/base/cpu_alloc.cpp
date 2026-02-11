@@ -3,6 +3,7 @@
 
 class CpuAllocator: public DeviceAllocator {
     public:
+        CpuAllocator():DeviceAllocator(DeviceType::CPU){}
         void* allocate(size_t size) override {
             // Implementation of CPU memory allocation
             if(size <= 0){
