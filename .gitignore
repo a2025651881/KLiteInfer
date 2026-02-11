@@ -2,7 +2,7 @@
 armadillo/
 glog/
 googletest
-vscode/
+.vscode/
 
 # 额外：忽略所有子目录中残留的 .git 文件夹（防止嵌套仓库警告）
 **/.git/
