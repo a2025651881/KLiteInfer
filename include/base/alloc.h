@@ -1,11 +1,35 @@
+#ifndef BASE_ALLOC_H
+#define BASE_ALLOC_H
 #include <cstddef>
-
+#include <cuda_runtime.h>
+#include <map>
+#include <vector>
+#include <ostream>
+using namespace std;
+namespace base {
 // DeviceType and MemcpyKind enums define the types of devices and memory copy operations
 enum class DeviceType {
     CPU=0,
     GPU=1,
     UNKNOWN=2
 };
+
+// Overload the output stream operator for DeviceType to provide a human-readable representation
+inline std::ostream& operator<<(std::ostream& os, const DeviceType& type) {
+    switch (type) {
+        case DeviceType::CPU:
+            os << "CPU"; // 输出可读的字符串
+            break;
+        case DeviceType::GPU:
+            os << "GPU";
+            break;
+        default:
+            os << "UnknownDeviceType(" << static_cast<int>(type) << ")";
+            break;
+    }
+    return os;
+}
+
 
 // MemcpyKind enum defines the direction of memory copy operations
 enum class MemcpyKind {
@@ -18,11 +42,11 @@ enum class MemcpyKind {
 // cudastream_t is a placeholder for CUDA stream type
 class DeviceAllocator {
     public:
-        explicit DeviceAllocator(DeviceType device_type) : device_type_(device_type) {};
-        virtual void* allocate(size_t size);
-        virtual void release(void* ptr);
-        virtual bool memcpy(void* dest, const void* src, size_t count, MemcpyKind kind);
-        virtual bool memsetZero(void* dest,size_t count,);
+        explicit DeviceAllocator(DeviceType device_type) : device_type_(device_type){};
+        virtual void* allocate(size_t size) = 0;
+        virtual bool release(void* ptr) = 0;
+        virtual bool memcpy(void* dest, const void* src, size_t count, MemcpyKind kind,cudaStream_t stream=nullptr,bool async=false);
+        virtual bool memsetZero(void* dest, size_t count,DeviceType deviceType,cudaStream_t stream=nullptr,bool async=false);
         DeviceType device_type() const {
             return device_type_;
         }
@@ -33,10 +57,9 @@ class DeviceAllocator {
 // CPUAllocator and GPUAllocator are derived classes for CPU and GPU memory management
 class CPUAllocator: public DeviceAllocator {
     public:
+        explicit CPUAllocator():DeviceAllocator(DeviceType::CPU){}
         void* allocate(size_t size) override;
-        void release(void* ptr) override;
-        bool memcpy(void* dest, const void* src, size_t count, MemcpyKind kind) override;
-        bool memsetZero(void* dest,size_t count) override;
+        bool release(void* ptr) override;
 };
 
 class GPUBuffer{
@@ -52,23 +75,22 @@ class GPUBuffer{
                 ptr = nullptr;
             }
         }
-}
+};
 
 class GPUAllocator: public DeviceAllocator {
     public:
+        GPUAllocator():DeviceAllocator(DeviceType::GPU){}
         void* allocate(size_t size) override;
-        void release(void* ptr) override;
-        bool memcpy(void* dest, const void* src, size_t count) override;
-        bool memsetZero(void* dest) override;
+        bool release(void* ptr) override;
     private:
         void* allocate_from_BigBuffer(size_t size);
         void* allocate_from_SmallBuffer(size_t size);
-        bool relase_from_BigBuffer(void* ptr);
-        bool relase_from_SmallBuffer(void* ptr);
+        bool release_from_BigBuffer(void* ptr);
+        bool release_from_SmallBuffer(void* ptr);
         
         map<int,size_t> no_use_size;
-        map<int,vector<GPUBuffer*>> Big_buffers;
-        map<int,vector<GPUBuffer*>> Small_buffers;
+        map<int,vector<GPUBuffer*>> Big_Buffers;
+        map<int,vector<GPUBuffer*>> Small_Buffers;
 };
 
 // Singleton instances for GPU allocators
@@ -82,8 +104,10 @@ class GPUAllocatorInstance {
 
 class CPUAllocatorInstance {
     public:
-        static CpuAllocator& getInstance() {
-            static CpuAllocator instance;
+        static CPUAllocator& getInstance() {
+            static CPUAllocator instance;
             return instance;
         }
 };
+}
+#endif

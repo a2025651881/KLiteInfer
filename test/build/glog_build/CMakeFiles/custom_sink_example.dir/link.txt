@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.o -o custom_sink_example  -Wl,-rpath,/usr/kl/test/build/glog_build libglog.so.0.8.0 

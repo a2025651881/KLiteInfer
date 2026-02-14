@@ -1,5 +1,5 @@
 #include "base/buffer.h"
-#include <glob/logging.h>
+#include <logging.h>
 #include "base/alloc.h"
 
 namespace base {
@@ -20,7 +20,7 @@ Buffer::~Buffer() {
 
 bool Buffer::allocate() {
     if (allocator_ && byte_size_ > 0) {
-        us_external_ = false; // Ensure we are not using external memory
+        use_external_ = false; // Ensure we are not using external memory
         ptr_ = allocator_->allocate(byte_size_);
         if(ptr_ == nullptr){
             LOG(ERROR) << "Buffer allocation failed for size: " << byte_size_;
@@ -32,18 +32,18 @@ bool Buffer::allocate() {
     }
 }
 
-void copy_from(const Buffer& buffer) const{
-    if (allocator_ && buffer.allocator_) {
+void Buffer::copy_from(const Buffer& buffer) const{
+    if (this->allocator_ && buffer.allocator_) {
         DeviceType src_device = buffer.device_type();
-        DeviceType dst_device = device_type_;
+        DeviceType dst_device = this->device_type();
         switch (src_device) {
             case DeviceType::CPU:
                 switch (dst_device) {
                     case DeviceType::CPU:
-                        allocator_->memcpy(ptr_, buffer.ptr(), byte_size_, MemcpyKind::HostToHost);
+                        allocator_->memcpy(this->ptr_, buffer.ptr(), byte_size_, MemcpyKind::HostToHost);
                         break;
                     case DeviceType::GPU:
-                        allocator_->memcpy(ptr_, buffer.ptr(), byte_size_, MemcpyKind::HostToDevice);
+                        allocator_->memcpy(this->ptr_, buffer.ptr(), byte_size_, MemcpyKind::HostToDevice);
                         break;
                     default:
                         LOG(ERROR) << "Unsupported destination device type for copy_from";
@@ -73,7 +73,7 @@ void copy_from(const Buffer& buffer) const{
 }
 
   void Buffer::copy_from(const Buffer* buffer) const{
-    if (allocator_ && buffer.allocator_) {
+    if (this->allocator_ && buffer->allocator_) {
         DeviceType src_device = buffer->device_type();
         DeviceType dst_device = device_type_;
         switch (src_device) {
@@ -142,7 +142,7 @@ void copy_from(const Buffer& buffer) const{
   }
 
   bool Buffer::is_external() const {
-    return is_external_;
+    return this->use_external_;
   }
 
 }

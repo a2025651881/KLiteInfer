@@ -3,8 +3,8 @@
 #include <memory>
 #include "base/alloc.h"
 namespace base {
-class Buffer : public NoCopyable, std::enable_shared_from_this<Buffer> {
- private:
+class Buffer : public std::enable_shared_from_this<Buffer> {
+ protected:
   size_t byte_size_ = 0;
   void* ptr_ = nullptr;
   bool use_external_ = false;
