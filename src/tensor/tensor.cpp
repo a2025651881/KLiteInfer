@@ -135,34 +135,70 @@ namespace tensor{
 
         void Tensor::init_buffer(std:::shared_ptr<base::DeviceAllocator> alloc,base::DataType data_type,
                         bool need_alloc,void* ptr){
-            if(){
-
+            if(!alloc && !need_alloc){
+                std::shared_ptr<base::Buffer> buffer = std::make_shared<bse:::Buffer>(data_type_size(data_type) * size_,nullptr,ptr,true);
+                this->buffer_ = buffer;
+            }else{
+                allocate(alloc,true);
             }
         }
         
         template<typename T>
         T* ptr(){
-            
+            if(!buffer_) return nullptr;
+            return reinterpret_cast<T*>(buffer_->ptr());
         }
 
         template<typename T>
-        const T* ptr() const;
+        const T* ptr() const{
+            CHECK(buffer_ != nullptr && buffer_->ptr() != nullptr) << "The data area buffer of this tensor is empty or it points to a null pointer";
+            return const_cast<T*>(reinterpret_cast<const T*>(buffer_->ptr()));
+        }
 
-        void reshape(const std::vector<int32_t>& dims);
+        void reshape(const std::vector<int32_t>& dims){
+            size_t size = reduce_dimension(dims.begin(),dims.end(),1);
+            if(!buffer_){
+                this->dims_ = dims;
+                this->size_ = size;
+                return;
+            }
+            if(size > size_){
+                auto new_buffer = std::make_shared<base Buffer>(size * base::DataTypeSIze(this->data_type_),buffer_->allocator());
+                new_buffer->copy_from(buffer_.get());
+                this->buffer_ = new_buffer;
+            }
+            dims_ = dims;
+            size_ = size;
+        }
 
-        std::shared_ptr<base::Buffer> get_buffer() const;
+        std::shared_ptr<base::Buffer> get_buffer() const{
+            return this->buffer_;
+        }
 
-        size_t size() cons;
+        size_t size() const{
+            return size_;
+        }
 
-        size_t byte_size() const;
+        size_t byte_size() const{
+            return size_ * base::
+        }
 
-        int32_t dims_size() const;
+        int32_t dims_size() const{
+            return static_cast<int32_t>(dims_.size());
+        }
 
-        base::DataType data_type() const;
+        base::DataType data_type() const{
+            return this->data_type_;
+        }
 
-        int32_t get_dim(int32_t idx) const;
+        int32_t get_dim(int32_t idx) const{
+            CHECK_LE(idx,dims_.size()-1);
+            return dims_[idx];
+        }
 
-        const std::vector<int32_t>& dims() const;
+        const std::vector<int32_t>& dims() const{
+            return this->dims_;
+        }
 
         std::vector<size_t> Tensor::strides() const{
             vector<size_t> strides;
@@ -174,7 +210,23 @@ namespace tensor{
             return strides;
         }
 
-        bool assign(std::shared_ptr<base::Buffer> buffer);
+        bool assign(std::shared_ptr<base::Buffer> buffer){
+            if(!buffer){
+                LOG(ERROR) << "The buffer parameter in the assign function is null pointer!";
+                return false;
+            }
+            if(buffer_){
+                if(buffer_->device_type()!=buffer_->device_type())
+                    LOG(ERROR) << "The device type of the new buffer is different from the original one.";
+            }
+            size_t byte_size =this->byte_size();
+            if(byte_size > buffer->byte_size()){
+                LOG(ERROR) << "The size of buffer is too small for the tensor!";
+                return false;
+            }
+            buffer_ = buffer;
+            return true;
+        }
 
         void Tensor::reset(base::DataType data_type,const std::vector<int32_t>& dims){
             this->data_type_ = data_type;
@@ -193,20 +245,53 @@ namespace tensor{
         }
 
         bool allocate(std::shared_ptr<base::DeviceAllocator> allocater, bool need_alloc =false){
-
+            if(!allocater){
+                LOG(ERROR) << "The allocator parameter in the allocate function is null";
+                return false;
+            }
+            size_t byte_size = this->byte_size();
+            if(!byte_size){
+                LOG(ERROR) << "The byte_size parameter in the allocate function is equal to zero!";
+                return false;
+            }
+            if(buffer_ && byte_size <=buffer_->byte_size()){
+                if(!need_alloc) return true;
+            }
+            buffer_ = std::make_shared<base::Buffer>(byte_size,alloc,nullptr);
+            if(!buffer_->ptr()){
+                LOG(ERROR) << "The memory allocated is a null pointer!";
+                return false;
+            }
+            return true;
         }
 
         template<typename T>
-        T* ptr(int64_t index);
+        T* ptr(int64_t index){
+            CHECK_GE(index,0);
+            CHECK_LT(index,this->size());
+            return reinterpret_cast<T*>(buffer_->ptr());
+        }
 
         template<typename T>
-        const T* ptr(int64_t index) const;
+        const T* ptr(int64_t index) const{
+            CHECK_GE(index,0);
+            CHECK_LT(index,this->size());
+            return const_cast<const T*>(reinterpret_cast<const T*>(buffer_->ptr())+index);
+        }
 
         template<typename T>
-        T& index(int64_t offset);
+        T& index(int64_t offset){
+            CHECK_GE(index,0);
+            CHECK_LT(index,this->size());
+            return *(reinterpret_cast<T*>(buffer_->ptr())+offset);
+        }
 
         template<typename T>
-        const T& index(int64_t offset) const;
+        const T& index(int64_t offset) const{
+            CHECK_GE(index,0);
+            CHECK_LT(index,this->size());
+            return const_cast<const T*>(reinterpret_cast<T*>(buffer_->ptr()));
+        }
 
         tensor::Tensor Tensor::clone() const{
             Tensor new_tensor = *this;
@@ -216,9 +301,4 @@ namespace tensor{
             new_tensor.buffer_ =->copy_from(buffer_.get());
             return new_tensor;
         }
-    private:    
-        size_t size_ =0;
-        std::vector<int32_t> dims_;
-        std::shared_ptr<base::Buffer> buffer_;
-        base::DataTyope data_type_ = base::DataType::kDataTypeUnknown;
 }
