@@ -20,7 +20,7 @@ enum class DataType:uint8_t{
 
 enum class ModelType:uint8_t{
     kModelTypeUnkonwn = 0,
-    kModelTypeLLama2 = 1 
+    kModelTypeLLama2 = 1
 };
 
 inline size_t DataTypeSize(DataType data_type){
@@ -41,6 +41,12 @@ enum StatusCode :uint8_t{
     kKeyValueHasExist = 6,
     kInvalidArgument = 7,
 };
+
+enum class TokenizerType{
+    kEncodeUnknown = 0,
+    kEncodeSpe = 0,
+    kEncodeBpe = 1,
+}
 
 class Status{
     public:

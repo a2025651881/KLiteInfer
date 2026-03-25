@@ -8,7 +8,7 @@ void add_kernel_cpu(const tensor::Tensor& input1,const tensor::Tensor& inupt2,
         CHECK_NE(input1.size(),0);
         CHECK_NE(input2.size(),0);
         CHECK_NE(output.size(),0);
-        
+
         CHECK_EQ(input1.size(),input2.size());
         CHECK_EQ(input1.size(),output.size());
         arma::fvex input_vec1(const_cast<float*>(input1.ptr<float>()),input1.size(),false,true);
