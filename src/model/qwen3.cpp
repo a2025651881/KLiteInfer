@@ -138,11 +138,34 @@ base::Status Qwen3Model::init(base::DeviceType device_type){
     return error::Success();
 }
 
-  base::Status predict(const tensor::Tensor& input, const tensor::Tensor& pos_tensor,
-                       bool is_prompt, int& next) const override;
+    base::Status predict(const tensor::Tensor& input, const tensor::Tensor& pos_tensor,
+                       bool is_prompt, int& next) const{
+        auto status = forward(input, pos_tensor, next);
+        if (!status) {
+            return status;
+        }
+        next = post_processing(pos_tensor, is_prompt);
+        return base::error::Success();
+    }
 
-  base::Status forward(const tensor::Tensor& input, const tensor::Tensor& pos_tensor,
-                       int& next) const override;
+    base::Status forward(const tensor::Tensor& input, const tensor::Tensor& pos_tensor,
+                       int& next) const{
+        if (input.is_empty()) {
+            return base::error::InvalidArgument("The input tensor is empty.");
+        }
+        if (device_type_ == base::DeviceType::kDeviceCPU && is_quant_model_) {
+            return base::error::InternalError("Unsupported int8 quant in the cpu device");
+        }
+    
+        for(int32_t layer_idx=0;layer_idx<config_->layer_num_;++layer_idx){
+            attention_rms(layer_idx,input);
+            attention_qkv(layer_idx,pos_tensor);
+            attention_mha(layer_idx,pos_tensor);
+            feed_forward(layer_idx,input);
+        }
+        cls_logits(input);
+        return base::error::Success();
+    }
 
     op::EmbeddingOutput embedding(const std::vector<int>& tokens) const{
         auto input_tokens = get_buffer(ModelBufferType::kInputTokens);
@@ -397,14 +420,74 @@ private:
     STATUS_CHECK(qwen_layers_->add_layer_->forward(input, w2_output, input));
 }
 
-  void attention_qkv(int32_t layer_idx, const tensor::Tensor& pos_tensor) const;
+    void attention_qkv(int32_t layer_idx, const tensor::Tensor& pos_tensor) const{
+        CHECK(qwen_layers_ != nullptr);
+        // kv cache
+        tensor::Tensor query = this->get_buffer(ModelBufferType::kQuery);
+        int32_t pos = pos_tensor.index<int32_t>(0);
+        auto [key, val] = slice_kv_cache(layer_idx, pos);
 
-  void cls_logits(const tensor::Tensor& input) const;
+        // query
+        const auto& query_layer = qwen_layers_->wq_layers_.at(layer_idx);
+        CHECK_NE(query_layer, nullptr) << "The query layer in the attention block is null pointer.";
 
-  int32_t post_processing(const tensor::Tensor& pos, bool is_prompt) const override;
+        auto rmsnorm_output = get_buffer(ModelBufferType::kOutputRMSNorm);
+        STATUS_CHECK(query_layer->forward(rmsnorm_output, query));
 
- private:
-  std::shared_ptr<kernel::CudaConfig> cuda_config_;
-  std::unique_ptr<Qwen3Layers> qwen_layers_;
+        // query norm
+        auto query_norm = qwen_layers_->rmsnorm_layers_.at(layer_idx + 2 * config_->layer_num_ + 1);
+        query.reshape({(int32_t)query.size() / config_->head_size_, config_->head_size_});
+        query_norm->forward(query, query);
+        query.reshape({(int32_t)query.size()});
+
+        // key
+        const auto& key_layer = qwen_layers_->wk_layers_.at(layer_idx);
+        CHECK_NE(key_layer, nullptr) << "The key layer in the attention block is null pointer.";
+        STATUS_CHECK(key_layer->forward(rmsnorm_output, key));
+
+        // key norm
+        auto key_norm = qwen_layers_->rmsnorm_layers_.at(layer_idx + 3 * config_->layer_num_ + 1);
+        key.reshape({(int32_t)key.size() / config_->head_size_, config_->head_size_});
+        key_norm->forward(key, key);
+        key.reshape({(int32_t)key.size()});
+
+        // value
+        const auto& value_layer = qwen_layers_->wv_layers_.at(layer_idx);
+        CHECK_NE(value_layer, nullptr) << "The value layer in the attention block is null pointer.";
+        STATUS_CHECK(value_layer->forward(rmsnorm_output, val));
+
+        // rope
+        CHECK_NE(qwen_layers_->rope_layer_, nullptr)
+            << "The RoPE layer in the attention block is null pointer.";
+        STATUS_CHECK(qwen_layers_->rope_layer_->forward(
+            query, key, pos_tensor, get_buffer(ModelBufferType::kSinCache),
+            get_buffer(ModelBufferType::kCosCache), tensor::Tensor{}));
+    }
+
+    void cls_logits(const tensor::Tensor& input) const{
+        CHECK(qwen_layers_ != nullptr);
+        const auto& norm = qwen_layers_->rmsnorm_layers_.at(2 * config_->layer_num_);
+        CHECK_NE(norm, nullptr);
+        STATUS_CHECK(norm->forward(input, input));
+
+        tensor::Tensor forward_output = get_buffer(ModelBufferType::kForwardOutput);
+        CHECK_NE(qwen_layers_->cls_layer_, nullptr);
+        STATUS_CHECK(qwen_layers_->cls_layer_->forward(input, forward_output));
+    }
+
+    int32_t post_processing(const tensor::Tensor& pos, bool is_prompt) const{
+        tensor::Tensor forward_output = get_buffer(ModelBufferType::kForwardOutput);
+        const float* forward_logits = forward_output.ptr<float>();
+
+        int32_t next = 0;
+        if(is_prompt){
+            next = -1;
+        }else{
+            next = static_cast<int32_t>(sampler_->sample(forward_logits,forward_output.size(),
+                                                        cuda_config_ ? cuda_config_->stream : nullptr));
+        }
+        return next;
+    }
+
 }  // namespace model
 #endif
