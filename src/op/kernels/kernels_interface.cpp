@@ -9,4 +9,5 @@ AddKernel get_add_kernel(base::DeviceType device_type){
         return nullptr;
     }
 }
+
 }
