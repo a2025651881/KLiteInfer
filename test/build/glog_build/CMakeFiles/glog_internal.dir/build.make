@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /usr/kl/test
+CMAKE_SOURCE_DIR = /pfs/wukeliang/KLiteInfer/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /usr/kl/test/build
+CMAKE_BINARY_DIR = /pfs/wukeliang/KLiteInfer/test/build
 
 # Include any dependencies generated for this target.
 include glog_build/CMakeFiles/glog_internal.dir/depend.make
@@ -70,130 +70,130 @@ include glog_build/CMakeFiles/glog_internal.dir/progress.make
 include glog_build/CMakeFiles/glog_internal.dir/flags.make
 
 glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o: glog_build/CMakeFiles/glog_internal.dir/flags.make
-glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o: /usr/kl/glog/src/demangle.cc
+glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o: /pfs/wukeliang/glog/src/demangle.cc
 glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o: glog_build/CMakeFiles/glog_internal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o -MF CMakeFiles/glog_internal.dir/src/demangle.cc.o.d -o CMakeFiles/glog_internal.dir/src/demangle.cc.o -c /usr/kl/glog/src/demangle.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o -MF CMakeFiles/glog_internal.dir/src/demangle.cc.o.d -o CMakeFiles/glog_internal.dir/src/demangle.cc.o -c /pfs/wukeliang/glog/src/demangle.cc
 
 glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glog_internal.dir/src/demangle.cc.i"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/glog/src/demangle.cc > CMakeFiles/glog_internal.dir/src/demangle.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/glog/src/demangle.cc > CMakeFiles/glog_internal.dir/src/demangle.cc.i
 
 glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glog_internal.dir/src/demangle.cc.s"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/glog/src/demangle.cc -o CMakeFiles/glog_internal.dir/src/demangle.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/glog/src/demangle.cc -o CMakeFiles/glog_internal.dir/src/demangle.cc.s
 
 glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o: glog_build/CMakeFiles/glog_internal.dir/flags.make
-glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o: /usr/kl/glog/src/flags.cc
+glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o: /pfs/wukeliang/glog/src/flags.cc
 glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o: glog_build/CMakeFiles/glog_internal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o -MF CMakeFiles/glog_internal.dir/src/flags.cc.o.d -o CMakeFiles/glog_internal.dir/src/flags.cc.o -c /usr/kl/glog/src/flags.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o -MF CMakeFiles/glog_internal.dir/src/flags.cc.o.d -o CMakeFiles/glog_internal.dir/src/flags.cc.o -c /pfs/wukeliang/glog/src/flags.cc
 
 glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glog_internal.dir/src/flags.cc.i"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/glog/src/flags.cc > CMakeFiles/glog_internal.dir/src/flags.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/glog/src/flags.cc > CMakeFiles/glog_internal.dir/src/flags.cc.i
 
 glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glog_internal.dir/src/flags.cc.s"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/glog/src/flags.cc -o CMakeFiles/glog_internal.dir/src/flags.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/glog/src/flags.cc -o CMakeFiles/glog_internal.dir/src/flags.cc.s
 
 glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o: glog_build/CMakeFiles/glog_internal.dir/flags.make
-glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o: /usr/kl/glog/src/logging.cc
+glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o: /pfs/wukeliang/glog/src/logging.cc
 glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o: glog_build/CMakeFiles/glog_internal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o -MF CMakeFiles/glog_internal.dir/src/logging.cc.o.d -o CMakeFiles/glog_internal.dir/src/logging.cc.o -c /usr/kl/glog/src/logging.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o -MF CMakeFiles/glog_internal.dir/src/logging.cc.o.d -o CMakeFiles/glog_internal.dir/src/logging.cc.o -c /pfs/wukeliang/glog/src/logging.cc
 
 glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glog_internal.dir/src/logging.cc.i"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/glog/src/logging.cc > CMakeFiles/glog_internal.dir/src/logging.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/glog/src/logging.cc > CMakeFiles/glog_internal.dir/src/logging.cc.i
 
 glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glog_internal.dir/src/logging.cc.s"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/glog/src/logging.cc -o CMakeFiles/glog_internal.dir/src/logging.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/glog/src/logging.cc -o CMakeFiles/glog_internal.dir/src/logging.cc.s
 
 glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o: glog_build/CMakeFiles/glog_internal.dir/flags.make
-glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o: /usr/kl/glog/src/raw_logging.cc
+glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o: /pfs/wukeliang/glog/src/raw_logging.cc
 glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o: glog_build/CMakeFiles/glog_internal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o -MF CMakeFiles/glog_internal.dir/src/raw_logging.cc.o.d -o CMakeFiles/glog_internal.dir/src/raw_logging.cc.o -c /usr/kl/glog/src/raw_logging.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o -MF CMakeFiles/glog_internal.dir/src/raw_logging.cc.o.d -o CMakeFiles/glog_internal.dir/src/raw_logging.cc.o -c /pfs/wukeliang/glog/src/raw_logging.cc
 
 glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glog_internal.dir/src/raw_logging.cc.i"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/glog/src/raw_logging.cc > CMakeFiles/glog_internal.dir/src/raw_logging.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/glog/src/raw_logging.cc > CMakeFiles/glog_internal.dir/src/raw_logging.cc.i
 
 glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glog_internal.dir/src/raw_logging.cc.s"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/glog/src/raw_logging.cc -o CMakeFiles/glog_internal.dir/src/raw_logging.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/glog/src/raw_logging.cc -o CMakeFiles/glog_internal.dir/src/raw_logging.cc.s
 
 glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o: glog_build/CMakeFiles/glog_internal.dir/flags.make
-glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o: /usr/kl/glog/src/signalhandler.cc
+glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o: /pfs/wukeliang/glog/src/signalhandler.cc
 glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o: glog_build/CMakeFiles/glog_internal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o -MF CMakeFiles/glog_internal.dir/src/signalhandler.cc.o.d -o CMakeFiles/glog_internal.dir/src/signalhandler.cc.o -c /usr/kl/glog/src/signalhandler.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o -MF CMakeFiles/glog_internal.dir/src/signalhandler.cc.o.d -o CMakeFiles/glog_internal.dir/src/signalhandler.cc.o -c /pfs/wukeliang/glog/src/signalhandler.cc
 
 glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glog_internal.dir/src/signalhandler.cc.i"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/glog/src/signalhandler.cc > CMakeFiles/glog_internal.dir/src/signalhandler.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/glog/src/signalhandler.cc > CMakeFiles/glog_internal.dir/src/signalhandler.cc.i
 
 glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glog_internal.dir/src/signalhandler.cc.s"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/glog/src/signalhandler.cc -o CMakeFiles/glog_internal.dir/src/signalhandler.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/glog/src/signalhandler.cc -o CMakeFiles/glog_internal.dir/src/signalhandler.cc.s
 
 glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o: glog_build/CMakeFiles/glog_internal.dir/flags.make
-glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o: /usr/kl/glog/src/stacktrace.cc
+glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o: /pfs/wukeliang/glog/src/stacktrace.cc
 glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o: glog_build/CMakeFiles/glog_internal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o -MF CMakeFiles/glog_internal.dir/src/stacktrace.cc.o.d -o CMakeFiles/glog_internal.dir/src/stacktrace.cc.o -c /usr/kl/glog/src/stacktrace.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o -MF CMakeFiles/glog_internal.dir/src/stacktrace.cc.o.d -o CMakeFiles/glog_internal.dir/src/stacktrace.cc.o -c /pfs/wukeliang/glog/src/stacktrace.cc
 
 glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glog_internal.dir/src/stacktrace.cc.i"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/glog/src/stacktrace.cc > CMakeFiles/glog_internal.dir/src/stacktrace.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/glog/src/stacktrace.cc > CMakeFiles/glog_internal.dir/src/stacktrace.cc.i
 
 glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glog_internal.dir/src/stacktrace.cc.s"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/glog/src/stacktrace.cc -o CMakeFiles/glog_internal.dir/src/stacktrace.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/glog/src/stacktrace.cc -o CMakeFiles/glog_internal.dir/src/stacktrace.cc.s
 
 glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o: glog_build/CMakeFiles/glog_internal.dir/flags.make
-glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o: /usr/kl/glog/src/symbolize.cc
+glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o: /pfs/wukeliang/glog/src/symbolize.cc
 glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o: glog_build/CMakeFiles/glog_internal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o -MF CMakeFiles/glog_internal.dir/src/symbolize.cc.o.d -o CMakeFiles/glog_internal.dir/src/symbolize.cc.o -c /usr/kl/glog/src/symbolize.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o -MF CMakeFiles/glog_internal.dir/src/symbolize.cc.o.d -o CMakeFiles/glog_internal.dir/src/symbolize.cc.o -c /pfs/wukeliang/glog/src/symbolize.cc
 
 glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glog_internal.dir/src/symbolize.cc.i"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/glog/src/symbolize.cc > CMakeFiles/glog_internal.dir/src/symbolize.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/glog/src/symbolize.cc > CMakeFiles/glog_internal.dir/src/symbolize.cc.i
 
 glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glog_internal.dir/src/symbolize.cc.s"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/glog/src/symbolize.cc -o CMakeFiles/glog_internal.dir/src/symbolize.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/glog/src/symbolize.cc -o CMakeFiles/glog_internal.dir/src/symbolize.cc.s
 
 glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o: glog_build/CMakeFiles/glog_internal.dir/flags.make
-glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o: /usr/kl/glog/src/utilities.cc
+glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o: /pfs/wukeliang/glog/src/utilities.cc
 glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o: glog_build/CMakeFiles/glog_internal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o -MF CMakeFiles/glog_internal.dir/src/utilities.cc.o.d -o CMakeFiles/glog_internal.dir/src/utilities.cc.o -c /usr/kl/glog/src/utilities.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o -MF CMakeFiles/glog_internal.dir/src/utilities.cc.o.d -o CMakeFiles/glog_internal.dir/src/utilities.cc.o -c /pfs/wukeliang/glog/src/utilities.cc
 
 glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glog_internal.dir/src/utilities.cc.i"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/glog/src/utilities.cc > CMakeFiles/glog_internal.dir/src/utilities.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/glog/src/utilities.cc > CMakeFiles/glog_internal.dir/src/utilities.cc.i
 
 glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glog_internal.dir/src/utilities.cc.s"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/glog/src/utilities.cc -o CMakeFiles/glog_internal.dir/src/utilities.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/glog/src/utilities.cc -o CMakeFiles/glog_internal.dir/src/utilities.cc.s
 
 glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o: glog_build/CMakeFiles/glog_internal.dir/flags.make
-glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o: /usr/kl/glog/src/vlog_is_on.cc
+glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o: /pfs/wukeliang/glog/src/vlog_is_on.cc
 glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o: glog_build/CMakeFiles/glog_internal.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o -MF CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o.d -o CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o -c /usr/kl/glog/src/vlog_is_on.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o -MF CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o.d -o CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o -c /pfs/wukeliang/glog/src/vlog_is_on.cc
 
 glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.i"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/glog/src/vlog_is_on.cc > CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/glog/src/vlog_is_on.cc > CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.i
 
 glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.s"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/glog/src/vlog_is_on.cc -o CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/glog/src/vlog_is_on.cc -o CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.s
 
 glog_internal: glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o
 glog_internal: glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o
@@ -212,10 +212,10 @@ glog_build/CMakeFiles/glog_internal.dir/build: glog_internal
 .PHONY : glog_build/CMakeFiles/glog_internal.dir/build
 
 glog_build/CMakeFiles/glog_internal.dir/clean:
-	cd /usr/kl/test/build/glog_build && $(CMAKE_COMMAND) -P CMakeFiles/glog_internal.dir/cmake_clean.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && $(CMAKE_COMMAND) -P CMakeFiles/glog_internal.dir/cmake_clean.cmake
 .PHONY : glog_build/CMakeFiles/glog_internal.dir/clean
 
 glog_build/CMakeFiles/glog_internal.dir/depend:
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /usr/kl/test /usr/kl/glog /usr/kl/test/build /usr/kl/test/build/glog_build /usr/kl/test/build/glog_build/CMakeFiles/glog_internal.dir/DependInfo.cmake --color=$(COLOR)
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /pfs/wukeliang/KLiteInfer/test /pfs/wukeliang/glog /pfs/wukeliang/KLiteInfer/test/build /pfs/wukeliang/KLiteInfer/test/build/glog_build /pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog_internal.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : glog_build/CMakeFiles/glog_internal.dir/depend
 

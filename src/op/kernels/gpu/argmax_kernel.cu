@@ -1,4 +1,4 @@
-#include "../kernels_interfaxe.h"
+#include "../kernels_interface.h"
 #include "argmax_kernel.cuh"
 #include "tensor/tensor.h"
 namespace kernel{

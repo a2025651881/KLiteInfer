@@ -8,12 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/usr/kl/glog/examples/custom_sink.cc" "glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.o" "gcc" "glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.o.d"
+  "/pfs/wukeliang/glog/examples/custom_sink.cc" "glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.o" "gcc" "glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.o.d"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/usr/kl/test/build/glog_build/CMakeFiles/glog.dir/DependInfo.cmake"
+  "/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

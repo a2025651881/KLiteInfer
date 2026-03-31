@@ -1,8 +1,12 @@
 #ifndef KELI_INCLUDE_OP_MATMUL_H_
 #define KELI_INCLUDE_OP_MATMUL_H_
 #include "op/matmul.h"
+#include <cstdint>
+#include "tensor/tensor.h"
+#include "base/base.h"
+#include "base/cuda_config.h"
 namespace op{
-    explicit MatmulLayer(base::DeviceType device_type,int32_t dim0,int32_t dim1,
+    explicit Matmul::MatmulLayer(base::DeviceType device_type,int32_t dim0,int32_t dim1,
                         bool is_quant_layer = false,bool has_bias = false)
     :LayerParam(device_type,LayerType::kLayerMatmul,is_quant_layer,"Matmul"),
     dim0_(dim0),
@@ -16,7 +20,7 @@ namespace op{
             bias_.resize(1);
         }
     }
-    base::Status check() const{
+    base::Status Matmul::check() const{
         auto status = check_tensor_with_dim(get_input(0), device_type_, data_type_, dim1_);
         if (!status) {
             LOG(ERROR) << "The input tensor error in the matmul layer.";
@@ -54,7 +58,7 @@ namespace op{
         return base::error::Success();
     }
     
-    base::Status forward() override{
+    base::Status Matmul::forward() override{
         auto status = check();
         if (!status) {
             return status;
@@ -79,7 +83,7 @@ namespace op{
         return base::error::Success();
     }
 
-    base::Status set_bias(int32_t idx,int32_t& dims,const void* bias_ptr,
+    base::Status Matmul::set_bias(int32_t idx,int32_t& dims,const void* bias_ptr,
                             base::DeviceType device_type){
         CHECK_GE(idx, 0);
         CHECK_LT(idx, bias_.size());
@@ -117,19 +121,19 @@ namespace op{
         return base::error::Success();        
     }
     
-    tensor::Tensor& get_bias(int32_t idx){
+    tensor::Tensor& Matmul::get_bias(int32_t idx){
         CHECK_GE(idx, 0);
         CHECK_LT(idx, bias_.size());
         return bias_.at(idx);
     }
   
-    const tensor::Tensor& get_bias(int32_t idx) const{
+    const tensor::Tensor& Matmul::get_bias(int32_t idx) const{
         CHECK_GE(idx,0);
-        CHECK_LT(idx,dias_.size());
+        CHECK_LT(idx,bias_.size());
         return bias_.at(idx);
     }
 
-    void to_cuda() override{
+    void Matmul::to_cuda() override{
         LayerParam::to_cuda();
         if (has_bias_) {
             for (auto& bias : bias_) {

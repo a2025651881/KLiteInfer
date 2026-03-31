@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /usr/kl/test
+CMAKE_SOURCE_DIR = /pfs/wukeliang/KLiteInfer/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /usr/kl/test/build
+CMAKE_BINARY_DIR = /pfs/wukeliang/KLiteInfer/test/build
 
 # Utility rule file for ExperimentalStart.
 
@@ -67,7 +67,7 @@ include glog_build/CMakeFiles/ExperimentalStart.dir/compiler_depend.make
 include glog_build/CMakeFiles/ExperimentalStart.dir/progress.make
 
 glog_build/CMakeFiles/ExperimentalStart:
-	cd /usr/kl/test/build/glog_build && /usr/bin/ctest -D ExperimentalStart
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/ctest -D ExperimentalStart
 
 ExperimentalStart: glog_build/CMakeFiles/ExperimentalStart
 ExperimentalStart: glog_build/CMakeFiles/ExperimentalStart.dir/build.make
@@ -78,10 +78,10 @@ glog_build/CMakeFiles/ExperimentalStart.dir/build: ExperimentalStart
 .PHONY : glog_build/CMakeFiles/ExperimentalStart.dir/build
 
 glog_build/CMakeFiles/ExperimentalStart.dir/clean:
-	cd /usr/kl/test/build/glog_build && $(CMAKE_COMMAND) -P CMakeFiles/ExperimentalStart.dir/cmake_clean.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && $(CMAKE_COMMAND) -P CMakeFiles/ExperimentalStart.dir/cmake_clean.cmake
 .PHONY : glog_build/CMakeFiles/ExperimentalStart.dir/clean
 
 glog_build/CMakeFiles/ExperimentalStart.dir/depend:
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /usr/kl/test /usr/kl/glog /usr/kl/test/build /usr/kl/test/build/glog_build /usr/kl/test/build/glog_build/CMakeFiles/ExperimentalStart.dir/DependInfo.cmake --color=$(COLOR)
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /pfs/wukeliang/KLiteInfer/test /pfs/wukeliang/glog /pfs/wukeliang/KLiteInfer/test/build /pfs/wukeliang/KLiteInfer/test/build/glog_build /pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/ExperimentalStart.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : glog_build/CMakeFiles/ExperimentalStart.dir/depend
 

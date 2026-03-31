@@ -1,24 +1,18 @@
 #ifndef BASE_ALLOC_H
 #define BASE_ALLOC_H
+#include "base/cuda_config.h"
 #include <cstddef>
 #include <cuda_runtime.h>
 #include <map>
 #include <vector>
 #include <ostream>
+#include "base/base.h"
 using namespace std;
 namespace base {
-// DeviceType and MemcpyKind enums define the types of devices and memory copy operations
-enum class DeviceType {
-    CPU=0,
-    GPU=1,
-    UNKNOWN=2
-};
-
-// Overload the output stream operator for DeviceType to provide a human-readable representation
 inline std::ostream& operator<<(std::ostream& os, const DeviceType& type) {
     switch (type) {
         case DeviceType::CPU:
-            os << "CPU"; // 输出可读的字符串
+            os << "CPU";
             break;
         case DeviceType::GPU:
             os << "GPU";
@@ -30,8 +24,6 @@ inline std::ostream& operator<<(std::ostream& os, const DeviceType& type) {
     return os;
 }
 
-
-// MemcpyKind enum defines the direction of memory copy operations
 enum class MemcpyKind {
     HostToHost=0,
     HostToDevice=1,
@@ -39,10 +31,10 @@ enum class MemcpyKind {
     DeviceToDevice=3
 };
 
-// cudastream_t is a placeholder for CUDA stream type
 class DeviceAllocator {
     public:
         explicit DeviceAllocator(DeviceType device_type) : device_type_(device_type){};
+        virtual ~DeviceAllocator() = default; // 只加虚析构，不改名
         virtual void* allocate(size_t size) = 0;
         virtual bool release(void* ptr) = 0;
         virtual bool memcpy(void* dest, const void* src, size_t count, MemcpyKind kind,cudaStream_t stream=nullptr,bool async=false);
@@ -54,7 +46,6 @@ class DeviceAllocator {
         DeviceType device_type_ = DeviceType::UNKNOWN;
 };
 
-// CPUAllocator and GPUAllocator are derived classes for CPU and GPU memory management
 class CPUAllocator: public DeviceAllocator {
     public:
         explicit CPUAllocator():DeviceAllocator(DeviceType::CPU){}
@@ -93,7 +84,6 @@ class GPUAllocator: public DeviceAllocator {
         map<int,vector<GPUBuffer*>> Small_Buffers;
 };
 
-// Singleton instances for GPU allocators
 class GPUAllocatorInstance {
     public:
         static GPUAllocator& getInstance() {
@@ -109,5 +99,7 @@ class CPUAllocatorInstance {
             return instance;
         }
 };
+
 }
+
 #endif

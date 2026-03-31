@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /usr/kl/test
+CMAKE_SOURCE_DIR = /pfs/wukeliang/KLiteInfer/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /usr/kl/test/build
+CMAKE_BINARY_DIR = /pfs/wukeliang/KLiteInfer/test/build
 
 # Include any dependencies generated for this target.
 include armadillo_build/tests1/CMakeFiles/smoke_test.dir/depend.make
@@ -70,18 +70,18 @@ include armadillo_build/tests1/CMakeFiles/smoke_test.dir/progress.make
 include armadillo_build/tests1/CMakeFiles/smoke_test.dir/flags.make
 
 armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.o: armadillo_build/tests1/CMakeFiles/smoke_test.dir/flags.make
-armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.o: /usr/kl/armadillo/tests1/smoke_test.cpp
+armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.o: /pfs/wukeliang/armadillo/tests1/smoke_test.cpp
 armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.o: armadillo_build/tests1/CMakeFiles/smoke_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.o"
-	cd /usr/kl/test/build/armadillo_build/tests1 && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.o -MF CMakeFiles/smoke_test.dir/smoke_test.cpp.o.d -o CMakeFiles/smoke_test.dir/smoke_test.cpp.o -c /usr/kl/armadillo/tests1/smoke_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tests1 && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.o -MF CMakeFiles/smoke_test.dir/smoke_test.cpp.o.d -o CMakeFiles/smoke_test.dir/smoke_test.cpp.o -c /pfs/wukeliang/armadillo/tests1/smoke_test.cpp
 
 armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/smoke_test.dir/smoke_test.cpp.i"
-	cd /usr/kl/test/build/armadillo_build/tests1 && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/armadillo/tests1/smoke_test.cpp > CMakeFiles/smoke_test.dir/smoke_test.cpp.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tests1 && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/armadillo/tests1/smoke_test.cpp > CMakeFiles/smoke_test.dir/smoke_test.cpp.i
 
 armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/smoke_test.dir/smoke_test.cpp.s"
-	cd /usr/kl/test/build/armadillo_build/tests1 && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/armadillo/tests1/smoke_test.cpp -o CMakeFiles/smoke_test.dir/smoke_test.cpp.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tests1 && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/armadillo/tests1/smoke_test.cpp -o CMakeFiles/smoke_test.dir/smoke_test.cpp.s
 
 # Object files for target smoke_test
 smoke_test_OBJECTS = \
@@ -92,24 +92,24 @@ smoke_test_EXTERNAL_OBJECTS =
 
 armadillo_build/tests1/smoke_test: armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.o
 armadillo_build/tests1/smoke_test: armadillo_build/tests1/CMakeFiles/smoke_test.dir/build.make
-armadillo_build/tests1/smoke_test: armadillo_build/libarmadillo.so.15.2.3
+armadillo_build/tests1/smoke_test: armadillo_build/libarmadillo.so.15.2.4
 armadillo_build/tests1/smoke_test: /usr/lib/x86_64-linux-gnu/libopenblas.so
 armadillo_build/tests1/smoke_test: /usr/lib/x86_64-linux-gnu/liblapack.so
 armadillo_build/tests1/smoke_test: /usr/lib/x86_64-linux-gnu/libarpack.so
 armadillo_build/tests1/smoke_test: /usr/lib/x86_64-linux-gnu/libsuperlu.so
 armadillo_build/tests1/smoke_test: armadillo_build/tests1/CMakeFiles/smoke_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable smoke_test"
-	cd /usr/kl/test/build/armadillo_build/tests1 && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/smoke_test.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable smoke_test"
+	cd /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tests1 && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/smoke_test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 armadillo_build/tests1/CMakeFiles/smoke_test.dir/build: armadillo_build/tests1/smoke_test
 .PHONY : armadillo_build/tests1/CMakeFiles/smoke_test.dir/build
 
 armadillo_build/tests1/CMakeFiles/smoke_test.dir/clean:
-	cd /usr/kl/test/build/armadillo_build/tests1 && $(CMAKE_COMMAND) -P CMakeFiles/smoke_test.dir/cmake_clean.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tests1 && $(CMAKE_COMMAND) -P CMakeFiles/smoke_test.dir/cmake_clean.cmake
 .PHONY : armadillo_build/tests1/CMakeFiles/smoke_test.dir/clean
 
 armadillo_build/tests1/CMakeFiles/smoke_test.dir/depend:
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /usr/kl/test /usr/kl/armadillo/tests1 /usr/kl/test/build /usr/kl/test/build/armadillo_build/tests1 /usr/kl/test/build/armadillo_build/tests1/CMakeFiles/smoke_test.dir/DependInfo.cmake --color=$(COLOR)
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /pfs/wukeliang/KLiteInfer/test /pfs/wukeliang/armadillo/tests1 /pfs/wukeliang/KLiteInfer/test/build /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tests1 /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tests1/CMakeFiles/smoke_test.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : armadillo_build/tests1/CMakeFiles/smoke_test.dir/depend
 

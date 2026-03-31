@@ -1,4 +1,4 @@
-# Install script for directory: /usr/kl/armadillo/tests1
+# Install script for directory: /pfs/wukeliang/armadillo/tests1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

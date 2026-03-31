@@ -5,8 +5,9 @@
 #include "mha_kernel.cuh"
 #include <base/tick.h>
 namespace kernel {
+int32_t thread_num = 128;
 
-__device__ void softmax_gpu(float* __retrict__ x,int size){
+__device__ void softmax_gpu(float* x,int size){
     int tid = threadIdx.x;
     int step = blockDim.x;
 
@@ -27,9 +28,9 @@ __device__ void softmax_gpu(float* __retrict__ x,int size){
     }
 
     for(int i=16;i>0;i>>1){
-        float max_val = shared_idx[i];
+        float max_val = shared_tmp[i];
         if(tid < i){
-            float tmp = __shfl_down_sync(0xffffffff,shared_tmp,i);
+            float tmp = __shfl_down_sync(0xffffffff,max_val,i);
             max_val = tmp>max_val?tmp:max_val;
         }
     }
@@ -43,9 +44,11 @@ __device__ void softmax_gpu(float* __retrict__ x,int size){
 
     float sum = 0.0f;
     for(int i=tid;i<size;i+=step){
-        x[i] =fexp(x[tid]-max_val);
+        x[i] =expf(x[tid]-max_val);
         sum +=x[i];
     }
+    using BlockReduce = cub::BlockReduce<float, thread_num>;
+     __shared__ BlockReduce::TempStorage temp;
     sum = BlockReduce(temp).Sum(sum);
 
     if(threadIdx.x ==0){
@@ -55,10 +58,9 @@ __device__ void softmax_gpu(float* __retrict__ x,int size){
     __syncthreads();
     sum = val;
 
-    for(int i=tid ;i<size;i+=step){
+    for(int i=tid ;i < size;i+=step){
         x[i]=x[i]/sum;
     }
-
 }
 
 __global__ void multi_head_attention_kernel(int32_t pos,int32_t seq_len,float* query,
@@ -66,11 +68,12 @@ __global__ void multi_head_attention_kernel(int32_t pos,int32_t seq_len,float* q
                                             float* value_cache, int32_t kv_dim, int32_t kv_mul,
                                             int32_t head_num, int32_t head_size,
                                             int32_t layer_offset){
-    int head = blockIndx.x;
-    if(head > = head_num){
+    int head = blockIdx.x;
+    if(head >= head_num){
         return;
     }
     extern __shared__ float s_query_head[];
+    float scale = 1.f / sqrtf(float(head_size));
     float* query_head = query + head * head_size;
 
     for(int i=threadIdx.x;i< head_size;i+=blockDim.x){
@@ -131,18 +134,16 @@ void mha_kernel_cu(int32_t pos, int32_t head_num, int32_t layer_index, int32_t s
                    const tensor::Tensor& query_tensor, const tensor::Tensor& score_tensor,
                    const tensor::Tensor& key_cache_tensor, const tensor::Tensor& value_cache_tensor,
                    base::DeviceType device_type, CudaConfig* config) {
-  UNUSED(device_type);
-  int32_t layer_offset = layer_index * seq_len * kv_dim;
-  float* query = const_cast<float*>(query_tensor.ptr<float>());
-  float* score = const_cast<float*>(score_tensor.ptr<float>());
-  float* output = const_cast<float*>(mha_out.ptr<float>());
+    int32_t layer_offset = layer_index * seq_len * kv_dim;
+    float* query = const_cast<float*>(query_tensor.ptr<float>());
+    float* score = const_cast<float*>(score_tensor.ptr<float>());
+    float* output = const_cast<float*>(mha_out.ptr<float>());
 
-  float* key_cache = const_cast<float*>(key_cache_tensor.ptr<float>());
-  float* value_cache = const_cast<float*>(value_cache_tensor.ptr<float>());
-
-  cudaStream_t stream = config->stream;
-  multi_head_attention_kernel<<<head_num, thread_num, head_size * sizeof(float), stream>>>(
-      pos, seq_len, query, score, output, key_cache, value_cache, kv_dim, kv_mul, head_num,
-      head_size, layer_offset);
+    float* key_cache = const_cast<float*>(key_cache_tensor.ptr<float>());
+    float* value_cache = const_cast<float*>(value_cache_tensor.ptr<float>());
+    cudaStream_t stream = config->stream;
+    multi_head_attention_kernel<<<head_num, thread_num, head_size * sizeof(float), stream>>>(
+            pos, seq_len, query, score, output, key_cache, value_cache, kv_dim, kv_mul, head_num,
+            head_size, layer_offset);
 }
 }

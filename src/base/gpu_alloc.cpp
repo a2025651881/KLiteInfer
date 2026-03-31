@@ -1,5 +1,5 @@
 #include "base/alloc.h"
-#include <logging.h>
+#include <glog/logging.h>
 #include <cuda_runtime.h>
 namespace base {
 void* GPUAllocator::allocate_from_BigBuffer(size_t size) {

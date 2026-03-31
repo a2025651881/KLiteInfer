@@ -1,5 +1,5 @@
 glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o: \
- /usr/kl/glog/src/vlog_is_on.cc /usr/include/stdc-predef.h \
+ /pfs/wukeliang/glog/src/vlog_is_on.cc /usr/include/stdc-predef.h \
  /usr/include/c++/11/cerrno \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -141,8 +141,10 @@ glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o: \
  /usr/include/c++/11/bits/basic_string.tcc \
  /usr/include/c++/11/bits/std_mutex.h \
  /usr/include/c++/11/bits/unique_lock.h \
- /usr/kl/glog/src/glog/raw_logging.h \
- /usr/kl/test/build/glog_build/glog/export.h \
- /usr/kl/glog/src/glog/log_severity.h /usr/kl/glog/src/glog/vlog_is_on.h \
- /usr/include/c++/11/cstddef /usr/kl/glog/src/glog/flags.h \
- /usr/kl/glog/src/glog/platform.h /usr/kl/glog/src/glog/types.h
+ /pfs/wukeliang/glog/src/glog/raw_logging.h \
+ /pfs/wukeliang/KLiteInfer/test/build/glog_build/glog/export.h \
+ /pfs/wukeliang/glog/src/glog/log_severity.h \
+ /pfs/wukeliang/glog/src/glog/vlog_is_on.h /usr/include/c++/11/cstddef \
+ /pfs/wukeliang/glog/src/glog/flags.h \
+ /pfs/wukeliang/glog/src/glog/platform.h \
+ /pfs/wukeliang/glog/src/glog/types.h

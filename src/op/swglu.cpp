@@ -1,7 +1,8 @@
 #ifndef KELI_INCLUDE_OP_RMSNORM_H_
 #define KELI_INCLUDE_OP_RMSNORM_H_
-#include "layer.h"
+#include "op/layer.h"
 #include "kernels/kernels_interface.h"
+#include "op/swiglu.h"
 namespace op{
     SwiGLULayer::SwiGLULayer(base::DeviceType device_type,int32_t hidden_dim):
         Layer(device_type,op::LayerType::kLayerSwiGLU,"SwiGLU"),hidden_dim_(hidden_dim){
@@ -36,7 +37,7 @@ namespace op{
         auto input1 = this->get_input(0);
         auto input2 = this->get_input(1);
         auto output = this->get_output(0);
-        if (device_type_ == base::DeviceType::kDeviceCUDA) {
+        if (device_type_ == base::DeviceType::GPU) {
             CHECK(cuda_config_ != nullptr);
         }
         kernel::get_swiglu_kernel(device_type_)(input1, input2, output,

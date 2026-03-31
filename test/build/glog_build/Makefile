@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /usr/kl/test
+CMAKE_SOURCE_DIR = /pfs/wukeliang/KLiteInfer/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /usr/kl/test/build
+CMAKE_BINARY_DIR = /pfs/wukeliang/KLiteInfer/test/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /usr/kl/test/build
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /usr/kl/test/build && /usr/bin/cpack --config ./CPackConfig.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build && /usr/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -78,7 +78,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /usr/kl/test/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /usr/kl/test/build/CPackSourceConfig.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /pfs/wukeliang/KLiteInfer/test/build/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -162,14 +162,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -E cmake_progress_start /usr/kl/test/build/CMakeFiles /usr/kl/test/build/glog_build//CMakeFiles/progress.marks
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr/kl/test/build/CMakeFiles 0
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -E cmake_progress_start /pfs/wukeliang/KLiteInfer/test/build/CMakeFiles /pfs/wukeliang/KLiteInfer/test/build/glog_build//CMakeFiles/progress.marks
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /pfs/wukeliang/KLiteInfer/test/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/clean
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/clean
 .PHONY : clean
 
 # The main clean target
@@ -178,22 +178,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/preinstall
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/preinstall
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 glog_build/CMakeFiles/Experimental.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/Experimental.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/Experimental.dir/rule
 .PHONY : glog_build/CMakeFiles/Experimental.dir/rule
 
 # Convenience name for target.
@@ -202,12 +202,12 @@ Experimental: glog_build/CMakeFiles/Experimental.dir/rule
 
 # fast build rule for target.
 Experimental/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/Experimental.dir/build.make glog_build/CMakeFiles/Experimental.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/Experimental.dir/build.make glog_build/CMakeFiles/Experimental.dir/build
 .PHONY : Experimental/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/Nightly.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/Nightly.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/Nightly.dir/rule
 .PHONY : glog_build/CMakeFiles/Nightly.dir/rule
 
 # Convenience name for target.
@@ -216,12 +216,12 @@ Nightly: glog_build/CMakeFiles/Nightly.dir/rule
 
 # fast build rule for target.
 Nightly/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/Nightly.dir/build.make glog_build/CMakeFiles/Nightly.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/Nightly.dir/build.make glog_build/CMakeFiles/Nightly.dir/build
 .PHONY : Nightly/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/Continuous.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/Continuous.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/Continuous.dir/rule
 .PHONY : glog_build/CMakeFiles/Continuous.dir/rule
 
 # Convenience name for target.
@@ -230,12 +230,12 @@ Continuous: glog_build/CMakeFiles/Continuous.dir/rule
 
 # fast build rule for target.
 Continuous/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/Continuous.dir/build.make glog_build/CMakeFiles/Continuous.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/Continuous.dir/build.make glog_build/CMakeFiles/Continuous.dir/build
 .PHONY : Continuous/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/NightlyMemoryCheck.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyMemoryCheck.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyMemoryCheck.dir/rule
 .PHONY : glog_build/CMakeFiles/NightlyMemoryCheck.dir/rule
 
 # Convenience name for target.
@@ -244,12 +244,12 @@ NightlyMemoryCheck: glog_build/CMakeFiles/NightlyMemoryCheck.dir/rule
 
 # fast build rule for target.
 NightlyMemoryCheck/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyMemoryCheck.dir/build.make glog_build/CMakeFiles/NightlyMemoryCheck.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyMemoryCheck.dir/build.make glog_build/CMakeFiles/NightlyMemoryCheck.dir/build
 .PHONY : NightlyMemoryCheck/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/NightlyStart.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyStart.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyStart.dir/rule
 .PHONY : glog_build/CMakeFiles/NightlyStart.dir/rule
 
 # Convenience name for target.
@@ -258,12 +258,12 @@ NightlyStart: glog_build/CMakeFiles/NightlyStart.dir/rule
 
 # fast build rule for target.
 NightlyStart/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyStart.dir/build.make glog_build/CMakeFiles/NightlyStart.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyStart.dir/build.make glog_build/CMakeFiles/NightlyStart.dir/build
 .PHONY : NightlyStart/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/NightlyUpdate.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyUpdate.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyUpdate.dir/rule
 .PHONY : glog_build/CMakeFiles/NightlyUpdate.dir/rule
 
 # Convenience name for target.
@@ -272,12 +272,12 @@ NightlyUpdate: glog_build/CMakeFiles/NightlyUpdate.dir/rule
 
 # fast build rule for target.
 NightlyUpdate/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyUpdate.dir/build.make glog_build/CMakeFiles/NightlyUpdate.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyUpdate.dir/build.make glog_build/CMakeFiles/NightlyUpdate.dir/build
 .PHONY : NightlyUpdate/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/NightlyConfigure.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyConfigure.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyConfigure.dir/rule
 .PHONY : glog_build/CMakeFiles/NightlyConfigure.dir/rule
 
 # Convenience name for target.
@@ -286,12 +286,12 @@ NightlyConfigure: glog_build/CMakeFiles/NightlyConfigure.dir/rule
 
 # fast build rule for target.
 NightlyConfigure/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyConfigure.dir/build.make glog_build/CMakeFiles/NightlyConfigure.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyConfigure.dir/build.make glog_build/CMakeFiles/NightlyConfigure.dir/build
 .PHONY : NightlyConfigure/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/NightlyBuild.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyBuild.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyBuild.dir/rule
 .PHONY : glog_build/CMakeFiles/NightlyBuild.dir/rule
 
 # Convenience name for target.
@@ -300,12 +300,12 @@ NightlyBuild: glog_build/CMakeFiles/NightlyBuild.dir/rule
 
 # fast build rule for target.
 NightlyBuild/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyBuild.dir/build.make glog_build/CMakeFiles/NightlyBuild.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyBuild.dir/build.make glog_build/CMakeFiles/NightlyBuild.dir/build
 .PHONY : NightlyBuild/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/NightlyTest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyTest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyTest.dir/rule
 .PHONY : glog_build/CMakeFiles/NightlyTest.dir/rule
 
 # Convenience name for target.
@@ -314,12 +314,12 @@ NightlyTest: glog_build/CMakeFiles/NightlyTest.dir/rule
 
 # fast build rule for target.
 NightlyTest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyTest.dir/build.make glog_build/CMakeFiles/NightlyTest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyTest.dir/build.make glog_build/CMakeFiles/NightlyTest.dir/build
 .PHONY : NightlyTest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/NightlyCoverage.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyCoverage.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyCoverage.dir/rule
 .PHONY : glog_build/CMakeFiles/NightlyCoverage.dir/rule
 
 # Convenience name for target.
@@ -328,12 +328,12 @@ NightlyCoverage: glog_build/CMakeFiles/NightlyCoverage.dir/rule
 
 # fast build rule for target.
 NightlyCoverage/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyCoverage.dir/build.make glog_build/CMakeFiles/NightlyCoverage.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyCoverage.dir/build.make glog_build/CMakeFiles/NightlyCoverage.dir/build
 .PHONY : NightlyCoverage/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/NightlyMemCheck.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyMemCheck.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlyMemCheck.dir/rule
 .PHONY : glog_build/CMakeFiles/NightlyMemCheck.dir/rule
 
 # Convenience name for target.
@@ -342,12 +342,12 @@ NightlyMemCheck: glog_build/CMakeFiles/NightlyMemCheck.dir/rule
 
 # fast build rule for target.
 NightlyMemCheck/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyMemCheck.dir/build.make glog_build/CMakeFiles/NightlyMemCheck.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlyMemCheck.dir/build.make glog_build/CMakeFiles/NightlyMemCheck.dir/build
 .PHONY : NightlyMemCheck/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/NightlySubmit.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlySubmit.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/NightlySubmit.dir/rule
 .PHONY : glog_build/CMakeFiles/NightlySubmit.dir/rule
 
 # Convenience name for target.
@@ -356,12 +356,12 @@ NightlySubmit: glog_build/CMakeFiles/NightlySubmit.dir/rule
 
 # fast build rule for target.
 NightlySubmit/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlySubmit.dir/build.make glog_build/CMakeFiles/NightlySubmit.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/NightlySubmit.dir/build.make glog_build/CMakeFiles/NightlySubmit.dir/build
 .PHONY : NightlySubmit/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ExperimentalStart.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalStart.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalStart.dir/rule
 .PHONY : glog_build/CMakeFiles/ExperimentalStart.dir/rule
 
 # Convenience name for target.
@@ -370,12 +370,12 @@ ExperimentalStart: glog_build/CMakeFiles/ExperimentalStart.dir/rule
 
 # fast build rule for target.
 ExperimentalStart/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalStart.dir/build.make glog_build/CMakeFiles/ExperimentalStart.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalStart.dir/build.make glog_build/CMakeFiles/ExperimentalStart.dir/build
 .PHONY : ExperimentalStart/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ExperimentalUpdate.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalUpdate.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalUpdate.dir/rule
 .PHONY : glog_build/CMakeFiles/ExperimentalUpdate.dir/rule
 
 # Convenience name for target.
@@ -384,12 +384,12 @@ ExperimentalUpdate: glog_build/CMakeFiles/ExperimentalUpdate.dir/rule
 
 # fast build rule for target.
 ExperimentalUpdate/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalUpdate.dir/build.make glog_build/CMakeFiles/ExperimentalUpdate.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalUpdate.dir/build.make glog_build/CMakeFiles/ExperimentalUpdate.dir/build
 .PHONY : ExperimentalUpdate/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ExperimentalConfigure.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalConfigure.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalConfigure.dir/rule
 .PHONY : glog_build/CMakeFiles/ExperimentalConfigure.dir/rule
 
 # Convenience name for target.
@@ -398,12 +398,12 @@ ExperimentalConfigure: glog_build/CMakeFiles/ExperimentalConfigure.dir/rule
 
 # fast build rule for target.
 ExperimentalConfigure/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalConfigure.dir/build.make glog_build/CMakeFiles/ExperimentalConfigure.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalConfigure.dir/build.make glog_build/CMakeFiles/ExperimentalConfigure.dir/build
 .PHONY : ExperimentalConfigure/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ExperimentalBuild.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalBuild.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalBuild.dir/rule
 .PHONY : glog_build/CMakeFiles/ExperimentalBuild.dir/rule
 
 # Convenience name for target.
@@ -412,12 +412,12 @@ ExperimentalBuild: glog_build/CMakeFiles/ExperimentalBuild.dir/rule
 
 # fast build rule for target.
 ExperimentalBuild/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalBuild.dir/build.make glog_build/CMakeFiles/ExperimentalBuild.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalBuild.dir/build.make glog_build/CMakeFiles/ExperimentalBuild.dir/build
 .PHONY : ExperimentalBuild/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ExperimentalTest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalTest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalTest.dir/rule
 .PHONY : glog_build/CMakeFiles/ExperimentalTest.dir/rule
 
 # Convenience name for target.
@@ -426,12 +426,12 @@ ExperimentalTest: glog_build/CMakeFiles/ExperimentalTest.dir/rule
 
 # fast build rule for target.
 ExperimentalTest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalTest.dir/build.make glog_build/CMakeFiles/ExperimentalTest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalTest.dir/build.make glog_build/CMakeFiles/ExperimentalTest.dir/build
 .PHONY : ExperimentalTest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ExperimentalCoverage.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalCoverage.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalCoverage.dir/rule
 .PHONY : glog_build/CMakeFiles/ExperimentalCoverage.dir/rule
 
 # Convenience name for target.
@@ -440,12 +440,12 @@ ExperimentalCoverage: glog_build/CMakeFiles/ExperimentalCoverage.dir/rule
 
 # fast build rule for target.
 ExperimentalCoverage/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalCoverage.dir/build.make glog_build/CMakeFiles/ExperimentalCoverage.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalCoverage.dir/build.make glog_build/CMakeFiles/ExperimentalCoverage.dir/build
 .PHONY : ExperimentalCoverage/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ExperimentalMemCheck.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalMemCheck.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalMemCheck.dir/rule
 .PHONY : glog_build/CMakeFiles/ExperimentalMemCheck.dir/rule
 
 # Convenience name for target.
@@ -454,12 +454,12 @@ ExperimentalMemCheck: glog_build/CMakeFiles/ExperimentalMemCheck.dir/rule
 
 # fast build rule for target.
 ExperimentalMemCheck/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalMemCheck.dir/build.make glog_build/CMakeFiles/ExperimentalMemCheck.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalMemCheck.dir/build.make glog_build/CMakeFiles/ExperimentalMemCheck.dir/build
 .PHONY : ExperimentalMemCheck/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ExperimentalSubmit.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalSubmit.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ExperimentalSubmit.dir/rule
 .PHONY : glog_build/CMakeFiles/ExperimentalSubmit.dir/rule
 
 # Convenience name for target.
@@ -468,12 +468,12 @@ ExperimentalSubmit: glog_build/CMakeFiles/ExperimentalSubmit.dir/rule
 
 # fast build rule for target.
 ExperimentalSubmit/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalSubmit.dir/build.make glog_build/CMakeFiles/ExperimentalSubmit.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ExperimentalSubmit.dir/build.make glog_build/CMakeFiles/ExperimentalSubmit.dir/build
 .PHONY : ExperimentalSubmit/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ContinuousStart.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousStart.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousStart.dir/rule
 .PHONY : glog_build/CMakeFiles/ContinuousStart.dir/rule
 
 # Convenience name for target.
@@ -482,12 +482,12 @@ ContinuousStart: glog_build/CMakeFiles/ContinuousStart.dir/rule
 
 # fast build rule for target.
 ContinuousStart/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousStart.dir/build.make glog_build/CMakeFiles/ContinuousStart.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousStart.dir/build.make glog_build/CMakeFiles/ContinuousStart.dir/build
 .PHONY : ContinuousStart/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ContinuousUpdate.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousUpdate.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousUpdate.dir/rule
 .PHONY : glog_build/CMakeFiles/ContinuousUpdate.dir/rule
 
 # Convenience name for target.
@@ -496,12 +496,12 @@ ContinuousUpdate: glog_build/CMakeFiles/ContinuousUpdate.dir/rule
 
 # fast build rule for target.
 ContinuousUpdate/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousUpdate.dir/build.make glog_build/CMakeFiles/ContinuousUpdate.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousUpdate.dir/build.make glog_build/CMakeFiles/ContinuousUpdate.dir/build
 .PHONY : ContinuousUpdate/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ContinuousConfigure.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousConfigure.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousConfigure.dir/rule
 .PHONY : glog_build/CMakeFiles/ContinuousConfigure.dir/rule
 
 # Convenience name for target.
@@ -510,12 +510,12 @@ ContinuousConfigure: glog_build/CMakeFiles/ContinuousConfigure.dir/rule
 
 # fast build rule for target.
 ContinuousConfigure/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousConfigure.dir/build.make glog_build/CMakeFiles/ContinuousConfigure.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousConfigure.dir/build.make glog_build/CMakeFiles/ContinuousConfigure.dir/build
 .PHONY : ContinuousConfigure/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ContinuousBuild.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousBuild.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousBuild.dir/rule
 .PHONY : glog_build/CMakeFiles/ContinuousBuild.dir/rule
 
 # Convenience name for target.
@@ -524,12 +524,12 @@ ContinuousBuild: glog_build/CMakeFiles/ContinuousBuild.dir/rule
 
 # fast build rule for target.
 ContinuousBuild/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousBuild.dir/build.make glog_build/CMakeFiles/ContinuousBuild.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousBuild.dir/build.make glog_build/CMakeFiles/ContinuousBuild.dir/build
 .PHONY : ContinuousBuild/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ContinuousTest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousTest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousTest.dir/rule
 .PHONY : glog_build/CMakeFiles/ContinuousTest.dir/rule
 
 # Convenience name for target.
@@ -538,12 +538,12 @@ ContinuousTest: glog_build/CMakeFiles/ContinuousTest.dir/rule
 
 # fast build rule for target.
 ContinuousTest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousTest.dir/build.make glog_build/CMakeFiles/ContinuousTest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousTest.dir/build.make glog_build/CMakeFiles/ContinuousTest.dir/build
 .PHONY : ContinuousTest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ContinuousCoverage.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousCoverage.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousCoverage.dir/rule
 .PHONY : glog_build/CMakeFiles/ContinuousCoverage.dir/rule
 
 # Convenience name for target.
@@ -552,12 +552,12 @@ ContinuousCoverage: glog_build/CMakeFiles/ContinuousCoverage.dir/rule
 
 # fast build rule for target.
 ContinuousCoverage/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousCoverage.dir/build.make glog_build/CMakeFiles/ContinuousCoverage.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousCoverage.dir/build.make glog_build/CMakeFiles/ContinuousCoverage.dir/build
 .PHONY : ContinuousCoverage/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ContinuousMemCheck.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousMemCheck.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousMemCheck.dir/rule
 .PHONY : glog_build/CMakeFiles/ContinuousMemCheck.dir/rule
 
 # Convenience name for target.
@@ -566,12 +566,12 @@ ContinuousMemCheck: glog_build/CMakeFiles/ContinuousMemCheck.dir/rule
 
 # fast build rule for target.
 ContinuousMemCheck/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousMemCheck.dir/build.make glog_build/CMakeFiles/ContinuousMemCheck.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousMemCheck.dir/build.make glog_build/CMakeFiles/ContinuousMemCheck.dir/build
 .PHONY : ContinuousMemCheck/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/ContinuousSubmit.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousSubmit.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/ContinuousSubmit.dir/rule
 .PHONY : glog_build/CMakeFiles/ContinuousSubmit.dir/rule
 
 # Convenience name for target.
@@ -580,12 +580,12 @@ ContinuousSubmit: glog_build/CMakeFiles/ContinuousSubmit.dir/rule
 
 # fast build rule for target.
 ContinuousSubmit/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousSubmit.dir/build.make glog_build/CMakeFiles/ContinuousSubmit.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/ContinuousSubmit.dir/build.make glog_build/CMakeFiles/ContinuousSubmit.dir/build
 .PHONY : ContinuousSubmit/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/glog_internal.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/glog_internal.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/glog_internal.dir/rule
 .PHONY : glog_build/CMakeFiles/glog_internal.dir/rule
 
 # Convenience name for target.
@@ -594,12 +594,12 @@ glog_internal: glog_build/CMakeFiles/glog_internal.dir/rule
 
 # fast build rule for target.
 glog_internal/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/build
 .PHONY : glog_internal/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/glog.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/glog.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/glog.dir/rule
 .PHONY : glog_build/CMakeFiles/glog.dir/rule
 
 # Convenience name for target.
@@ -608,12 +608,12 @@ glog: glog_build/CMakeFiles/glog.dir/rule
 
 # fast build rule for target.
 glog/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog.dir/build.make glog_build/CMakeFiles/glog.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog.dir/build.make glog_build/CMakeFiles/glog.dir/build
 .PHONY : glog/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/logging_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/logging_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/logging_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/logging_unittest.dir/rule
 
 # Convenience name for target.
@@ -622,12 +622,12 @@ logging_unittest: glog_build/CMakeFiles/logging_unittest.dir/rule
 
 # fast build rule for target.
 logging_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/logging_unittest.dir/build.make glog_build/CMakeFiles/logging_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/logging_unittest.dir/build.make glog_build/CMakeFiles/logging_unittest.dir/build
 .PHONY : logging_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/stl_logging_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/stl_logging_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/stl_logging_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/stl_logging_unittest.dir/rule
 
 # Convenience name for target.
@@ -636,12 +636,12 @@ stl_logging_unittest: glog_build/CMakeFiles/stl_logging_unittest.dir/rule
 
 # fast build rule for target.
 stl_logging_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stl_logging_unittest.dir/build.make glog_build/CMakeFiles/stl_logging_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stl_logging_unittest.dir/build.make glog_build/CMakeFiles/stl_logging_unittest.dir/build
 .PHONY : stl_logging_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/symbolize_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/symbolize_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/symbolize_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/symbolize_unittest.dir/rule
 
 # Convenience name for target.
@@ -650,12 +650,12 @@ symbolize_unittest: glog_build/CMakeFiles/symbolize_unittest.dir/rule
 
 # fast build rule for target.
 symbolize_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/symbolize_unittest.dir/build.make glog_build/CMakeFiles/symbolize_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/symbolize_unittest.dir/build.make glog_build/CMakeFiles/symbolize_unittest.dir/build
 .PHONY : symbolize_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/demangle_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/demangle_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/demangle_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/demangle_unittest.dir/rule
 
 # Convenience name for target.
@@ -664,12 +664,12 @@ demangle_unittest: glog_build/CMakeFiles/demangle_unittest.dir/rule
 
 # fast build rule for target.
 demangle_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/demangle_unittest.dir/build.make glog_build/CMakeFiles/demangle_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/demangle_unittest.dir/build.make glog_build/CMakeFiles/demangle_unittest.dir/build
 .PHONY : demangle_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/stacktrace_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/stacktrace_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/stacktrace_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/stacktrace_unittest.dir/rule
 
 # Convenience name for target.
@@ -678,12 +678,12 @@ stacktrace_unittest: glog_build/CMakeFiles/stacktrace_unittest.dir/rule
 
 # fast build rule for target.
 stacktrace_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stacktrace_unittest.dir/build.make glog_build/CMakeFiles/stacktrace_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stacktrace_unittest.dir/build.make glog_build/CMakeFiles/stacktrace_unittest.dir/build
 .PHONY : stacktrace_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/utilities_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/utilities_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/utilities_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/utilities_unittest.dir/rule
 
 # Convenience name for target.
@@ -692,12 +692,12 @@ utilities_unittest: glog_build/CMakeFiles/utilities_unittest.dir/rule
 
 # fast build rule for target.
 utilities_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/utilities_unittest.dir/build.make glog_build/CMakeFiles/utilities_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/utilities_unittest.dir/build.make glog_build/CMakeFiles/utilities_unittest.dir/build
 .PHONY : utilities_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/signalhandler_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/signalhandler_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/signalhandler_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/signalhandler_unittest.dir/rule
 
 # Convenience name for target.
@@ -706,12 +706,12 @@ signalhandler_unittest: glog_build/CMakeFiles/signalhandler_unittest.dir/rule
 
 # fast build rule for target.
 signalhandler_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/signalhandler_unittest.dir/build.make glog_build/CMakeFiles/signalhandler_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/signalhandler_unittest.dir/build.make glog_build/CMakeFiles/signalhandler_unittest.dir/build
 .PHONY : signalhandler_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/mock-log_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/mock-log_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/mock-log_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/mock-log_unittest.dir/rule
 
 # Convenience name for target.
@@ -720,12 +720,12 @@ mock-log_unittest: glog_build/CMakeFiles/mock-log_unittest.dir/rule
 
 # fast build rule for target.
 mock-log_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/mock-log_unittest.dir/build.make glog_build/CMakeFiles/mock-log_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/mock-log_unittest.dir/build.make glog_build/CMakeFiles/mock-log_unittest.dir/build
 .PHONY : mock-log_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/cleanup_immediately_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/cleanup_immediately_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/cleanup_immediately_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/cleanup_immediately_unittest.dir/rule
 
 # Convenience name for target.
@@ -734,12 +734,12 @@ cleanup_immediately_unittest: glog_build/CMakeFiles/cleanup_immediately_unittest
 
 # fast build rule for target.
 cleanup_immediately_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_immediately_unittest.dir/build.make glog_build/CMakeFiles/cleanup_immediately_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_immediately_unittest.dir/build.make glog_build/CMakeFiles/cleanup_immediately_unittest.dir/build
 .PHONY : cleanup_immediately_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/rule
 
 # Convenience name for target.
@@ -748,12 +748,12 @@ cleanup_with_absolute_prefix_unittest: glog_build/CMakeFiles/cleanup_with_absolu
 
 # fast build rule for target.
 cleanup_with_absolute_prefix_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/build
 .PHONY : cleanup_with_absolute_prefix_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/rule
 
 # Convenience name for target.
@@ -762,12 +762,12 @@ cleanup_with_relative_prefix_unittest: glog_build/CMakeFiles/cleanup_with_relati
 
 # fast build rule for target.
 cleanup_with_relative_prefix_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/build
 .PHONY : cleanup_with_relative_prefix_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/striplog0_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/striplog0_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/striplog0_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/striplog0_unittest.dir/rule
 
 # Convenience name for target.
@@ -776,12 +776,12 @@ striplog0_unittest: glog_build/CMakeFiles/striplog0_unittest.dir/rule
 
 # fast build rule for target.
 striplog0_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog0_unittest.dir/build.make glog_build/CMakeFiles/striplog0_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog0_unittest.dir/build.make glog_build/CMakeFiles/striplog0_unittest.dir/build
 .PHONY : striplog0_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/striplog2_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/striplog2_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/striplog2_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/striplog2_unittest.dir/rule
 
 # Convenience name for target.
@@ -790,12 +790,12 @@ striplog2_unittest: glog_build/CMakeFiles/striplog2_unittest.dir/rule
 
 # fast build rule for target.
 striplog2_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog2_unittest.dir/build.make glog_build/CMakeFiles/striplog2_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog2_unittest.dir/build.make glog_build/CMakeFiles/striplog2_unittest.dir/build
 .PHONY : striplog2_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/striplog10_unittest.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/striplog10_unittest.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/striplog10_unittest.dir/rule
 .PHONY : glog_build/CMakeFiles/striplog10_unittest.dir/rule
 
 # Convenience name for target.
@@ -804,12 +804,12 @@ striplog10_unittest: glog_build/CMakeFiles/striplog10_unittest.dir/rule
 
 # fast build rule for target.
 striplog10_unittest/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog10_unittest.dir/build.make glog_build/CMakeFiles/striplog10_unittest.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog10_unittest.dir/build.make glog_build/CMakeFiles/striplog10_unittest.dir/build
 .PHONY : striplog10_unittest/fast
 
 # Convenience name for target.
 glog_build/CMakeFiles/custom_sink_example.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/custom_sink_example.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glog_build/CMakeFiles/custom_sink_example.dir/rule
 .PHONY : glog_build/CMakeFiles/custom_sink_example.dir/rule
 
 # Convenience name for target.
@@ -818,7 +818,7 @@ custom_sink_example: glog_build/CMakeFiles/custom_sink_example.dir/rule
 
 # fast build rule for target.
 custom_sink_example/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/custom_sink_example.dir/build.make glog_build/CMakeFiles/custom_sink_example.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/custom_sink_example.dir/build.make glog_build/CMakeFiles/custom_sink_example.dir/build
 .PHONY : custom_sink_example/fast
 
 CMakeFiles/glog.o: CMakeFiles/glog.cc.o
@@ -826,7 +826,7 @@ CMakeFiles/glog.o: CMakeFiles/glog.cc.o
 
 # target to build an object file
 CMakeFiles/glog.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog.dir/build.make glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog.dir/build.make glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.o
 .PHONY : CMakeFiles/glog.cc.o
 
 CMakeFiles/glog.i: CMakeFiles/glog.cc.i
@@ -834,7 +834,7 @@ CMakeFiles/glog.i: CMakeFiles/glog.cc.i
 
 # target to preprocess a source file
 CMakeFiles/glog.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog.dir/build.make glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog.dir/build.make glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.i
 .PHONY : CMakeFiles/glog.cc.i
 
 CMakeFiles/glog.s: CMakeFiles/glog.cc.s
@@ -842,7 +842,7 @@ CMakeFiles/glog.s: CMakeFiles/glog.cc.s
 
 # target to generate assembly for a file
 CMakeFiles/glog.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog.dir/build.make glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog.dir/build.make glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.s
 .PHONY : CMakeFiles/glog.cc.s
 
 examples/custom_sink.o: examples/custom_sink.cc.o
@@ -850,7 +850,7 @@ examples/custom_sink.o: examples/custom_sink.cc.o
 
 # target to build an object file
 examples/custom_sink.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/custom_sink_example.dir/build.make glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/custom_sink_example.dir/build.make glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.o
 .PHONY : examples/custom_sink.cc.o
 
 examples/custom_sink.i: examples/custom_sink.cc.i
@@ -858,7 +858,7 @@ examples/custom_sink.i: examples/custom_sink.cc.i
 
 # target to preprocess a source file
 examples/custom_sink.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/custom_sink_example.dir/build.make glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/custom_sink_example.dir/build.make glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.i
 .PHONY : examples/custom_sink.cc.i
 
 examples/custom_sink.s: examples/custom_sink.cc.s
@@ -866,7 +866,7 @@ examples/custom_sink.s: examples/custom_sink.cc.s
 
 # target to generate assembly for a file
 examples/custom_sink.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/custom_sink_example.dir/build.make glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/custom_sink_example.dir/build.make glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.s
 .PHONY : examples/custom_sink.cc.s
 
 src/cleanup_immediately_unittest.o: src/cleanup_immediately_unittest.cc.o
@@ -874,7 +874,7 @@ src/cleanup_immediately_unittest.o: src/cleanup_immediately_unittest.cc.o
 
 # target to build an object file
 src/cleanup_immediately_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_immediately_unittest.dir/build.make glog_build/CMakeFiles/cleanup_immediately_unittest.dir/src/cleanup_immediately_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_immediately_unittest.dir/build.make glog_build/CMakeFiles/cleanup_immediately_unittest.dir/src/cleanup_immediately_unittest.cc.o
 .PHONY : src/cleanup_immediately_unittest.cc.o
 
 src/cleanup_immediately_unittest.i: src/cleanup_immediately_unittest.cc.i
@@ -882,7 +882,7 @@ src/cleanup_immediately_unittest.i: src/cleanup_immediately_unittest.cc.i
 
 # target to preprocess a source file
 src/cleanup_immediately_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_immediately_unittest.dir/build.make glog_build/CMakeFiles/cleanup_immediately_unittest.dir/src/cleanup_immediately_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_immediately_unittest.dir/build.make glog_build/CMakeFiles/cleanup_immediately_unittest.dir/src/cleanup_immediately_unittest.cc.i
 .PHONY : src/cleanup_immediately_unittest.cc.i
 
 src/cleanup_immediately_unittest.s: src/cleanup_immediately_unittest.cc.s
@@ -890,7 +890,7 @@ src/cleanup_immediately_unittest.s: src/cleanup_immediately_unittest.cc.s
 
 # target to generate assembly for a file
 src/cleanup_immediately_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_immediately_unittest.dir/build.make glog_build/CMakeFiles/cleanup_immediately_unittest.dir/src/cleanup_immediately_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_immediately_unittest.dir/build.make glog_build/CMakeFiles/cleanup_immediately_unittest.dir/src/cleanup_immediately_unittest.cc.s
 .PHONY : src/cleanup_immediately_unittest.cc.s
 
 src/cleanup_with_absolute_prefix_unittest.o: src/cleanup_with_absolute_prefix_unittest.cc.o
@@ -898,7 +898,7 @@ src/cleanup_with_absolute_prefix_unittest.o: src/cleanup_with_absolute_prefix_un
 
 # target to build an object file
 src/cleanup_with_absolute_prefix_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/src/cleanup_with_absolute_prefix_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/src/cleanup_with_absolute_prefix_unittest.cc.o
 .PHONY : src/cleanup_with_absolute_prefix_unittest.cc.o
 
 src/cleanup_with_absolute_prefix_unittest.i: src/cleanup_with_absolute_prefix_unittest.cc.i
@@ -906,7 +906,7 @@ src/cleanup_with_absolute_prefix_unittest.i: src/cleanup_with_absolute_prefix_un
 
 # target to preprocess a source file
 src/cleanup_with_absolute_prefix_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/src/cleanup_with_absolute_prefix_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/src/cleanup_with_absolute_prefix_unittest.cc.i
 .PHONY : src/cleanup_with_absolute_prefix_unittest.cc.i
 
 src/cleanup_with_absolute_prefix_unittest.s: src/cleanup_with_absolute_prefix_unittest.cc.s
@@ -914,7 +914,7 @@ src/cleanup_with_absolute_prefix_unittest.s: src/cleanup_with_absolute_prefix_un
 
 # target to generate assembly for a file
 src/cleanup_with_absolute_prefix_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/src/cleanup_with_absolute_prefix_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_absolute_prefix_unittest.dir/src/cleanup_with_absolute_prefix_unittest.cc.s
 .PHONY : src/cleanup_with_absolute_prefix_unittest.cc.s
 
 src/cleanup_with_relative_prefix_unittest.o: src/cleanup_with_relative_prefix_unittest.cc.o
@@ -922,7 +922,7 @@ src/cleanup_with_relative_prefix_unittest.o: src/cleanup_with_relative_prefix_un
 
 # target to build an object file
 src/cleanup_with_relative_prefix_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/src/cleanup_with_relative_prefix_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/src/cleanup_with_relative_prefix_unittest.cc.o
 .PHONY : src/cleanup_with_relative_prefix_unittest.cc.o
 
 src/cleanup_with_relative_prefix_unittest.i: src/cleanup_with_relative_prefix_unittest.cc.i
@@ -930,7 +930,7 @@ src/cleanup_with_relative_prefix_unittest.i: src/cleanup_with_relative_prefix_un
 
 # target to preprocess a source file
 src/cleanup_with_relative_prefix_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/src/cleanup_with_relative_prefix_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/src/cleanup_with_relative_prefix_unittest.cc.i
 .PHONY : src/cleanup_with_relative_prefix_unittest.cc.i
 
 src/cleanup_with_relative_prefix_unittest.s: src/cleanup_with_relative_prefix_unittest.cc.s
@@ -938,7 +938,7 @@ src/cleanup_with_relative_prefix_unittest.s: src/cleanup_with_relative_prefix_un
 
 # target to generate assembly for a file
 src/cleanup_with_relative_prefix_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/src/cleanup_with_relative_prefix_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/build.make glog_build/CMakeFiles/cleanup_with_relative_prefix_unittest.dir/src/cleanup_with_relative_prefix_unittest.cc.s
 .PHONY : src/cleanup_with_relative_prefix_unittest.cc.s
 
 src/demangle.o: src/demangle.cc.o
@@ -946,7 +946,7 @@ src/demangle.o: src/demangle.cc.o
 
 # target to build an object file
 src/demangle.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o
 .PHONY : src/demangle.cc.o
 
 src/demangle.i: src/demangle.cc.i
@@ -954,7 +954,7 @@ src/demangle.i: src/demangle.cc.i
 
 # target to preprocess a source file
 src/demangle.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.i
 .PHONY : src/demangle.cc.i
 
 src/demangle.s: src/demangle.cc.s
@@ -962,7 +962,7 @@ src/demangle.s: src/demangle.cc.s
 
 # target to generate assembly for a file
 src/demangle.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.s
 .PHONY : src/demangle.cc.s
 
 src/demangle_unittest.o: src/demangle_unittest.cc.o
@@ -970,7 +970,7 @@ src/demangle_unittest.o: src/demangle_unittest.cc.o
 
 # target to build an object file
 src/demangle_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/demangle_unittest.dir/build.make glog_build/CMakeFiles/demangle_unittest.dir/src/demangle_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/demangle_unittest.dir/build.make glog_build/CMakeFiles/demangle_unittest.dir/src/demangle_unittest.cc.o
 .PHONY : src/demangle_unittest.cc.o
 
 src/demangle_unittest.i: src/demangle_unittest.cc.i
@@ -978,7 +978,7 @@ src/demangle_unittest.i: src/demangle_unittest.cc.i
 
 # target to preprocess a source file
 src/demangle_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/demangle_unittest.dir/build.make glog_build/CMakeFiles/demangle_unittest.dir/src/demangle_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/demangle_unittest.dir/build.make glog_build/CMakeFiles/demangle_unittest.dir/src/demangle_unittest.cc.i
 .PHONY : src/demangle_unittest.cc.i
 
 src/demangle_unittest.s: src/demangle_unittest.cc.s
@@ -986,7 +986,7 @@ src/demangle_unittest.s: src/demangle_unittest.cc.s
 
 # target to generate assembly for a file
 src/demangle_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/demangle_unittest.dir/build.make glog_build/CMakeFiles/demangle_unittest.dir/src/demangle_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/demangle_unittest.dir/build.make glog_build/CMakeFiles/demangle_unittest.dir/src/demangle_unittest.cc.s
 .PHONY : src/demangle_unittest.cc.s
 
 src/flags.o: src/flags.cc.o
@@ -994,7 +994,7 @@ src/flags.o: src/flags.cc.o
 
 # target to build an object file
 src/flags.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o
 .PHONY : src/flags.cc.o
 
 src/flags.i: src/flags.cc.i
@@ -1002,7 +1002,7 @@ src/flags.i: src/flags.cc.i
 
 # target to preprocess a source file
 src/flags.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.i
 .PHONY : src/flags.cc.i
 
 src/flags.s: src/flags.cc.s
@@ -1010,7 +1010,7 @@ src/flags.s: src/flags.cc.s
 
 # target to generate assembly for a file
 src/flags.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.s
 .PHONY : src/flags.cc.s
 
 src/logging.o: src/logging.cc.o
@@ -1018,7 +1018,7 @@ src/logging.o: src/logging.cc.o
 
 # target to build an object file
 src/logging.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o
 .PHONY : src/logging.cc.o
 
 src/logging.i: src/logging.cc.i
@@ -1026,7 +1026,7 @@ src/logging.i: src/logging.cc.i
 
 # target to preprocess a source file
 src/logging.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.i
 .PHONY : src/logging.cc.i
 
 src/logging.s: src/logging.cc.s
@@ -1034,7 +1034,7 @@ src/logging.s: src/logging.cc.s
 
 # target to generate assembly for a file
 src/logging.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.s
 .PHONY : src/logging.cc.s
 
 src/logging_unittest.o: src/logging_unittest.cc.o
@@ -1042,7 +1042,7 @@ src/logging_unittest.o: src/logging_unittest.cc.o
 
 # target to build an object file
 src/logging_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/logging_unittest.dir/build.make glog_build/CMakeFiles/logging_unittest.dir/src/logging_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/logging_unittest.dir/build.make glog_build/CMakeFiles/logging_unittest.dir/src/logging_unittest.cc.o
 .PHONY : src/logging_unittest.cc.o
 
 src/logging_unittest.i: src/logging_unittest.cc.i
@@ -1050,7 +1050,7 @@ src/logging_unittest.i: src/logging_unittest.cc.i
 
 # target to preprocess a source file
 src/logging_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/logging_unittest.dir/build.make glog_build/CMakeFiles/logging_unittest.dir/src/logging_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/logging_unittest.dir/build.make glog_build/CMakeFiles/logging_unittest.dir/src/logging_unittest.cc.i
 .PHONY : src/logging_unittest.cc.i
 
 src/logging_unittest.s: src/logging_unittest.cc.s
@@ -1058,7 +1058,7 @@ src/logging_unittest.s: src/logging_unittest.cc.s
 
 # target to generate assembly for a file
 src/logging_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/logging_unittest.dir/build.make glog_build/CMakeFiles/logging_unittest.dir/src/logging_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/logging_unittest.dir/build.make glog_build/CMakeFiles/logging_unittest.dir/src/logging_unittest.cc.s
 .PHONY : src/logging_unittest.cc.s
 
 src/mock-log_unittest.o: src/mock-log_unittest.cc.o
@@ -1066,7 +1066,7 @@ src/mock-log_unittest.o: src/mock-log_unittest.cc.o
 
 # target to build an object file
 src/mock-log_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/mock-log_unittest.dir/build.make glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/mock-log_unittest.dir/build.make glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o
 .PHONY : src/mock-log_unittest.cc.o
 
 src/mock-log_unittest.i: src/mock-log_unittest.cc.i
@@ -1074,7 +1074,7 @@ src/mock-log_unittest.i: src/mock-log_unittest.cc.i
 
 # target to preprocess a source file
 src/mock-log_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/mock-log_unittest.dir/build.make glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/mock-log_unittest.dir/build.make glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.i
 .PHONY : src/mock-log_unittest.cc.i
 
 src/mock-log_unittest.s: src/mock-log_unittest.cc.s
@@ -1082,7 +1082,7 @@ src/mock-log_unittest.s: src/mock-log_unittest.cc.s
 
 # target to generate assembly for a file
 src/mock-log_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/mock-log_unittest.dir/build.make glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/mock-log_unittest.dir/build.make glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.s
 .PHONY : src/mock-log_unittest.cc.s
 
 src/raw_logging.o: src/raw_logging.cc.o
@@ -1090,7 +1090,7 @@ src/raw_logging.o: src/raw_logging.cc.o
 
 # target to build an object file
 src/raw_logging.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o
 .PHONY : src/raw_logging.cc.o
 
 src/raw_logging.i: src/raw_logging.cc.i
@@ -1098,7 +1098,7 @@ src/raw_logging.i: src/raw_logging.cc.i
 
 # target to preprocess a source file
 src/raw_logging.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.i
 .PHONY : src/raw_logging.cc.i
 
 src/raw_logging.s: src/raw_logging.cc.s
@@ -1106,7 +1106,7 @@ src/raw_logging.s: src/raw_logging.cc.s
 
 # target to generate assembly for a file
 src/raw_logging.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.s
 .PHONY : src/raw_logging.cc.s
 
 src/signalhandler.o: src/signalhandler.cc.o
@@ -1114,7 +1114,7 @@ src/signalhandler.o: src/signalhandler.cc.o
 
 # target to build an object file
 src/signalhandler.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o
 .PHONY : src/signalhandler.cc.o
 
 src/signalhandler.i: src/signalhandler.cc.i
@@ -1122,7 +1122,7 @@ src/signalhandler.i: src/signalhandler.cc.i
 
 # target to preprocess a source file
 src/signalhandler.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.i
 .PHONY : src/signalhandler.cc.i
 
 src/signalhandler.s: src/signalhandler.cc.s
@@ -1130,7 +1130,7 @@ src/signalhandler.s: src/signalhandler.cc.s
 
 # target to generate assembly for a file
 src/signalhandler.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.s
 .PHONY : src/signalhandler.cc.s
 
 src/signalhandler_unittest.o: src/signalhandler_unittest.cc.o
@@ -1138,7 +1138,7 @@ src/signalhandler_unittest.o: src/signalhandler_unittest.cc.o
 
 # target to build an object file
 src/signalhandler_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/signalhandler_unittest.dir/build.make glog_build/CMakeFiles/signalhandler_unittest.dir/src/signalhandler_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/signalhandler_unittest.dir/build.make glog_build/CMakeFiles/signalhandler_unittest.dir/src/signalhandler_unittest.cc.o
 .PHONY : src/signalhandler_unittest.cc.o
 
 src/signalhandler_unittest.i: src/signalhandler_unittest.cc.i
@@ -1146,7 +1146,7 @@ src/signalhandler_unittest.i: src/signalhandler_unittest.cc.i
 
 # target to preprocess a source file
 src/signalhandler_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/signalhandler_unittest.dir/build.make glog_build/CMakeFiles/signalhandler_unittest.dir/src/signalhandler_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/signalhandler_unittest.dir/build.make glog_build/CMakeFiles/signalhandler_unittest.dir/src/signalhandler_unittest.cc.i
 .PHONY : src/signalhandler_unittest.cc.i
 
 src/signalhandler_unittest.s: src/signalhandler_unittest.cc.s
@@ -1154,7 +1154,7 @@ src/signalhandler_unittest.s: src/signalhandler_unittest.cc.s
 
 # target to generate assembly for a file
 src/signalhandler_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/signalhandler_unittest.dir/build.make glog_build/CMakeFiles/signalhandler_unittest.dir/src/signalhandler_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/signalhandler_unittest.dir/build.make glog_build/CMakeFiles/signalhandler_unittest.dir/src/signalhandler_unittest.cc.s
 .PHONY : src/signalhandler_unittest.cc.s
 
 src/stacktrace.o: src/stacktrace.cc.o
@@ -1162,7 +1162,7 @@ src/stacktrace.o: src/stacktrace.cc.o
 
 # target to build an object file
 src/stacktrace.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o
 .PHONY : src/stacktrace.cc.o
 
 src/stacktrace.i: src/stacktrace.cc.i
@@ -1170,7 +1170,7 @@ src/stacktrace.i: src/stacktrace.cc.i
 
 # target to preprocess a source file
 src/stacktrace.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.i
 .PHONY : src/stacktrace.cc.i
 
 src/stacktrace.s: src/stacktrace.cc.s
@@ -1178,7 +1178,7 @@ src/stacktrace.s: src/stacktrace.cc.s
 
 # target to generate assembly for a file
 src/stacktrace.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.s
 .PHONY : src/stacktrace.cc.s
 
 src/stacktrace_unittest.o: src/stacktrace_unittest.cc.o
@@ -1186,7 +1186,7 @@ src/stacktrace_unittest.o: src/stacktrace_unittest.cc.o
 
 # target to build an object file
 src/stacktrace_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stacktrace_unittest.dir/build.make glog_build/CMakeFiles/stacktrace_unittest.dir/src/stacktrace_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stacktrace_unittest.dir/build.make glog_build/CMakeFiles/stacktrace_unittest.dir/src/stacktrace_unittest.cc.o
 .PHONY : src/stacktrace_unittest.cc.o
 
 src/stacktrace_unittest.i: src/stacktrace_unittest.cc.i
@@ -1194,7 +1194,7 @@ src/stacktrace_unittest.i: src/stacktrace_unittest.cc.i
 
 # target to preprocess a source file
 src/stacktrace_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stacktrace_unittest.dir/build.make glog_build/CMakeFiles/stacktrace_unittest.dir/src/stacktrace_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stacktrace_unittest.dir/build.make glog_build/CMakeFiles/stacktrace_unittest.dir/src/stacktrace_unittest.cc.i
 .PHONY : src/stacktrace_unittest.cc.i
 
 src/stacktrace_unittest.s: src/stacktrace_unittest.cc.s
@@ -1202,7 +1202,7 @@ src/stacktrace_unittest.s: src/stacktrace_unittest.cc.s
 
 # target to generate assembly for a file
 src/stacktrace_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stacktrace_unittest.dir/build.make glog_build/CMakeFiles/stacktrace_unittest.dir/src/stacktrace_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stacktrace_unittest.dir/build.make glog_build/CMakeFiles/stacktrace_unittest.dir/src/stacktrace_unittest.cc.s
 .PHONY : src/stacktrace_unittest.cc.s
 
 src/stl_logging_unittest.o: src/stl_logging_unittest.cc.o
@@ -1210,7 +1210,7 @@ src/stl_logging_unittest.o: src/stl_logging_unittest.cc.o
 
 # target to build an object file
 src/stl_logging_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stl_logging_unittest.dir/build.make glog_build/CMakeFiles/stl_logging_unittest.dir/src/stl_logging_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stl_logging_unittest.dir/build.make glog_build/CMakeFiles/stl_logging_unittest.dir/src/stl_logging_unittest.cc.o
 .PHONY : src/stl_logging_unittest.cc.o
 
 src/stl_logging_unittest.i: src/stl_logging_unittest.cc.i
@@ -1218,7 +1218,7 @@ src/stl_logging_unittest.i: src/stl_logging_unittest.cc.i
 
 # target to preprocess a source file
 src/stl_logging_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stl_logging_unittest.dir/build.make glog_build/CMakeFiles/stl_logging_unittest.dir/src/stl_logging_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stl_logging_unittest.dir/build.make glog_build/CMakeFiles/stl_logging_unittest.dir/src/stl_logging_unittest.cc.i
 .PHONY : src/stl_logging_unittest.cc.i
 
 src/stl_logging_unittest.s: src/stl_logging_unittest.cc.s
@@ -1226,7 +1226,7 @@ src/stl_logging_unittest.s: src/stl_logging_unittest.cc.s
 
 # target to generate assembly for a file
 src/stl_logging_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stl_logging_unittest.dir/build.make glog_build/CMakeFiles/stl_logging_unittest.dir/src/stl_logging_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/stl_logging_unittest.dir/build.make glog_build/CMakeFiles/stl_logging_unittest.dir/src/stl_logging_unittest.cc.s
 .PHONY : src/stl_logging_unittest.cc.s
 
 src/striplog_unittest.o: src/striplog_unittest.cc.o
@@ -1234,9 +1234,9 @@ src/striplog_unittest.o: src/striplog_unittest.cc.o
 
 # target to build an object file
 src/striplog_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog0_unittest.dir/build.make glog_build/CMakeFiles/striplog0_unittest.dir/src/striplog_unittest.cc.o
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog2_unittest.dir/build.make glog_build/CMakeFiles/striplog2_unittest.dir/src/striplog_unittest.cc.o
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog10_unittest.dir/build.make glog_build/CMakeFiles/striplog10_unittest.dir/src/striplog_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog0_unittest.dir/build.make glog_build/CMakeFiles/striplog0_unittest.dir/src/striplog_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog2_unittest.dir/build.make glog_build/CMakeFiles/striplog2_unittest.dir/src/striplog_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog10_unittest.dir/build.make glog_build/CMakeFiles/striplog10_unittest.dir/src/striplog_unittest.cc.o
 .PHONY : src/striplog_unittest.cc.o
 
 src/striplog_unittest.i: src/striplog_unittest.cc.i
@@ -1244,9 +1244,9 @@ src/striplog_unittest.i: src/striplog_unittest.cc.i
 
 # target to preprocess a source file
 src/striplog_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog0_unittest.dir/build.make glog_build/CMakeFiles/striplog0_unittest.dir/src/striplog_unittest.cc.i
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog2_unittest.dir/build.make glog_build/CMakeFiles/striplog2_unittest.dir/src/striplog_unittest.cc.i
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog10_unittest.dir/build.make glog_build/CMakeFiles/striplog10_unittest.dir/src/striplog_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog0_unittest.dir/build.make glog_build/CMakeFiles/striplog0_unittest.dir/src/striplog_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog2_unittest.dir/build.make glog_build/CMakeFiles/striplog2_unittest.dir/src/striplog_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog10_unittest.dir/build.make glog_build/CMakeFiles/striplog10_unittest.dir/src/striplog_unittest.cc.i
 .PHONY : src/striplog_unittest.cc.i
 
 src/striplog_unittest.s: src/striplog_unittest.cc.s
@@ -1254,9 +1254,9 @@ src/striplog_unittest.s: src/striplog_unittest.cc.s
 
 # target to generate assembly for a file
 src/striplog_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog0_unittest.dir/build.make glog_build/CMakeFiles/striplog0_unittest.dir/src/striplog_unittest.cc.s
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog2_unittest.dir/build.make glog_build/CMakeFiles/striplog2_unittest.dir/src/striplog_unittest.cc.s
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog10_unittest.dir/build.make glog_build/CMakeFiles/striplog10_unittest.dir/src/striplog_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog0_unittest.dir/build.make glog_build/CMakeFiles/striplog0_unittest.dir/src/striplog_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog2_unittest.dir/build.make glog_build/CMakeFiles/striplog2_unittest.dir/src/striplog_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/striplog10_unittest.dir/build.make glog_build/CMakeFiles/striplog10_unittest.dir/src/striplog_unittest.cc.s
 .PHONY : src/striplog_unittest.cc.s
 
 src/symbolize.o: src/symbolize.cc.o
@@ -1264,7 +1264,7 @@ src/symbolize.o: src/symbolize.cc.o
 
 # target to build an object file
 src/symbolize.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o
 .PHONY : src/symbolize.cc.o
 
 src/symbolize.i: src/symbolize.cc.i
@@ -1272,7 +1272,7 @@ src/symbolize.i: src/symbolize.cc.i
 
 # target to preprocess a source file
 src/symbolize.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.i
 .PHONY : src/symbolize.cc.i
 
 src/symbolize.s: src/symbolize.cc.s
@@ -1280,7 +1280,7 @@ src/symbolize.s: src/symbolize.cc.s
 
 # target to generate assembly for a file
 src/symbolize.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.s
 .PHONY : src/symbolize.cc.s
 
 src/symbolize_unittest.o: src/symbolize_unittest.cc.o
@@ -1288,7 +1288,7 @@ src/symbolize_unittest.o: src/symbolize_unittest.cc.o
 
 # target to build an object file
 src/symbolize_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/symbolize_unittest.dir/build.make glog_build/CMakeFiles/symbolize_unittest.dir/src/symbolize_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/symbolize_unittest.dir/build.make glog_build/CMakeFiles/symbolize_unittest.dir/src/symbolize_unittest.cc.o
 .PHONY : src/symbolize_unittest.cc.o
 
 src/symbolize_unittest.i: src/symbolize_unittest.cc.i
@@ -1296,7 +1296,7 @@ src/symbolize_unittest.i: src/symbolize_unittest.cc.i
 
 # target to preprocess a source file
 src/symbolize_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/symbolize_unittest.dir/build.make glog_build/CMakeFiles/symbolize_unittest.dir/src/symbolize_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/symbolize_unittest.dir/build.make glog_build/CMakeFiles/symbolize_unittest.dir/src/symbolize_unittest.cc.i
 .PHONY : src/symbolize_unittest.cc.i
 
 src/symbolize_unittest.s: src/symbolize_unittest.cc.s
@@ -1304,7 +1304,7 @@ src/symbolize_unittest.s: src/symbolize_unittest.cc.s
 
 # target to generate assembly for a file
 src/symbolize_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/symbolize_unittest.dir/build.make glog_build/CMakeFiles/symbolize_unittest.dir/src/symbolize_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/symbolize_unittest.dir/build.make glog_build/CMakeFiles/symbolize_unittest.dir/src/symbolize_unittest.cc.s
 .PHONY : src/symbolize_unittest.cc.s
 
 src/utilities.o: src/utilities.cc.o
@@ -1312,7 +1312,7 @@ src/utilities.o: src/utilities.cc.o
 
 # target to build an object file
 src/utilities.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o
 .PHONY : src/utilities.cc.o
 
 src/utilities.i: src/utilities.cc.i
@@ -1320,7 +1320,7 @@ src/utilities.i: src/utilities.cc.i
 
 # target to preprocess a source file
 src/utilities.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.i
 .PHONY : src/utilities.cc.i
 
 src/utilities.s: src/utilities.cc.s
@@ -1328,7 +1328,7 @@ src/utilities.s: src/utilities.cc.s
 
 # target to generate assembly for a file
 src/utilities.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.s
 .PHONY : src/utilities.cc.s
 
 src/utilities_unittest.o: src/utilities_unittest.cc.o
@@ -1336,7 +1336,7 @@ src/utilities_unittest.o: src/utilities_unittest.cc.o
 
 # target to build an object file
 src/utilities_unittest.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/utilities_unittest.dir/build.make glog_build/CMakeFiles/utilities_unittest.dir/src/utilities_unittest.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/utilities_unittest.dir/build.make glog_build/CMakeFiles/utilities_unittest.dir/src/utilities_unittest.cc.o
 .PHONY : src/utilities_unittest.cc.o
 
 src/utilities_unittest.i: src/utilities_unittest.cc.i
@@ -1344,7 +1344,7 @@ src/utilities_unittest.i: src/utilities_unittest.cc.i
 
 # target to preprocess a source file
 src/utilities_unittest.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/utilities_unittest.dir/build.make glog_build/CMakeFiles/utilities_unittest.dir/src/utilities_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/utilities_unittest.dir/build.make glog_build/CMakeFiles/utilities_unittest.dir/src/utilities_unittest.cc.i
 .PHONY : src/utilities_unittest.cc.i
 
 src/utilities_unittest.s: src/utilities_unittest.cc.s
@@ -1352,7 +1352,7 @@ src/utilities_unittest.s: src/utilities_unittest.cc.s
 
 # target to generate assembly for a file
 src/utilities_unittest.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/utilities_unittest.dir/build.make glog_build/CMakeFiles/utilities_unittest.dir/src/utilities_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/utilities_unittest.dir/build.make glog_build/CMakeFiles/utilities_unittest.dir/src/utilities_unittest.cc.s
 .PHONY : src/utilities_unittest.cc.s
 
 src/vlog_is_on.o: src/vlog_is_on.cc.o
@@ -1360,7 +1360,7 @@ src/vlog_is_on.o: src/vlog_is_on.cc.o
 
 # target to build an object file
 src/vlog_is_on.cc.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o
 .PHONY : src/vlog_is_on.cc.o
 
 src/vlog_is_on.i: src/vlog_is_on.cc.i
@@ -1368,7 +1368,7 @@ src/vlog_is_on.i: src/vlog_is_on.cc.i
 
 # target to preprocess a source file
 src/vlog_is_on.cc.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.i
 .PHONY : src/vlog_is_on.cc.i
 
 src/vlog_is_on.s: src/vlog_is_on.cc.s
@@ -1376,7 +1376,7 @@ src/vlog_is_on.s: src/vlog_is_on.cc.s
 
 # target to generate assembly for a file
 src/vlog_is_on.cc.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f glog_build/CMakeFiles/glog_internal.dir/build.make glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.s
 .PHONY : src/vlog_is_on.cc.s
 
 # Help Target
@@ -1519,6 +1519,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

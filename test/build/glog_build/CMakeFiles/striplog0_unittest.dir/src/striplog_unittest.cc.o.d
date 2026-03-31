@@ -1,5 +1,5 @@
 glog_build/CMakeFiles/striplog0_unittest.dir/src/striplog_unittest.cc.o: \
- /usr/kl/glog/src/striplog_unittest.cc /usr/include/stdc-predef.h \
+ /pfs/wukeliang/glog/src/striplog_unittest.cc /usr/include/stdc-predef.h \
  /usr/include/c++/11/csignal \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -154,10 +154,11 @@ glog_build/CMakeFiles/striplog0_unittest.dir/src/striplog_unittest.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /usr/kl/glog/src/base/commandlineflags.h /usr/include/c++/11/cstring \
- /usr/include/string.h /usr/include/strings.h \
- /usr/kl/test/build/glog_build/config.h /usr/kl/glog/src/glog/logging.h \
- /usr/include/c++/11/atomic /usr/include/c++/11/bits/atomic_base.h \
+ /pfs/wukeliang/glog/src/base/commandlineflags.h \
+ /usr/include/c++/11/cstring /usr/include/string.h /usr/include/strings.h \
+ /pfs/wukeliang/KLiteInfer/test/build/glog_build/config.h \
+ /pfs/wukeliang/glog/src/glog/logging.h /usr/include/c++/11/atomic \
+ /usr/include/c++/11/bits/atomic_base.h \
  /usr/include/c++/11/bits/atomic_lockfree_defines.h \
  /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
  /usr/include/c++/11/limits /usr/include/c++/11/ctime \
@@ -206,7 +207,10 @@ glog_build/CMakeFiles/striplog0_unittest.dir/src/striplog_unittest.cc.o: \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
- /usr/kl/test/build/glog_build/glog/export.h \
- /usr/kl/glog/src/glog/flags.h /usr/kl/glog/src/glog/platform.h \
- /usr/kl/glog/src/glog/types.h /usr/kl/glog/src/glog/log_severity.h \
- /usr/kl/glog/src/glog/vlog_is_on.h /usr/kl/glog/src/glog/logging.h
+ /pfs/wukeliang/KLiteInfer/test/build/glog_build/glog/export.h \
+ /pfs/wukeliang/glog/src/glog/flags.h \
+ /pfs/wukeliang/glog/src/glog/platform.h \
+ /pfs/wukeliang/glog/src/glog/types.h \
+ /pfs/wukeliang/glog/src/glog/log_severity.h \
+ /pfs/wukeliang/glog/src/glog/vlog_is_on.h \
+ /pfs/wukeliang/glog/src/glog/logging.h

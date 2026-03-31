@@ -1,4 +1,4 @@
-# Install script for directory: /usr/kl/armadillo
+# Install script for directory: /pfs/wukeliang/armadillo
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -43,12 +43,12 @@ if(NOT DEFINED CMAKE_OBJDUMP)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/usr/kl/test/build/armadillo_build/tmp/include/" REGEX "/\\.git$" EXCLUDE REGEX "/[^/]*\\.cmake$" EXCLUDE REGEX "/[^/]*\\~$" EXCLUDE REGEX "/[^/]*orig$" EXCLUDE)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tmp/include/" REGEX "/\\.git$" EXCLUDE REGEX "/[^/]*\\.cmake$" EXCLUDE REGEX "/[^/]*\\~$" EXCLUDE REGEX "/[^/]*orig$" EXCLUDE)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libarmadillo.so.15.2.3"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libarmadillo.so.15.2.4"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libarmadillo.so.15"
       )
     if(EXISTS "${file}" AND
@@ -59,11 +59,11 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     endif()
   endforeach()
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu" TYPE SHARED_LIBRARY FILES
-    "/usr/kl/test/build/armadillo_build/libarmadillo.so.15.2.3"
-    "/usr/kl/test/build/armadillo_build/libarmadillo.so.15"
+    "/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/libarmadillo.so.15.2.4"
+    "/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/libarmadillo.so.15"
     )
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libarmadillo.so.15.2.3"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libarmadillo.so.15.2.4"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libarmadillo.so.15"
       )
     if(EXISTS "${file}" AND
@@ -82,7 +82,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libarmadillo.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu" TYPE SHARED_LIBRARY FILES "/usr/kl/test/build/armadillo_build/libarmadillo.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu" TYPE SHARED_LIBRARY FILES "/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/libarmadillo.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libarmadillo.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libarmadillo.so")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -92,14 +92,14 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/pkgconfig" TYPE FILE FILES "/usr/kl/test/build/armadillo_build/tmp/misc/armadillo.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/pkgconfig" TYPE FILE FILES "/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tmp/misc/armadillo.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xdevx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake"
-         "/usr/kl/test/build/armadillo_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake")
+         "/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake/ArmadilloLibraryDepends-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -108,9 +108,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xdevx" OR NOT CMAKE_INSTALL_COMPONEN
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake" TYPE FILE FILES "/usr/kl/test/build/armadillo_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake" TYPE FILE FILES "/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake" TYPE FILE FILES "/usr/kl/test/build/armadillo_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Armadillo/CMake" TYPE FILE FILES "/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/CMakeFiles/Export/share/Armadillo/CMake/ArmadilloLibraryDepends-noconfig.cmake")
   endif()
 endif()
 
@@ -124,14 +124,14 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xdevx" OR NOT CMAKE_INSTALL_COMPONEN
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   file(INSTALL DESTINATION "/usr/share/Armadillo/CMake" TYPE FILE FILES
-    "/usr/kl/test/build/armadillo_build/InstallFiles/ArmadilloConfig.cmake"
-    "/usr/kl/test/build/armadillo_build/InstallFiles/ArmadilloConfigVersion.cmake"
+    "/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/InstallFiles/ArmadilloConfig.cmake"
+    "/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/InstallFiles/ArmadilloConfigVersion.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/usr/kl/test/build/armadillo_build/tests1/cmake_install.cmake")
+  include("/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tests1/cmake_install.cmake")
 
 endif()
 

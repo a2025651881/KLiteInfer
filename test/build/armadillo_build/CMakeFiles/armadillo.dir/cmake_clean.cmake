@@ -6,7 +6,7 @@ file(REMOVE_RECURSE
   "libarmadillo.pdb"
   "libarmadillo.so"
   "libarmadillo.so.15"
-  "libarmadillo.so.15.2.3"
+  "libarmadillo.so.15.2.4"
 )
 
 # Per-language clean rules from dependency scanning.

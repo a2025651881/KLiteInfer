@@ -1,3 +1,6 @@
+#include "base/base.h"
+#include <cstdint>
+#include <string>
 namespace base{
     Status::Status(int code =StatusCode::kSuccess, std::string err_message = ""):code_(code),mesage_(err_message);
         
@@ -37,33 +40,33 @@ namespace base{
     void Status::set_err_msg(const std::string& err_msg){
         message_=err_msg;
     }
-}
 namespace error{
-Status Success(const std::string& err_msg = ""){
+base::Status Success(const std::string& err_msg = ""){
     return Status{kSuccess,err_msg};
 }
 
-Status FunctionNotImplement(const std::string& err_msg = ""){
+base::Status FunctionNotImplement(const std::string& err_msg = ""){
     return Status{kFunctionUnImplement,err_msg};
 }
 
-Status PathNotValid(const std::string& err_msg=""){
+base::Status PathNotValid(const std::string& err_msg=""){
     return Status{kPatheNotValid,err_msg};
 }
 
-Status ModelParseError(const std::string& err_msg=""){
+base::Status ModelParseError(const std::string& err_msg=""){
     return Status{kModelParseError,err_msg}
 }
 
-Status kInternalError(const std::string& err_msg=""){
+base::Status kInternalError(const std::string& err_msg=""){
     return Status{kInternalError,err_msg};
 }
 
-Status kKeyValueHasExist(const std::string& err_msg=""){
+base::Status kKeyValueHasExist(const std::string& err_msg=""){
     return Status{kKeyValueHasExist,err_msg};
 }
 
-Status kInvalidArgument(const std::string& err_msg=""){
+base::Status kInvalidArgument(const std::string& err_msg=""){
     return Status{kInternalError,err_msg};
+}
 }
 }

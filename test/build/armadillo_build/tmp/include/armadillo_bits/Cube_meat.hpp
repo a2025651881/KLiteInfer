@@ -3877,7 +3877,7 @@ arma_inline
 eT*
 Cube<eT>::slice_memptr(const uword uslice)
   {
-  return const_cast<eT*>( &mem[ uslice*n_elem_slice ] );
+  return access::rwp( mem + (uslice*n_elem_slice) );
   }
 
 
@@ -3888,7 +3888,7 @@ arma_inline
 const eT*
 Cube<eT>::slice_memptr(const uword uslice) const
   {
-  return &mem[ uslice*n_elem_slice ];
+  return mem + (uslice*n_elem_slice);
   }
 
 
@@ -3899,7 +3899,7 @@ arma_inline
 eT*
 Cube<eT>::slice_colptr(const uword uslice, const uword col)
   {
-  return const_cast<eT*>( &mem[ uslice*n_elem_slice + col*n_rows] );
+  return access::rwp( mem + (uslice*n_elem_slice + col*n_rows) );
   }
 
 
@@ -3910,7 +3910,7 @@ arma_inline
 const eT*
 Cube<eT>::slice_colptr(const uword uslice, const uword col) const
   {
-  return &mem[ uslice*n_elem_slice + col*n_rows ];
+  return mem + (uslice*n_elem_slice + col*n_rows);
   }
 
 

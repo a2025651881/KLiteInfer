@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /usr/kl/test
+CMAKE_SOURCE_DIR = /pfs/wukeliang/KLiteInfer/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /usr/kl/test/build
+CMAKE_BINARY_DIR = /pfs/wukeliang/KLiteInfer/test/build
 
 # Utility rule file for Nightly.
 
@@ -67,7 +67,7 @@ include glog_build/CMakeFiles/Nightly.dir/compiler_depend.make
 include glog_build/CMakeFiles/Nightly.dir/progress.make
 
 glog_build/CMakeFiles/Nightly:
-	cd /usr/kl/test/build/glog_build && /usr/bin/ctest -D Nightly
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/ctest -D Nightly
 
 Nightly: glog_build/CMakeFiles/Nightly
 Nightly: glog_build/CMakeFiles/Nightly.dir/build.make
@@ -78,10 +78,10 @@ glog_build/CMakeFiles/Nightly.dir/build: Nightly
 .PHONY : glog_build/CMakeFiles/Nightly.dir/build
 
 glog_build/CMakeFiles/Nightly.dir/clean:
-	cd /usr/kl/test/build/glog_build && $(CMAKE_COMMAND) -P CMakeFiles/Nightly.dir/cmake_clean.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && $(CMAKE_COMMAND) -P CMakeFiles/Nightly.dir/cmake_clean.cmake
 .PHONY : glog_build/CMakeFiles/Nightly.dir/clean
 
 glog_build/CMakeFiles/Nightly.dir/depend:
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /usr/kl/test /usr/kl/glog /usr/kl/test/build /usr/kl/test/build/glog_build /usr/kl/test/build/glog_build/CMakeFiles/Nightly.dir/DependInfo.cmake --color=$(COLOR)
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /pfs/wukeliang/KLiteInfer/test /pfs/wukeliang/glog /pfs/wukeliang/KLiteInfer/test/build /pfs/wukeliang/KLiteInfer/test/build/glog_build /pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/Nightly.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : glog_build/CMakeFiles/Nightly.dir/depend
 

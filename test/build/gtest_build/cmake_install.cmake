@@ -1,4 +1,4 @@
-# Install script for directory: /usr/kl/googletest
+# Install script for directory: /pfs/wukeliang/googletest
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,6 +44,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/usr/kl/test/build/gtest_build/googlemock/cmake_install.cmake")
+  include("/pfs/wukeliang/KLiteInfer/test/build/gtest_build/googlemock/cmake_install.cmake")
 endif()
 

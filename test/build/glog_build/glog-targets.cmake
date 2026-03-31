@@ -47,13 +47,13 @@ add_library(glog::glog SHARED IMPORTED)
 set_target_properties(glog::glog PROPERTIES
   INTERFACE_COMPILE_DEFINITIONS "GLOG_USE_GLOG_EXPORT"
   INTERFACE_COMPILE_FEATURES "cxx_std_14"
-  INTERFACE_INCLUDE_DIRECTORIES "/usr/kl/test/build/glog_build;/usr/kl/glog/src"
+  INTERFACE_INCLUDE_DIRECTORIES "/pfs/wukeliang/KLiteInfer/test/build/glog_build;/pfs/wukeliang/glog/src"
 )
 
 # Import target "glog::glog" for configuration ""
 set_property(TARGET glog::glog APPEND PROPERTY IMPORTED_CONFIGURATIONS NOCONFIG)
 set_target_properties(glog::glog PROPERTIES
-  IMPORTED_LOCATION_NOCONFIG "/usr/kl/test/build/glog_build/libglog.so.0.8.0"
+  IMPORTED_LOCATION_NOCONFIG "/pfs/wukeliang/KLiteInfer/test/build/glog_build/libglog.so.0.8.0"
   IMPORTED_SONAME_NOCONFIG "libglog.so.3"
   )
 

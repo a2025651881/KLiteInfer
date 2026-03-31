@@ -1,7 +1,6 @@
 #ifndef KELI_INCLUDE_OP_ROPE_H_
 #define KELI_INCLUDE_OP_ROPE_H_
 #include "op/rope.h"
-#include "kernels/cpu/cope_kernel.h"
 #include "kernels/kernels_interface.h"
 namespace op{
     RoPELayer::RoPELayer(base::DeviceType device_type,int32_t dim,int32_t kv_dim,int32_t head_size):

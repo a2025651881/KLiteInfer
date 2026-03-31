@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /usr/kl/test
+CMAKE_SOURCE_DIR = /pfs/wukeliang/KLiteInfer/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /usr/kl/test/build
+CMAKE_BINARY_DIR = /pfs/wukeliang/KLiteInfer/test/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /usr/kl/test/build
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	cd /usr/kl/test/build && /usr/bin/cpack --config ./CPackConfig.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build && /usr/bin/cpack --config ./CPackConfig.cmake
 .PHONY : package
 
 # Special rule for the target package
@@ -78,7 +78,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	cd /usr/kl/test/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /usr/kl/test/build/CPackSourceConfig.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /pfs/wukeliang/KLiteInfer/test/build/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -162,14 +162,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -E cmake_progress_start /usr/kl/test/build/CMakeFiles /usr/kl/test/build/armadillo_build/tests1//CMakeFiles/progress.marks
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 armadillo_build/tests1/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr/kl/test/build/CMakeFiles 0
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -E cmake_progress_start /pfs/wukeliang/KLiteInfer/test/build/CMakeFiles /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tests1//CMakeFiles/progress.marks
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 armadillo_build/tests1/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /pfs/wukeliang/KLiteInfer/test/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 armadillo_build/tests1/clean
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 armadillo_build/tests1/clean
 .PHONY : clean
 
 # The main clean target
@@ -178,22 +178,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 armadillo_build/tests1/preinstall
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 armadillo_build/tests1/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 armadillo_build/tests1/preinstall
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 armadillo_build/tests1/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 armadillo_build/tests1/CMakeFiles/smoke_test.dir/rule:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 armadillo_build/tests1/CMakeFiles/smoke_test.dir/rule
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 armadillo_build/tests1/CMakeFiles/smoke_test.dir/rule
 .PHONY : armadillo_build/tests1/CMakeFiles/smoke_test.dir/rule
 
 # Convenience name for target.
@@ -202,7 +202,7 @@ smoke_test: armadillo_build/tests1/CMakeFiles/smoke_test.dir/rule
 
 # fast build rule for target.
 smoke_test/fast:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f armadillo_build/tests1/CMakeFiles/smoke_test.dir/build.make armadillo_build/tests1/CMakeFiles/smoke_test.dir/build
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f armadillo_build/tests1/CMakeFiles/smoke_test.dir/build.make armadillo_build/tests1/CMakeFiles/smoke_test.dir/build
 .PHONY : smoke_test/fast
 
 smoke_test.o: smoke_test.cpp.o
@@ -210,7 +210,7 @@ smoke_test.o: smoke_test.cpp.o
 
 # target to build an object file
 smoke_test.cpp.o:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f armadillo_build/tests1/CMakeFiles/smoke_test.dir/build.make armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.o
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f armadillo_build/tests1/CMakeFiles/smoke_test.dir/build.make armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.o
 .PHONY : smoke_test.cpp.o
 
 smoke_test.i: smoke_test.cpp.i
@@ -218,7 +218,7 @@ smoke_test.i: smoke_test.cpp.i
 
 # target to preprocess a source file
 smoke_test.cpp.i:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f armadillo_build/tests1/CMakeFiles/smoke_test.dir/build.make armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.i
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f armadillo_build/tests1/CMakeFiles/smoke_test.dir/build.make armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.i
 .PHONY : smoke_test.cpp.i
 
 smoke_test.s: smoke_test.cpp.s
@@ -226,7 +226,7 @@ smoke_test.s: smoke_test.cpp.s
 
 # target to generate assembly for a file
 smoke_test.cpp.s:
-	cd /usr/kl/test/build && $(MAKE) $(MAKESILENT) -f armadillo_build/tests1/CMakeFiles/smoke_test.dir/build.make armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.s
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(MAKE) $(MAKESILENT) -f armadillo_build/tests1/CMakeFiles/smoke_test.dir/build.make armadillo_build/tests1/CMakeFiles/smoke_test.dir/smoke_test.cpp.s
 .PHONY : smoke_test.cpp.s
 
 # Help Target
@@ -259,6 +259,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

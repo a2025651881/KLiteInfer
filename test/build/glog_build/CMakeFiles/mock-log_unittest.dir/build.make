@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /usr/kl/test
+CMAKE_SOURCE_DIR = /pfs/wukeliang/KLiteInfer/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /usr/kl/test/build
+CMAKE_BINARY_DIR = /pfs/wukeliang/KLiteInfer/test/build
 
 # Include any dependencies generated for this target.
 include glog_build/CMakeFiles/mock-log_unittest.dir/depend.make
@@ -70,18 +70,18 @@ include glog_build/CMakeFiles/mock-log_unittest.dir/progress.make
 include glog_build/CMakeFiles/mock-log_unittest.dir/flags.make
 
 glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o: glog_build/CMakeFiles/mock-log_unittest.dir/flags.make
-glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o: /usr/kl/glog/src/mock-log_unittest.cc
+glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o: /pfs/wukeliang/glog/src/mock-log_unittest.cc
 glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o: glog_build/CMakeFiles/mock-log_unittest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o -MF CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o.d -o CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o -c /usr/kl/glog/src/mock-log_unittest.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o -MF CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o.d -o CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.o -c /pfs/wukeliang/glog/src/mock-log_unittest.cc
 
 glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.i"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/glog/src/mock-log_unittest.cc > CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/glog/src/mock-log_unittest.cc > CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.i
 
 glog_build/CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.s"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/glog/src/mock-log_unittest.cc -o CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/glog/src/mock-log_unittest.cc -o CMakeFiles/mock-log_unittest.dir/src/mock-log_unittest.cc.s
 
 # Object files for target mock-log_unittest
 mock__log_unittest_OBJECTS = \
@@ -101,21 +101,21 @@ glog_build/mock-log_unittest: glog_build/CMakeFiles/glog_internal.dir/src/stackt
 glog_build/mock-log_unittest: glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o
 glog_build/mock-log_unittest: glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o
 glog_build/mock-log_unittest: glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o
-glog_build/mock-log_unittest: lib/libgmock.so.1.16.0
-glog_build/mock-log_unittest: lib/libgtest.so.1.16.0
+glog_build/mock-log_unittest: lib/libgmock.a
+glog_build/mock-log_unittest: lib/libgtest.a
 glog_build/mock-log_unittest: glog_build/CMakeFiles/mock-log_unittest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable mock-log_unittest"
-	cd /usr/kl/test/build/glog_build && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mock-log_unittest.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable mock-log_unittest"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/mock-log_unittest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 glog_build/CMakeFiles/mock-log_unittest.dir/build: glog_build/mock-log_unittest
 .PHONY : glog_build/CMakeFiles/mock-log_unittest.dir/build
 
 glog_build/CMakeFiles/mock-log_unittest.dir/clean:
-	cd /usr/kl/test/build/glog_build && $(CMAKE_COMMAND) -P CMakeFiles/mock-log_unittest.dir/cmake_clean.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && $(CMAKE_COMMAND) -P CMakeFiles/mock-log_unittest.dir/cmake_clean.cmake
 .PHONY : glog_build/CMakeFiles/mock-log_unittest.dir/clean
 
 glog_build/CMakeFiles/mock-log_unittest.dir/depend:
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /usr/kl/test /usr/kl/glog /usr/kl/test/build /usr/kl/test/build/glog_build /usr/kl/test/build/glog_build/CMakeFiles/mock-log_unittest.dir/DependInfo.cmake --color=$(COLOR)
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /pfs/wukeliang/KLiteInfer/test /pfs/wukeliang/glog /pfs/wukeliang/KLiteInfer/test/build /pfs/wukeliang/KLiteInfer/test/build/glog_build /pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/mock-log_unittest.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : glog_build/CMakeFiles/mock-log_unittest.dir/depend
 

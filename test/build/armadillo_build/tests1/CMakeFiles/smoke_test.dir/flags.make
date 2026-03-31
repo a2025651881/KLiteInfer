@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/kl/test/build/armadillo_build/tmp/include -I/usr/include/superlu
+CXX_INCLUDES = -I/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tmp/include -I/usr/include/superlu
 
 CXX_FLAGS =  -O2 -std=c++14
 

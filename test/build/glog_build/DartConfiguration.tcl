@@ -4,14 +4,14 @@
 
 
 # Configuration directories and files
-SourceDirectory: /usr/kl/glog
-BuildDirectory: /usr/kl/test/build/glog_build
+SourceDirectory: /pfs/wukeliang/glog
+BuildDirectory: /pfs/wukeliang/KLiteInfer/test/build/glog_build
 
 # Where to place the cost data store
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: aibox-re738d6ab15a-69f9b7b74b-xxzsk
+Site: aibox-r513fbf58f3b-7898d8bbd-8rcg9
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Linux-c++
@@ -26,7 +26,7 @@ SubmitURL: http://
 NightlyStartTime: 00:00:00 EDT
 
 # Commands for the build/test/submit cycle
-ConfigureCommand: "/usr/bin/cmake" "/usr/kl/glog"
+ConfigureCommand: "/usr/bin/cmake" "/pfs/wukeliang/glog"
 MakeCommand: /usr/bin/cmake --build . --config "${CTEST_CONFIGURATION_TYPE}"
 DefaultCTestConfigurationType: Release
 
@@ -44,7 +44,7 @@ SVNOptions:
 SVNUpdateOptions: 
 
 # Git options
-GITCommand: 
+GITCommand: /usr/bin/git
 GITInitSubmodules: 
 GITUpdateOptions: 
 GITUpdateCustom: 
@@ -57,9 +57,9 @@ P4UpdateOptions:
 P4UpdateCustom: 
 
 # Generic update command
-UpdateCommand: 
+UpdateCommand: /usr/bin/git
 UpdateOptions: 
-UpdateType: 
+UpdateType: git
 
 # Compiler info
 Compiler: /usr/bin/c++
@@ -75,7 +75,7 @@ CudaSanitizerCommand:
 CudaSanitizerCommandOptions: 
 MemoryCheckType: 
 MemoryCheckSanitizerOptions: 
-MemoryCheckCommand: MEMORYCHECK_COMMAND-NOTFOUND
+MemoryCheckCommand: /usr/local/cuda-12.8/bin/compute-sanitizer
 MemoryCheckCommandOptions: 
 MemoryCheckSuppressionFile: 
 

@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /usr/kl/test
+CMAKE_SOURCE_DIR = /pfs/wukeliang/KLiteInfer/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /usr/kl/test/build
+CMAKE_BINARY_DIR = /pfs/wukeliang/KLiteInfer/test/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -78,7 +78,7 @@ package/fast: package
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	/usr/bin/cpack --config ./CPackSourceConfig.cmake /usr/kl/test/build/CPackSourceConfig.cmake
+	/usr/bin/cpack --config ./CPackSourceConfig.cmake /pfs/wukeliang/KLiteInfer/test/build/CPackSourceConfig.cmake
 .PHONY : package_source
 
 # Special rule for the target package_source
@@ -162,9 +162,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr/kl/test/build/CMakeFiles /usr/kl/test/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /pfs/wukeliang/KLiteInfer/test/build/CMakeFiles /pfs/wukeliang/KLiteInfer/test/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /usr/kl/test/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /pfs/wukeliang/KLiteInfer/test/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -192,17 +192,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named alloc_test
+# Target rules for targets named operator_test
 
 # Build rule for target.
-alloc_test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 alloc_test
-.PHONY : alloc_test
+operator_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 operator_test
+.PHONY : operator_test
 
 # fast build rule for target.
-alloc_test/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/build
-.PHONY : alloc_test/fast
+operator_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/build
+.PHONY : operator_test/fast
 
 #=============================================================================
 # Target rules for targets named gmock
@@ -867,36 +867,36 @@ smoke_test/fast:
 	$(MAKE) $(MAKESILENT) -f armadillo_build/tests1/CMakeFiles/smoke_test.dir/build.make armadillo_build/tests1/CMakeFiles/smoke_test.dir/build
 .PHONY : smoke_test/fast
 
-base/test_alloc.o: base/test_alloc.cpp.o
-.PHONY : base/test_alloc.o
+base_test/test_alloc.o: base_test/test_alloc.cpp.o
+.PHONY : base_test/test_alloc.o
 
 # target to build an object file
-base/test_alloc.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/base/test_alloc.cpp.o
-.PHONY : base/test_alloc.cpp.o
+base_test/test_alloc.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/base_test/test_alloc.cpp.o
+.PHONY : base_test/test_alloc.cpp.o
 
-base/test_alloc.i: base/test_alloc.cpp.i
-.PHONY : base/test_alloc.i
+base_test/test_alloc.i: base_test/test_alloc.cpp.i
+.PHONY : base_test/test_alloc.i
 
 # target to preprocess a source file
-base/test_alloc.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/base/test_alloc.cpp.i
-.PHONY : base/test_alloc.cpp.i
+base_test/test_alloc.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/base_test/test_alloc.cpp.i
+.PHONY : base_test/test_alloc.cpp.i
 
-base/test_alloc.s: base/test_alloc.cpp.s
-.PHONY : base/test_alloc.s
+base_test/test_alloc.s: base_test/test_alloc.cpp.s
+.PHONY : base_test/test_alloc.s
 
 # target to generate assembly for a file
-base/test_alloc.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/base/test_alloc.cpp.s
-.PHONY : base/test_alloc.cpp.s
+base_test/test_alloc.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/base_test/test_alloc.cpp.s
+.PHONY : base_test/test_alloc.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -904,7 +904,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -912,104 +912,680 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-usr/kl/src/base/alloc.o: usr/kl/src/base/alloc.cpp.o
-.PHONY : usr/kl/src/base/alloc.o
+op_test/test_cuda_add.o: op_test/test_cuda_add.cpp.o
+.PHONY : op_test/test_cuda_add.o
 
 # target to build an object file
-usr/kl/src/base/alloc.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/alloc.cpp.o
-.PHONY : usr/kl/src/base/alloc.cpp.o
+op_test/test_cuda_add.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/op_test/test_cuda_add.cpp.o
+.PHONY : op_test/test_cuda_add.cpp.o
 
-usr/kl/src/base/alloc.i: usr/kl/src/base/alloc.cpp.i
-.PHONY : usr/kl/src/base/alloc.i
+op_test/test_cuda_add.i: op_test/test_cuda_add.cpp.i
+.PHONY : op_test/test_cuda_add.i
 
 # target to preprocess a source file
-usr/kl/src/base/alloc.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/alloc.cpp.i
-.PHONY : usr/kl/src/base/alloc.cpp.i
+op_test/test_cuda_add.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/op_test/test_cuda_add.cpp.i
+.PHONY : op_test/test_cuda_add.cpp.i
 
-usr/kl/src/base/alloc.s: usr/kl/src/base/alloc.cpp.s
-.PHONY : usr/kl/src/base/alloc.s
+op_test/test_cuda_add.s: op_test/test_cuda_add.cpp.s
+.PHONY : op_test/test_cuda_add.s
 
 # target to generate assembly for a file
-usr/kl/src/base/alloc.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/alloc.cpp.s
-.PHONY : usr/kl/src/base/alloc.cpp.s
+op_test/test_cuda_add.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/op_test/test_cuda_add.cpp.s
+.PHONY : op_test/test_cuda_add.cpp.s
 
-usr/kl/src/base/buffer.o: usr/kl/src/base/buffer.cpp.o
-.PHONY : usr/kl/src/base/buffer.o
+pfs/wukeliang/KLiteInfer/src/base/alloc.o: pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/alloc.o
 
 # target to build an object file
-usr/kl/src/base/buffer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/buffer.cpp.o
-.PHONY : usr/kl/src/base/buffer.cpp.o
+pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o
 
-usr/kl/src/base/buffer.i: usr/kl/src/base/buffer.cpp.i
-.PHONY : usr/kl/src/base/buffer.i
+pfs/wukeliang/KLiteInfer/src/base/alloc.i: pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/alloc.i
 
 # target to preprocess a source file
-usr/kl/src/base/buffer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/buffer.cpp.i
-.PHONY : usr/kl/src/base/buffer.cpp.i
+pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.i
 
-usr/kl/src/base/buffer.s: usr/kl/src/base/buffer.cpp.s
-.PHONY : usr/kl/src/base/buffer.s
+pfs/wukeliang/KLiteInfer/src/base/alloc.s: pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/alloc.s
 
 # target to generate assembly for a file
-usr/kl/src/base/buffer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/buffer.cpp.s
-.PHONY : usr/kl/src/base/buffer.cpp.s
+pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.s
 
-usr/kl/src/base/cpu_alloc.o: usr/kl/src/base/cpu_alloc.cpp.o
-.PHONY : usr/kl/src/base/cpu_alloc.o
+pfs/wukeliang/KLiteInfer/src/base/base.o: pfs/wukeliang/KLiteInfer/src/base/base.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/base.o
 
 # target to build an object file
-usr/kl/src/base/cpu_alloc.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/cpu_alloc.cpp.o
-.PHONY : usr/kl/src/base/cpu_alloc.cpp.o
+pfs/wukeliang/KLiteInfer/src/base/base.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/base.cpp.o
 
-usr/kl/src/base/cpu_alloc.i: usr/kl/src/base/cpu_alloc.cpp.i
-.PHONY : usr/kl/src/base/cpu_alloc.i
+pfs/wukeliang/KLiteInfer/src/base/base.i: pfs/wukeliang/KLiteInfer/src/base/base.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/base.i
 
 # target to preprocess a source file
-usr/kl/src/base/cpu_alloc.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/cpu_alloc.cpp.i
-.PHONY : usr/kl/src/base/cpu_alloc.cpp.i
+pfs/wukeliang/KLiteInfer/src/base/base.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/base.cpp.i
 
-usr/kl/src/base/cpu_alloc.s: usr/kl/src/base/cpu_alloc.cpp.s
-.PHONY : usr/kl/src/base/cpu_alloc.s
+pfs/wukeliang/KLiteInfer/src/base/base.s: pfs/wukeliang/KLiteInfer/src/base/base.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/base.s
 
 # target to generate assembly for a file
-usr/kl/src/base/cpu_alloc.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/cpu_alloc.cpp.s
-.PHONY : usr/kl/src/base/cpu_alloc.cpp.s
+pfs/wukeliang/KLiteInfer/src/base/base.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/base.cpp.s
 
-usr/kl/src/base/gpu_alloc.o: usr/kl/src/base/gpu_alloc.cpp.o
-.PHONY : usr/kl/src/base/gpu_alloc.o
+pfs/wukeliang/KLiteInfer/src/base/buffer.o: pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/buffer.o
 
 # target to build an object file
-usr/kl/src/base/gpu_alloc.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/gpu_alloc.cpp.o
-.PHONY : usr/kl/src/base/gpu_alloc.cpp.o
+pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o
 
-usr/kl/src/base/gpu_alloc.i: usr/kl/src/base/gpu_alloc.cpp.i
-.PHONY : usr/kl/src/base/gpu_alloc.i
+pfs/wukeliang/KLiteInfer/src/base/buffer.i: pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/buffer.i
 
 # target to preprocess a source file
-usr/kl/src/base/gpu_alloc.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/gpu_alloc.cpp.i
-.PHONY : usr/kl/src/base/gpu_alloc.cpp.i
+pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.i
 
-usr/kl/src/base/gpu_alloc.s: usr/kl/src/base/gpu_alloc.cpp.s
-.PHONY : usr/kl/src/base/gpu_alloc.s
+pfs/wukeliang/KLiteInfer/src/base/buffer.s: pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/buffer.s
 
 # target to generate assembly for a file
-usr/kl/src/base/gpu_alloc.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/alloc_test.dir/build.make CMakeFiles/alloc_test.dir/usr/kl/src/base/gpu_alloc.cpp.s
-.PHONY : usr/kl/src/base/gpu_alloc.cpp.s
+pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.o: pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.i: pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.s: pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.o: pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.i: pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.s: pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/config/config.o: pfs/wukeliang/KLiteInfer/src/config/config.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/config/config.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/config/config.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/config/config.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/config/config.i: pfs/wukeliang/KLiteInfer/src/config/config.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/config/config.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/config/config.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/config/config.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/config/config.s: pfs/wukeliang/KLiteInfer/src/config/config.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/config/config.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/config/config.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/config/config.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/op/RMSNorm.o: pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/RMSNorm.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/op/RMSNorm.i: pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/RMSNorm.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/op/RMSNorm.s: pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/RMSNorm.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/op/add.o: pfs/wukeliang/KLiteInfer/src/op/add.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/add.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/add.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/add.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/op/add.i: pfs/wukeliang/KLiteInfer/src/op/add.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/add.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/add.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/add.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/op/add.s: pfs/wukeliang/KLiteInfer/src/op/add.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/add.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/add.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/add.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/op/embedding.o: pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/embedding.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/op/embedding.i: pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/embedding.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/op/embedding.s: pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/embedding.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/op/encode.o: pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/encode.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/op/encode.i: pfs/wukeliang/KLiteInfer/src/op/encode.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/encode.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/encode.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/encode.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/op/encode.s: pfs/wukeliang/KLiteInfer/src/op/encode.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/encode.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/encode.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/encode.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.o: pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.i: pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.s: pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.o: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.i: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.i
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.s: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.s
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.o: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.i: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.i
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.s: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.s
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.o: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.i: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.i
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.s: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.s
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.o: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.i: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.i
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.s: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.s
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.o: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.i: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.i
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.s: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.s
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.o: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.i: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.i
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.s: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.s
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.o: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.i: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.i
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.s: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.s
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.o: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.i: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.i
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.s: pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.s
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.o: pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.i: pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.s: pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/op/layer.o: pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/layer.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/op/layer.i: pfs/wukeliang/KLiteInfer/src/op/layer.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/layer.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/layer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/layer.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/op/layer.s: pfs/wukeliang/KLiteInfer/src/op/layer.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/layer.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/layer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/layer.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/op/matmul.o: pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/matmul.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/op/matmul.i: pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/matmul.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/op/matmul.s: pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/matmul.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/op/mha.o: pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/mha.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/op/mha.i: pfs/wukeliang/KLiteInfer/src/op/mha.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/mha.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/mha.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/mha.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/op/mha.s: pfs/wukeliang/KLiteInfer/src/op/mha.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/mha.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/mha.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/mha.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/op/ropa.o: pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/ropa.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/op/ropa.i: pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/ropa.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/op/ropa.s: pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/ropa.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/op/swglu.o: pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/swglu.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/op/swglu.i: pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/swglu.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/op/swglu.s: pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/swglu.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.o: pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.i: pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.s: pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.s
+
+pfs/wukeliang/KLiteInfer/src/tensor/tensor.o: pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/tensor/tensor.o
+
+# target to build an object file
+pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o
+.PHONY : pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o
+
+pfs/wukeliang/KLiteInfer/src/tensor/tensor.i: pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/tensor/tensor.i
+
+# target to preprocess a source file
+pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.i
+.PHONY : pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.i
+
+pfs/wukeliang/KLiteInfer/src/tensor/tensor.s: pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/tensor/tensor.s
+
+# target to generate assembly for a file
+pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/operator_test.dir/build.make CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.s
+.PHONY : pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.s
 
 # Help Target
 help:
@@ -1054,7 +1630,6 @@ help:
 	@echo "... NightlySubmit"
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
-	@echo "... alloc_test"
 	@echo "... armadillo"
 	@echo "... cleanup_immediately_unittest"
 	@echo "... cleanup_with_absolute_prefix_unittest"
@@ -1069,6 +1644,7 @@ help:
 	@echo "... gtest_main"
 	@echo "... logging_unittest"
 	@echo "... mock-log_unittest"
+	@echo "... operator_test"
 	@echo "... signalhandler_unittest"
 	@echo "... smoke_test"
 	@echo "... stacktrace_unittest"
@@ -1078,24 +1654,96 @@ help:
 	@echo "... striplog2_unittest"
 	@echo "... symbolize_unittest"
 	@echo "... utilities_unittest"
-	@echo "... base/test_alloc.o"
-	@echo "... base/test_alloc.i"
-	@echo "... base/test_alloc.s"
+	@echo "... base_test/test_alloc.o"
+	@echo "... base_test/test_alloc.i"
+	@echo "... base_test/test_alloc.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... usr/kl/src/base/alloc.o"
-	@echo "... usr/kl/src/base/alloc.i"
-	@echo "... usr/kl/src/base/alloc.s"
-	@echo "... usr/kl/src/base/buffer.o"
-	@echo "... usr/kl/src/base/buffer.i"
-	@echo "... usr/kl/src/base/buffer.s"
-	@echo "... usr/kl/src/base/cpu_alloc.o"
-	@echo "... usr/kl/src/base/cpu_alloc.i"
-	@echo "... usr/kl/src/base/cpu_alloc.s"
-	@echo "... usr/kl/src/base/gpu_alloc.o"
-	@echo "... usr/kl/src/base/gpu_alloc.i"
-	@echo "... usr/kl/src/base/gpu_alloc.s"
+	@echo "... op_test/test_cuda_add.o"
+	@echo "... op_test/test_cuda_add.i"
+	@echo "... op_test/test_cuda_add.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/alloc.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/alloc.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/alloc.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/base.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/base.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/base.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/buffer.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/buffer.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/buffer.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/config/config.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/config/config.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/config/config.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/RMSNorm.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/RMSNorm.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/RMSNorm.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/add.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/add.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/add.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/embedding.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/embedding.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/embedding.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/encode.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/encode.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/encode.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/layer.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/layer.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/layer.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/matmul.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/matmul.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/matmul.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/mha.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/mha.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/mha.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/ropa.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/ropa.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/ropa.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/swglu.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/swglu.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/op/swglu.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.s"
+	@echo "... pfs/wukeliang/KLiteInfer/src/tensor/tensor.o"
+	@echo "... pfs/wukeliang/KLiteInfer/src/tensor/tensor.i"
+	@echo "... pfs/wukeliang/KLiteInfer/src/tensor/tensor.s"
 .PHONY : help
 
 

@@ -1,4 +1,4 @@
-# Install script for directory: /usr/kl/test
+# Install script for directory: /pfs/wukeliang/KLiteInfer/test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,9 +44,9 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/usr/kl/test/build/gtest_build/cmake_install.cmake")
-  include("/usr/kl/test/build/glog_build/cmake_install.cmake")
-  include("/usr/kl/test/build/armadillo_build/cmake_install.cmake")
+  include("/pfs/wukeliang/KLiteInfer/test/build/gtest_build/cmake_install.cmake")
+  include("/pfs/wukeliang/KLiteInfer/test/build/glog_build/cmake_install.cmake")
+  include("/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/cmake_install.cmake")
 
 endif()
 
@@ -58,5 +58,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/usr/kl/test/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/pfs/wukeliang/KLiteInfer/test/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

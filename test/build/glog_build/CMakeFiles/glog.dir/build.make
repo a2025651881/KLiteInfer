@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /usr/kl/test
+CMAKE_SOURCE_DIR = /pfs/wukeliang/KLiteInfer/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /usr/kl/test/build
+CMAKE_BINARY_DIR = /pfs/wukeliang/KLiteInfer/test/build
 
 # Include any dependencies generated for this target.
 include glog_build/CMakeFiles/glog.dir/depend.make
@@ -70,22 +70,22 @@ include glog_build/CMakeFiles/glog.dir/progress.make
 include glog_build/CMakeFiles/glog.dir/flags.make
 
 glog_build/CMakeFiles/glog.cc:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating CMakeFiles/glog.cc"
-	cd /usr/kl/test/build/glog_build && /usr/bin/cmake -E touch /usr/kl/test/build/glog_build/CMakeFiles/glog.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating CMakeFiles/glog.cc"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/cmake -E touch /pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog.cc
 
 glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.o: glog_build/CMakeFiles/glog.dir/flags.make
 glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.o: glog_build/CMakeFiles/glog.cc
 glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.o: glog_build/CMakeFiles/glog.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.o"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.o -MF CMakeFiles/glog.dir/CMakeFiles/glog.cc.o.d -o CMakeFiles/glog.dir/CMakeFiles/glog.cc.o -c /usr/kl/test/build/glog_build/CMakeFiles/glog.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.o -MF CMakeFiles/glog.dir/CMakeFiles/glog.cc.o.d -o CMakeFiles/glog.dir/CMakeFiles/glog.cc.o -c /pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog.cc
 
 glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/glog.dir/CMakeFiles/glog.cc.i"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/test/build/glog_build/CMakeFiles/glog.cc > CMakeFiles/glog.dir/CMakeFiles/glog.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog.cc > CMakeFiles/glog.dir/CMakeFiles/glog.cc.i
 
 glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/glog.dir/CMakeFiles/glog.cc.s"
-	cd /usr/kl/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/test/build/glog_build/CMakeFiles/glog.cc -o CMakeFiles/glog.dir/CMakeFiles/glog.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog.cc -o CMakeFiles/glog.dir/CMakeFiles/glog.cc.s
 
 # Object files for target glog
 glog_OBJECTS = \
@@ -93,15 +93,15 @@ glog_OBJECTS = \
 
 # External object files for target glog
 glog_EXTERNAL_OBJECTS = \
-"/usr/kl/test/build/glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o" \
-"/usr/kl/test/build/glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o" \
-"/usr/kl/test/build/glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o" \
-"/usr/kl/test/build/glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o" \
-"/usr/kl/test/build/glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o" \
-"/usr/kl/test/build/glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o" \
-"/usr/kl/test/build/glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o" \
-"/usr/kl/test/build/glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o" \
-"/usr/kl/test/build/glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o"
+"/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o" \
+"/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog_internal.dir/src/flags.cc.o" \
+"/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog_internal.dir/src/logging.cc.o" \
+"/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog_internal.dir/src/raw_logging.cc.o" \
+"/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog_internal.dir/src/signalhandler.cc.o" \
+"/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog_internal.dir/src/stacktrace.cc.o" \
+"/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog_internal.dir/src/symbolize.cc.o" \
+"/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog_internal.dir/src/utilities.cc.o" \
+"/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o"
 
 glog_build/libglog.so.0.8.0: glog_build/CMakeFiles/glog.dir/CMakeFiles/glog.cc.o
 glog_build/libglog.so.0.8.0: glog_build/CMakeFiles/glog_internal.dir/src/demangle.cc.o
@@ -115,9 +115,9 @@ glog_build/libglog.so.0.8.0: glog_build/CMakeFiles/glog_internal.dir/src/utiliti
 glog_build/libglog.so.0.8.0: glog_build/CMakeFiles/glog_internal.dir/src/vlog_is_on.cc.o
 glog_build/libglog.so.0.8.0: glog_build/CMakeFiles/glog.dir/build.make
 glog_build/libglog.so.0.8.0: glog_build/CMakeFiles/glog.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared library libglog.so"
-	cd /usr/kl/test/build/glog_build && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/glog.dir/link.txt --verbose=$(VERBOSE)
-	cd /usr/kl/test/build/glog_build && $(CMAKE_COMMAND) -E cmake_symlink_library libglog.so.0.8.0 libglog.so.3 libglog.so
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared library libglog.so"
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/glog.dir/link.txt --verbose=$(VERBOSE)
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && $(CMAKE_COMMAND) -E cmake_symlink_library libglog.so.0.8.0 libglog.so.3 libglog.so
 
 glog_build/libglog.so.3: glog_build/libglog.so.0.8.0
 	@$(CMAKE_COMMAND) -E touch_nocreate glog_build/libglog.so.3
@@ -130,10 +130,10 @@ glog_build/CMakeFiles/glog.dir/build: glog_build/libglog.so
 .PHONY : glog_build/CMakeFiles/glog.dir/build
 
 glog_build/CMakeFiles/glog.dir/clean:
-	cd /usr/kl/test/build/glog_build && $(CMAKE_COMMAND) -P CMakeFiles/glog.dir/cmake_clean.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build/glog_build && $(CMAKE_COMMAND) -P CMakeFiles/glog.dir/cmake_clean.cmake
 .PHONY : glog_build/CMakeFiles/glog.dir/clean
 
 glog_build/CMakeFiles/glog.dir/depend: glog_build/CMakeFiles/glog.cc
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /usr/kl/test /usr/kl/glog /usr/kl/test/build /usr/kl/test/build/glog_build /usr/kl/test/build/glog_build/CMakeFiles/glog.dir/DependInfo.cmake --color=$(COLOR)
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /pfs/wukeliang/KLiteInfer/test /pfs/wukeliang/glog /pfs/wukeliang/KLiteInfer/test/build /pfs/wukeliang/KLiteInfer/test/build/glog_build /pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/glog.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : glog_build/CMakeFiles/glog.dir/depend
 

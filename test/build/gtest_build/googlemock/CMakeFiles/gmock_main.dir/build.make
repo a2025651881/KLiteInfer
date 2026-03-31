@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /usr/kl/test
+CMAKE_SOURCE_DIR = /pfs/wukeliang/KLiteInfer/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /usr/kl/test/build
+CMAKE_BINARY_DIR = /pfs/wukeliang/KLiteInfer/test/build
 
 # Include any dependencies generated for this target.
 include gtest_build/googlemock/CMakeFiles/gmock_main.dir/depend.make
@@ -70,18 +70,18 @@ include gtest_build/googlemock/CMakeFiles/gmock_main.dir/progress.make
 include gtest_build/googlemock/CMakeFiles/gmock_main.dir/flags.make
 
 gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: gtest_build/googlemock/CMakeFiles/gmock_main.dir/flags.make
-gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: /usr/kl/googletest/googlemock/src/gmock_main.cc
+gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: /pfs/wukeliang/googletest/googlemock/src/gmock_main.cc
 gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: gtest_build/googlemock/CMakeFiles/gmock_main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
-	cd /usr/kl/test/build/gtest_build/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -MF CMakeFiles/gmock_main.dir/src/gmock_main.cc.o.d -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /usr/kl/googletest/googlemock/src/gmock_main.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
+	cd /pfs/wukeliang/KLiteInfer/test/build/gtest_build/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -MF CMakeFiles/gmock_main.dir/src/gmock_main.cc.o.d -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /pfs/wukeliang/googletest/googlemock/src/gmock_main.cc
 
 gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gmock_main.dir/src/gmock_main.cc.i"
-	cd /usr/kl/test/build/gtest_build/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /usr/kl/googletest/googlemock/src/gmock_main.cc > CMakeFiles/gmock_main.dir/src/gmock_main.cc.i
+	cd /pfs/wukeliang/KLiteInfer/test/build/gtest_build/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/googletest/googlemock/src/gmock_main.cc > CMakeFiles/gmock_main.dir/src/gmock_main.cc.i
 
 gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gmock_main.dir/src/gmock_main.cc.s"
-	cd /usr/kl/test/build/gtest_build/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /usr/kl/googletest/googlemock/src/gmock_main.cc -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.s
+	cd /pfs/wukeliang/KLiteInfer/test/build/gtest_build/googlemock && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/googletest/googlemock/src/gmock_main.cc -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.s
 
 # Object files for target gmock_main
 gmock_main_OBJECTS = \
@@ -90,27 +90,22 @@ gmock_main_OBJECTS = \
 # External object files for target gmock_main
 gmock_main_EXTERNAL_OBJECTS =
 
-lib/libgmock_main.so.1.16.0: gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o
-lib/libgmock_main.so.1.16.0: gtest_build/googlemock/CMakeFiles/gmock_main.dir/build.make
-lib/libgmock_main.so.1.16.0: lib/libgmock.so.1.16.0
-lib/libgmock_main.so.1.16.0: lib/libgtest.so.1.16.0
-lib/libgmock_main.so.1.16.0: gtest_build/googlemock/CMakeFiles/gmock_main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/usr/kl/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library ../../lib/libgmock_main.so"
-	cd /usr/kl/test/build/gtest_build/googlemock && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gmock_main.dir/link.txt --verbose=$(VERBOSE)
-	cd /usr/kl/test/build/gtest_build/googlemock && $(CMAKE_COMMAND) -E cmake_symlink_library ../../lib/libgmock_main.so.1.16.0 ../../lib/libgmock_main.so.1.16.0 ../../lib/libgmock_main.so
-
-lib/libgmock_main.so: lib/libgmock_main.so.1.16.0
-	@$(CMAKE_COMMAND) -E touch_nocreate lib/libgmock_main.so
+lib/libgmock_main.a: gtest_build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o
+lib/libgmock_main.a: gtest_build/googlemock/CMakeFiles/gmock_main.dir/build.make
+lib/libgmock_main.a: gtest_build/googlemock/CMakeFiles/gmock_main.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library ../../lib/libgmock_main.a"
+	cd /pfs/wukeliang/KLiteInfer/test/build/gtest_build/googlemock && $(CMAKE_COMMAND) -P CMakeFiles/gmock_main.dir/cmake_clean_target.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build/gtest_build/googlemock && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gmock_main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-gtest_build/googlemock/CMakeFiles/gmock_main.dir/build: lib/libgmock_main.so
+gtest_build/googlemock/CMakeFiles/gmock_main.dir/build: lib/libgmock_main.a
 .PHONY : gtest_build/googlemock/CMakeFiles/gmock_main.dir/build
 
 gtest_build/googlemock/CMakeFiles/gmock_main.dir/clean:
-	cd /usr/kl/test/build/gtest_build/googlemock && $(CMAKE_COMMAND) -P CMakeFiles/gmock_main.dir/cmake_clean.cmake
+	cd /pfs/wukeliang/KLiteInfer/test/build/gtest_build/googlemock && $(CMAKE_COMMAND) -P CMakeFiles/gmock_main.dir/cmake_clean.cmake
 .PHONY : gtest_build/googlemock/CMakeFiles/gmock_main.dir/clean
 
 gtest_build/googlemock/CMakeFiles/gmock_main.dir/depend:
-	cd /usr/kl/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /usr/kl/test /usr/kl/googletest/googlemock /usr/kl/test/build /usr/kl/test/build/gtest_build/googlemock /usr/kl/test/build/gtest_build/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake --color=$(COLOR)
+	cd /pfs/wukeliang/KLiteInfer/test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /pfs/wukeliang/KLiteInfer/test /pfs/wukeliang/googletest/googlemock /pfs/wukeliang/KLiteInfer/test/build /pfs/wukeliang/KLiteInfer/test/build/gtest_build/googlemock /pfs/wukeliang/KLiteInfer/test/build/gtest_build/googlemock/CMakeFiles/gmock_main.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : gtest_build/googlemock/CMakeFiles/gmock_main.dir/depend
 

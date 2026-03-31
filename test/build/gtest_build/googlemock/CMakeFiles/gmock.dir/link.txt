@@ -1,1 +1,2 @@
-/usr/bin/c++ -fPIC -shared -Wl,-soname,libgmock.so.1.16.0 -o ../../lib/libgmock.so.1.16.0 CMakeFiles/gmock.dir/src/gmock-all.cc.o  -Wl,-rpath,/usr/kl/test/build/lib: ../../lib/libgtest.so.1.16.0 
+/usr/bin/ar qc ../../lib/libgmock.a CMakeFiles/gmock.dir/src/gmock-all.cc.o
+/usr/bin/ranlib ../../lib/libgmock.a

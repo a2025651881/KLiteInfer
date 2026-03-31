@@ -2876,6 +2876,8 @@ Mat<eT>::operator+=(const SpBase<eT, T1>& m)
   
   arma_conform_assert_same_size(n_rows, n_cols, p.get_n_rows(), p.get_n_cols(), "addition");
   
+  if(p.get_n_nonzero() == 0)  { return *this; }
+  
   typename SpProxy<T1>::const_iterator_type it     = p.begin();
   typename SpProxy<T1>::const_iterator_type it_end = p.end();
   
@@ -2898,6 +2900,8 @@ Mat<eT>::operator-=(const SpBase<eT, T1>& m)
   
   arma_conform_assert_same_size(n_rows, n_cols, p.get_n_rows(), p.get_n_cols(), "subtraction");
   
+  if(p.get_n_nonzero() == 0)  { return *this; }
+  
   typename SpProxy<T1>::const_iterator_type it     = p.begin();
   typename SpProxy<T1>::const_iterator_type it_end = p.end();
   
@@ -2916,9 +2920,9 @@ Mat<eT>::operator*=(const SpBase<eT, T1>& m)
   {
   arma_debug_sigprint();
   
-  Mat<eT> z = (*this) * m.get_ref();
+  Mat<eT> tmp = (*this) * m.get_ref();
   
-  steal_mem(z);
+  steal_mem(tmp);
   
   return *this;
   }
@@ -7475,7 +7479,7 @@ arma_inline
 eT*
 Mat<eT>::colptr(const uword in_col)
   {
-  return & access::rw(mem[in_col*n_rows]);
+  return access::rwp( mem + (in_col*n_rows) );
   }
 
 
@@ -7486,7 +7490,7 @@ arma_inline
 const eT*
 Mat<eT>::colptr(const uword in_col) const
   {
-  return & mem[in_col*n_rows];
+  return mem + (in_col*n_rows);
   }
 
 
@@ -10541,7 +10545,7 @@ Mat<eT>::fixed<fixed_n_rows, fixed_n_cols>::colptr(const uword in_col)
   {
   eT* mem_actual = (use_extra) ? mem_local_extra : mem_local;
   
-  return & access::rw(mem_actual[in_col*fixed_n_rows]);
+  return access::rwp( mem_actual + (in_col*fixed_n_rows) );
   }
 
 
@@ -10554,7 +10558,7 @@ Mat<eT>::fixed<fixed_n_rows, fixed_n_cols>::colptr(const uword in_col) const
   {
   const eT* mem_actual = (use_extra) ? mem_local_extra : mem_local;
   
-  return & mem_actual[in_col*fixed_n_rows];
+  return mem_actual + (in_col*fixed_n_rows);
   }
 
 

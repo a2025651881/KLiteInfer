@@ -8,13 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/usr/kl/glog/src/symbolize_unittest.cc" "glog_build/CMakeFiles/symbolize_unittest.dir/src/symbolize_unittest.cc.o" "gcc" "glog_build/CMakeFiles/symbolize_unittest.dir/src/symbolize_unittest.cc.o.d"
+  "/pfs/wukeliang/glog/src/symbolize_unittest.cc" "glog_build/CMakeFiles/symbolize_unittest.dir/src/symbolize_unittest.cc.o" "gcc" "glog_build/CMakeFiles/symbolize_unittest.dir/src/symbolize_unittest.cc.o.d"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/usr/kl/test/build/gtest_build/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake"
-  "/usr/kl/test/build/gtest_build/googletest/CMakeFiles/gtest.dir/DependInfo.cmake"
+  "/pfs/wukeliang/KLiteInfer/test/build/gtest_build/googlemock/CMakeFiles/gmock.dir/DependInfo.cmake"
+  "/pfs/wukeliang/KLiteInfer/test/build/gtest_build/googletest/CMakeFiles/gtest.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

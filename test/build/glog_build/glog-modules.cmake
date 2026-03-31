@@ -6,7 +6,7 @@ if (CMAKE_VERSION VERSION_LESS 3.3)
     "to use CMake 3.3 (or newer)")
 endif (CMAKE_VERSION VERSION_LESS 3.3)
 
-set (glog_MODULE_PATH "/usr/kl/test/build/glog_build/share/glog/cmake")
+set (glog_MODULE_PATH "/pfs/wukeliang/KLiteInfer/test/build/glog_build/share/glog/cmake")
 list (APPEND CMAKE_MODULE_PATH ${glog_MODULE_PATH})
 
 if (NOT glog_MODULE_PATH IN_LIST CMAKE_MODULE_PATH)

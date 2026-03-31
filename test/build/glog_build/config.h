@@ -23,7 +23,7 @@
 #define HAVE_LIB_GMOCK
 
 /* define if you have google gtest library */
-/* #undef HAVE_LIB_GTEST */
+#define HAVE_LIB_GTEST
 
 /* define if you have dbghelp library */
 /* #undef HAVE_DBGHELP */
@@ -119,7 +119,7 @@
 #define SIZEOF_VOID_P 8
 
 /* location of source code */
-#define TEST_SRC_DIR "/usr/kl/glog"
+#define TEST_SRC_DIR "/pfs/wukeliang/glog"
 
 /* Define if thread-local storage is enabled. */
 #define GLOG_THREAD_LOCAL_STORAGE

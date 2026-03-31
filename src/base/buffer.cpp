@@ -1,5 +1,5 @@
 #include "base/buffer.h"
-#include <logging.h>
+#include <glog/logging.h>
 #include "base/alloc.h"
 
 namespace base {

@@ -1,5 +1,5 @@
-#include "alloc.h"
-#include <logging.h>
+#include "base/alloc.h"
+#include <glog/logging.h>
 #include <cuda_runtime.h>
 using namespace std;
 namespace base {

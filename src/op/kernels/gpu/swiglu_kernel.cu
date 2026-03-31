@@ -11,8 +11,8 @@ __global__ void swiglu_kernel_cu_fp32(int size,const float* input1,const float* 
   float* smem1 = shared_mem;
   float* smem2 = shared_mem + blockDim.x;
 
-  smem1[tid] = in1[idx];
-  smem2[tid] = in2[idx];
+  smem1[tid] = input1[idx];
+  smem2[tid] = input2[idx];
   __syncthreads();
 
   float value = 1.0f / (1.0f + exp(-smem1[tid]));

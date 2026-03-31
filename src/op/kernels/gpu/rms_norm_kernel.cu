@@ -1,6 +1,6 @@
 #include <device_launch_parameters.h>
 #include <cub/block/block_reduce.cuh>
-#include "rmsnorm_kernel.cuh"
+#include "rms_norm_kernel.cuh"
 using namespace kernel{
 static __global__ void row_rmsnorm_fp32_dim(float* in,float* wei,float* out,int dim_size,int size,float rps){
     int block_idx = blockIdx.x;

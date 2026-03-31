@@ -1,6 +1,6 @@
 glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.o: \
- /usr/kl/glog/examples/custom_sink.cc /usr/include/stdc-predef.h \
- /usr/kl/glog/src/glog/logging.h /usr/include/c++/11/atomic \
+ /pfs/wukeliang/glog/examples/custom_sink.cc /usr/include/stdc-predef.h \
+ /pfs/wukeliang/glog/src/glog/logging.h /usr/include/c++/11/atomic \
  /usr/include/c++/11/bits/atomic_base.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -177,10 +177,12 @@ glog_build/CMakeFiles/custom_sink_example.dir/examples/custom_sink.cc.o: \
  /usr/include/c++/11/bits/stl_vector.h \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
- /usr/kl/test/build/glog_build/glog/export.h \
- /usr/kl/glog/src/glog/flags.h /usr/kl/glog/src/glog/platform.h \
- /usr/kl/glog/src/glog/types.h /usr/kl/glog/src/glog/log_severity.h \
- /usr/kl/glog/src/glog/vlog_is_on.h /usr/include/c++/11/algorithm \
+ /pfs/wukeliang/KLiteInfer/test/build/glog_build/glog/export.h \
+ /pfs/wukeliang/glog/src/glog/flags.h \
+ /pfs/wukeliang/glog/src/glog/platform.h \
+ /pfs/wukeliang/glog/src/glog/types.h \
+ /pfs/wukeliang/glog/src/glog/log_severity.h \
+ /pfs/wukeliang/glog/src/glog/vlog_is_on.h /usr/include/c++/11/algorithm \
  /usr/include/c++/11/bits/stl_algo.h \
  /usr/include/c++/11/bits/algorithmfwd.h \
  /usr/include/c++/11/bits/stl_heap.h \

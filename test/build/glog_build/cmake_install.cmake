@@ -1,4 +1,4 @@
-# Install script for directory: /usr/kl/glog
+# Install script for directory: /pfs/wukeliang/glog
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,8 +44,8 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libglog.so.0.8.0"
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libglog.so.3"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglog.so.0.8.0"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglog.so.3"
       )
     if(EXISTS "${file}" AND
        NOT IS_SYMLINK "${file}")
@@ -54,13 +54,13 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
            RPATH "")
     endif()
   endforeach()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu" TYPE SHARED_LIBRARY FILES
-    "/usr/kl/test/build/glog_build/libglog.so.0.8.0"
-    "/usr/kl/test/build/glog_build/libglog.so.3"
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES
+    "/pfs/wukeliang/KLiteInfer/test/build/glog_build/libglog.so.0.8.0"
+    "/pfs/wukeliang/KLiteInfer/test/build/glog_build/libglog.so.3"
     )
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libglog.so.0.8.0"
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libglog.so.3"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglog.so.0.8.0"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglog.so.3"
       )
     if(EXISTS "${file}" AND
        NOT IS_SYMLINK "${file}")
@@ -72,80 +72,80 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libglog.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libglog.so")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglog.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglog.so")
     file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libglog.so"
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglog.so"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu" TYPE SHARED_LIBRARY FILES "/usr/kl/test/build/glog_build/libglog.so")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libglog.so" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libglog.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/pfs/wukeliang/KLiteInfer/test/build/glog_build/libglog.so")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglog.so" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglog.so")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/libglog.so")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libglog.so")
     endif()
   endif()
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/glog" TYPE FILE FILES
-    "/usr/kl/test/build/glog_build/glog/export.h"
-    "/usr/kl/glog/src/glog/log_severity.h"
-    "/usr/kl/glog/src/glog/logging.h"
-    "/usr/kl/glog/src/glog/platform.h"
-    "/usr/kl/glog/src/glog/raw_logging.h"
-    "/usr/kl/glog/src/glog/stl_logging.h"
-    "/usr/kl/glog/src/glog/types.h"
-    "/usr/kl/glog/src/glog/flags.h"
-    "/usr/kl/glog/src/glog/vlog_is_on.h"
+    "/pfs/wukeliang/KLiteInfer/test/build/glog_build/glog/export.h"
+    "/pfs/wukeliang/glog/src/glog/log_severity.h"
+    "/pfs/wukeliang/glog/src/glog/logging.h"
+    "/pfs/wukeliang/glog/src/glog/platform.h"
+    "/pfs/wukeliang/glog/src/glog/raw_logging.h"
+    "/pfs/wukeliang/glog/src/glog/stl_logging.h"
+    "/pfs/wukeliang/glog/src/glog/types.h"
+    "/pfs/wukeliang/glog/src/glog/flags.h"
+    "/pfs/wukeliang/glog/src/glog/vlog_is_on.h"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xDevelopmentx" OR NOT CMAKE_INSTALL_COMPONENT)
   
-set (glog_FULL_CMake_DATADIR "\${CMAKE_CURRENT_LIST_DIR}/../../../../share/glog/cmake")
-set (glog_DATADIR_DESTINATION lib/x86_64-linux-gnu/cmake/glog)
+set (glog_FULL_CMake_DATADIR "\${CMAKE_CURRENT_LIST_DIR}/../../../share/glog/cmake")
+set (glog_DATADIR_DESTINATION lib/cmake/glog)
 
-if (NOT IS_ABSOLUTE lib/x86_64-linux-gnu/cmake/glog)
+if (NOT IS_ABSOLUTE lib/cmake/glog)
   set (glog_DATADIR_DESTINATION "${CMAKE_INSTALL_PREFIX}/${glog_DATADIR_DESTINATION}")
-endif (NOT IS_ABSOLUTE lib/x86_64-linux-gnu/cmake/glog)
+endif (NOT IS_ABSOLUTE lib/cmake/glog)
 
-configure_file ("/usr/kl/glog/glog-modules.cmake.in"
-  "/usr/kl/test/build/glog_build/CMakeFiles/CMakeTmp/glog-modules.cmake" @ONLY)
+configure_file ("/pfs/wukeliang/glog/glog-modules.cmake.in"
+  "/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/CMakeTmp/glog-modules.cmake" @ONLY)
 file (INSTALL
-  "/usr/kl/test/build/glog_build/CMakeFiles/CMakeTmp/glog-modules.cmake"
+  "/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/CMakeTmp/glog-modules.cmake"
   DESTINATION
   "${glog_DATADIR_DESTINATION}")
 
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/cmake/glog" TYPE FILE FILES
-    "/usr/kl/test/build/glog_build/glog-config.cmake"
-    "/usr/kl/test/build/glog_build/glog-config-version.cmake"
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/glog" TYPE FILE FILES
+    "/pfs/wukeliang/KLiteInfer/test/build/glog_build/glog-config.cmake"
+    "/pfs/wukeliang/KLiteInfer/test/build/glog_build/glog-config-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xDevelopmentx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/glog" TYPE DIRECTORY FILES "/usr/kl/test/build/glog_build/share/glog/cmake" FILES_MATCHING REGEX "/[^/]*\\.cmake$")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/glog" TYPE DIRECTORY FILES "/pfs/wukeliang/KLiteInfer/test/build/glog_build/share/glog/cmake" FILES_MATCHING REGEX "/[^/]*\\.cmake$")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/cmake/glog/glog-targets.cmake")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/glog/glog-targets.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
-         "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/cmake/glog/glog-targets.cmake"
-         "/usr/kl/test/build/glog_build/CMakeFiles/Export/lib/x86_64-linux-gnu/cmake/glog/glog-targets.cmake")
+         "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/glog/glog-targets.cmake"
+         "/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/Export/lib/cmake/glog/glog-targets.cmake")
     if(EXPORT_FILE_CHANGED)
-      file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/cmake/glog/glog-targets-*.cmake")
+      file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/glog/glog-targets-*.cmake")
       if(OLD_CONFIG_FILES)
-        message(STATUS "Old export file \"$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/cmake/glog/glog-targets.cmake\" will be replaced.  Removing files [${OLD_CONFIG_FILES}].")
+        message(STATUS "Old export file \"$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/glog/glog-targets.cmake\" will be replaced.  Removing files [${OLD_CONFIG_FILES}].")
         file(REMOVE ${OLD_CONFIG_FILES})
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/cmake/glog" TYPE FILE FILES "/usr/kl/test/build/glog_build/CMakeFiles/Export/lib/x86_64-linux-gnu/cmake/glog/glog-targets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/glog" TYPE FILE FILES "/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/Export/lib/cmake/glog/glog-targets.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^()$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/x86_64-linux-gnu/cmake/glog" TYPE FILE FILES "/usr/kl/test/build/glog_build/CMakeFiles/Export/lib/x86_64-linux-gnu/cmake/glog/glog-targets-noconfig.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/glog" TYPE FILE FILES "/pfs/wukeliang/KLiteInfer/test/build/glog_build/CMakeFiles/Export/lib/cmake/glog/glog-targets-noconfig.cmake")
   endif()
 endif()
 

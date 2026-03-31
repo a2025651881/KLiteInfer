@@ -1,9 +1,10 @@
 #ifndef KLiteInfer_INCLUDE_BASE_BUFFER_H_
 #define KLiteInfer_INCLUDE_BASE_BUFFER_H_
 #include <memory>
+#include "base/base.h"
 #include "base/alloc.h"
 namespace base {
-class Buffer : public std::enable_shared_from_this<Buffer> {
+class Buffer : public  NoCopyable std::enable_shared_from_this<Buffer> {
  protected:
   size_t byte_size_ = 0;
   void* ptr_ = nullptr;

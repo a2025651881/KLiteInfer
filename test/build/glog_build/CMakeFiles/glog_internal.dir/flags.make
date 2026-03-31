@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DGLOG_NO_SYMBOLIZE_DETECTION -DGLOG_USE_GLOG_EXPORT -DGOOGLE_GLOG_IS_A_DLL
 
-CXX_INCLUDES = -I/usr/kl/glog/src -I/usr/kl/test/build/glog_build
+CXX_INCLUDES = -I/pfs/wukeliang/glog/src -I/pfs/wukeliang/KLiteInfer/test/build/glog_build
 
-CXX_FLAGS = -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
+CXX_FLAGS = -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -std=gnu++17
 

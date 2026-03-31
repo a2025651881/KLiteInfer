@@ -1,7 +1,8 @@
 #ifndef KELI_INCLUDE_MHA_H
 #define KELI_INCLUDE_MHA_H
 #include <base/cuda_config.h>
-
+#include "base/base.h"
+#include <cstdint>
 namespace op{
     MultiHeadAttention::MultiHeadAttention(base::DeviceType device_type,int32_t layer_index,
                                     int32_t kv_mul,int32_t kv_dim,int32_t seq_len,

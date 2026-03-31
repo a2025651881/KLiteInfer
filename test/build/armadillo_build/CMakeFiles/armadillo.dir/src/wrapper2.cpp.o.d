@@ -1,5 +1,5 @@
 armadillo_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.o: \
- /usr/kl/armadillo/src/wrapper2.cpp /usr/include/stdc-predef.h \
+ /pfs/wukeliang/armadillo/src/wrapper2.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/11/climits \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -170,9 +170,9 @@ armadillo_build/CMakeFiles/armadillo.dir/src/wrapper2.cpp.o: \
  /usr/include/c++/11/bits/ostream.tcc \
  /usr/include/c++/11/bits/istream.tcc \
  /usr/include/c++/11/bits/sstream.tcc \
- /usr/kl/test/build/armadillo_build/tmp/include/armadillo_bits/config.hpp \
- /usr/kl/test/build/armadillo_build/tmp/include/armadillo_bits/compiler_setup.hpp \
- /usr/kl/test/build/armadillo_build/tmp/include/armadillo_bits/typedef_elem.hpp \
- /usr/kl/test/build/armadillo_build/tmp/include/armadillo_bits/def_blas.hpp \
- /usr/kl/test/build/armadillo_build/tmp/include/armadillo_bits/def_lapack.hpp \
- /usr/kl/test/build/armadillo_build/tmp/include/armadillo_bits/def_arpack.hpp
+ /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tmp/include/armadillo_bits/config.hpp \
+ /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tmp/include/armadillo_bits/compiler_setup.hpp \
+ /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tmp/include/armadillo_bits/typedef_elem.hpp \
+ /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tmp/include/armadillo_bits/def_blas.hpp \
+ /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tmp/include/armadillo_bits/def_lapack.hpp \
+ /pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tmp/include/armadillo_bits/def_arpack.hpp
