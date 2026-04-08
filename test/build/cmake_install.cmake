@@ -47,6 +47,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/pfs/wukeliang/KLiteInfer/test/build/gtest_build/cmake_install.cmake")
   include("/pfs/wukeliang/KLiteInfer/test/build/glog_build/cmake_install.cmake")
   include("/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/cmake_install.cmake")
+  include("/pfs/wukeliang/KLiteInfer/test/build/sentencepiece_build/cmake_install.cmake")
 
 endif()
 

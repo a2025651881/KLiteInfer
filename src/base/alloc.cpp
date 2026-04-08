@@ -1,108 +1,62 @@
 #include "base/alloc.h"
-#include <glog/logging.h>
-#include <cuda_runtime.h>
-using namespace std;
+#include <cuda_runtime_api.h>
 namespace base {
-bool DeviceAllocator::memcpy(void* dest, const void* src, size_t count, MemcpyKind kind,cudaStream_t stream,bool async) {
-    // Base implementation of memory copy, can be overridden by derived classes
-    if(dest == nullptr || src == nullptr || count < 0){
-        return false;
-    }
-    if(count == 0){
-        return true; // No data to copy, consider it a success
-    }
+void DeviceAllocator::memcpy(const void* src_ptr, void* dest_ptr, size_t byte_size,
+                             MemcpyKind memcpy_kind, void* stream, bool need_sync) const {
+  CHECK_NE(src_ptr, nullptr);
+  CHECK_NE(dest_ptr, nullptr);
+  if (!byte_size) {
+    return;
+  }
 
-
-    switch (kind)
-    {
-        case MemcpyKind::HostToHost:
-            std::memcpy(dest, src, count);
-            return true;
-        case MemcpyKind::HostToDevice:
-        case MemcpyKind::DeviceToHost:
-        case MemcpyKind::DeviceToDevice:{
-            cudaMemcpyKind cudaKind;
-            switch (kind)
-            {
-                case MemcpyKind::HostToDevice:
-                    cudaKind = cudaMemcpyHostToDevice;
-                    break;
-                case MemcpyKind::DeviceToHost:
-                    cudaKind = cudaMemcpyDeviceToHost;
-                    break;
-                case MemcpyKind::DeviceToDevice:
-                    cudaKind = cudaMemcpyDeviceToDevice;
-                    break;
-                default:
-                    return false; // Should never reach here
-            }
-            // 如果stream不为空则使用stream异步拷贝，否则使用同步拷贝
-            cudaError_t errn=cudaSuccess;
-            if(stream != nullptr){
-                errn = cudaMemcpyAsync(dest, src, count, cudaKind, stream);
-            }else {
-                errn = cudaMemcpy(dest, src, count, cudaKind);
-            }
-            if (errn != cudaSuccess) {
-                LOG(ERROR) << "CUDA memcpy failed: " << cudaGetErrorString(errn);
-                return false;
-            }
-            break;
-        }
-        default:
-            // Other kinds of memory copy not supported in base allocator
-            LOG(ERROR) << "Unsupported MemcpyKind: " << static_cast<int>(kind);
-            return false;
-        }
-
-    // If async is true, we need to synchronize to ensure the copy is complete before returning
-    if(async){
-        cudaError_t err = cudaDeviceSynchronize();
-        if (err != cudaSuccess) {
-            LOG(ERROR) << "CUDA async memcpy synchronization failed: " << cudaGetErrorString(err);
-            return false;
-        }
-    return true;
+  cudaStream_t stream_ = nullptr;
+  if (stream) {
+    stream_ = static_cast<CUstream_st*>(stream);
+  }
+  if (memcpy_kind == MemcpyKind::kMemcpyCPU2CPU) {
+    std::memcpy(dest_ptr, src_ptr, byte_size);
+  } else if (memcpy_kind == MemcpyKind::kMemcpyCPU2CUDA) {
+    if (!stream_) {
+      cudaMemcpy(dest_ptr, src_ptr, byte_size, cudaMemcpyHostToDevice);
+    } else {
+      cudaMemcpyAsync(dest_ptr, src_ptr, byte_size, cudaMemcpyHostToDevice, stream_);
     }
-    return false;
+  } else if (memcpy_kind == MemcpyKind::kMemcpyCUDA2CPU) {
+    if (!stream_) {
+      cudaMemcpy(dest_ptr, src_ptr, byte_size, cudaMemcpyDeviceToHost);
+    } else {
+      cudaMemcpyAsync(dest_ptr, src_ptr, byte_size, cudaMemcpyDeviceToHost, stream_);
+    }
+  } else if (memcpy_kind == MemcpyKind::kMemcpyCUDA2CUDA) {
+    if (!stream_) {
+      cudaMemcpy(dest_ptr, src_ptr, byte_size, cudaMemcpyDeviceToDevice);
+    } else {
+      cudaMemcpyAsync(dest_ptr, src_ptr, byte_size, cudaMemcpyDeviceToDevice, stream_);
+    }
+  } else {
+    LOG(FATAL) << "Unknown memcpy kind: " << int(memcpy_kind);
+  }
+  if (need_sync) {
+    cudaDeviceSynchronize();
+  }
 }
 
-bool DeviceAllocator::memsetZero(void* dest, size_t count,DeviceType deviceType,cudaStream_t stream,bool async) {
-    // Base implementation of memory set to zero, can be overridden by derived classes
-    if(dest == nullptr || count <= 0){
-        LOG(ERROR) << "Invalid parameters for memsetZero: dest=" << dest << ", count=" << count;
-        return false;
+void DeviceAllocator::memset_zero(void* ptr, size_t byte_size, void* stream,
+                                  bool need_sync) {
+  CHECK(device_type_ != base::DeviceType::kDeviceUnknown);
+  if (device_type_ == base::DeviceType::kDeviceCPU) {
+    std::memset(ptr, 0, byte_size);
+  } else {
+    if (stream) {
+      cudaStream_t stream_ = static_cast<cudaStream_t>(stream);
+      cudaMemsetAsync(ptr, 0, byte_size, stream_);
+    } else {
+      cudaMemset(ptr, 0, byte_size);
     }
-    switch (deviceType)
-    {
-        case DeviceType::CPU:
-            memset(dest, 0, count);
-            return true;
-        case DeviceType::GPU:{
-            cudaError_t errn=cudaSuccess;
-            if(stream != nullptr){
-                errn = cudaMemsetAsync(dest, 0, count, stream);
-            }else {
-                errn = cudaMemset(dest, 0, count);
-            }
-            if (errn != cudaSuccess) {
-                LOG(ERROR) << "CUDA async memset failed: " << cudaGetErrorString(errn);
-                return false;
-            }
-            if(async){
-                cudaError_t err = cudaDeviceSynchronize();
-                if (err != cudaSuccess) {
-                    LOG(ERROR) << "CUDA async memset synchronization failed: " << cudaGetErrorString(err);
-                    return false;
-                }
-            }
-        return true;
-        }
-    default:
-        LOG(ERROR) << "Unsupported DeviceType for memsetZero: " << static_cast<int>(deviceType);
-        return false;
+    if (need_sync) {
+      cudaDeviceSynchronize();
     }
-    return false;
-}
+  }
 }
 
+}  // namespace base

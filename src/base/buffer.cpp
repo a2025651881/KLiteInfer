@@ -1,148 +1,130 @@
 #include "base/buffer.h"
 #include <glog/logging.h>
-#include "base/alloc.h"
 
 namespace base {
-Buffer::Buffer(size_t byte_size, std::shared_ptr<DeviceAllocator> allocator, void* ptr, bool use_external)
-            : byte_size_(byte_size), allocator_(allocator), use_external_(use_external), ptr_(ptr) {
-        if(!ptr && allocator){
-            device_type_ = allocator->device_type();
-            use_external_ = false;
-            byte_size_ = byte_size;
-            ptr_ = allocator->allocate(byte_size);
-        }
-    }
+Buffer::Buffer(size_t byte_size, std::shared_ptr<DeviceAllocator> allocator, void* ptr,
+               bool use_external)
+    : byte_size_(byte_size),
+      allocator_(allocator),
+      ptr_(ptr),
+      use_external_(use_external) {
+  if (!ptr_ && allocator_) {
+    device_type_ = allocator_->device_type();
+    use_external_ = false;
+    ptr_ = allocator_->allocate(byte_size);
+  }
+}
+
 Buffer::~Buffer() {
-        if (!use_external_) {
-            allocator_->release(ptr_);
-        }
+  if (!use_external_) {
+    if (ptr_ && allocator_) {
+      allocator_->release(ptr_);
+      ptr_ = nullptr;
     }
+  }
+}
+
+void* Buffer::ptr() {
+  return ptr_;
+}
+
+const void* Buffer::ptr() const {
+  return ptr_;
+}
+
+size_t Buffer::byte_size() const {
+  return byte_size_;
+}
 
 bool Buffer::allocate() {
-    if (allocator_ && byte_size_ > 0) {
-        use_external_ = false; // Ensure we are not using external memory
-        ptr_ = allocator_->allocate(byte_size_);
-        if(ptr_ == nullptr){
-            LOG(ERROR) << "Buffer allocation failed for size: " << byte_size_;
-            return false;
-        }
-        return true; // Already allocated
-    }else {
-        return false; // No allocator or invalid size
+  if (allocator_ && byte_size_ != 0) {
+    use_external_ = false;
+    ptr_ = allocator_->allocate(byte_size_);
+    if (!ptr_) {
+      return false;
+    } else {
+      return true;
     }
+  } else {
+    return false;
+  }
 }
 
-void Buffer::copy_from(const Buffer& buffer) const{
-    if (this->allocator_ && buffer.allocator_) {
-        DeviceType src_device = buffer.device_type();
-        DeviceType dst_device = this->device_type();
-        switch (src_device) {
-            case DeviceType::CPU:
-                switch (dst_device) {
-                    case DeviceType::CPU:
-                        allocator_->memcpy(this->ptr_, buffer.ptr(), byte_size_, MemcpyKind::HostToHost);
-                        break;
-                    case DeviceType::GPU:
-                        allocator_->memcpy(this->ptr_, buffer.ptr(), byte_size_, MemcpyKind::HostToDevice);
-                        break;
-                    default:
-                        LOG(ERROR) << "Unsupported destination device type for copy_from";
-                        return;
-                }
-                break;
-            case DeviceType::GPU:
-                switch (dst_device) {
-                    case DeviceType::CPU:
-                        allocator_->memcpy(ptr_, buffer.ptr(), byte_size_, MemcpyKind::DeviceToHost);
-                        break;
-                    case DeviceType::GPU:
-                        allocator_->memcpy(ptr_, buffer.ptr(), byte_size_, MemcpyKind::DeviceToDevice);
-                        break;
-                    default:
-                        LOG(ERROR) << "Unsupported destination device type for copy_from";
-                        return;
-                }
-                break;
-            default:
-                LOG(ERROR) << "Unsupported source device type for copy_from";
-                return;
-        }
-    } else {
-        LOG(ERROR) << "Cannot copy from buffer: allocator is null";
-    }    
+std::shared_ptr<DeviceAllocator> Buffer::allocator() const {
+  return allocator_;
 }
 
-  void Buffer::copy_from(const Buffer* buffer) const{
-    if (this->allocator_ && buffer->allocator_) {
-        DeviceType src_device = buffer->device_type();
-        DeviceType dst_device = device_type_;
-        switch (src_device) {
-            case DeviceType::CPU:
-                switch (dst_device) {
-                    case DeviceType::CPU:
-                        allocator_->memcpy(ptr_, buffer->ptr(), byte_size_, MemcpyKind::HostToHost);
-                        break;
-                    case DeviceType::GPU:
-                        allocator_->memcpy(ptr_, buffer->ptr(), byte_size_, MemcpyKind::HostToDevice);
-                        break;
-                    default:
-                        LOG(ERROR) << "Unsupported destination device type for copy_from";
-                        return;
-                }
-                break;
-            case DeviceType::GPU:
-                switch (dst_device) {
-                    case DeviceType::CPU:   
-                        allocator_->memcpy(ptr_, buffer->ptr(), byte_size_, MemcpyKind::DeviceToHost);
-                        break;
-                    case DeviceType::GPU:
-                        allocator_->memcpy(ptr_, buffer->ptr(), byte_size_, MemcpyKind::DeviceToDevice);
-                        break;
-                    default:
-                        LOG(ERROR) << "Unsupported destination device type for copy_from";
-                        return;
-                }
-                break;
-            default:
-                LOG(ERROR) << "Unsupported source device type for copy_from";
-                return;
-        }
+void Buffer::copy_from(const Buffer& buffer) const {
+  CHECK(allocator_ != nullptr);
+  CHECK(buffer.ptr_ != nullptr);
 
-        allocator_->memcpy(ptr_, buffer->ptr(), byte_size_, MemcpyKind::DeviceToDevice);
-    } else {
-        LOG(ERROR) << "Cannot copy from buffer: allocator is null";
-    }   
-  }
+  size_t byte_size = byte_size_ < buffer.byte_size_ ? byte_size_ : buffer.byte_size_;
+  const DeviceType& buffer_device = buffer.device_type();
+  const DeviceType& current_device = this->device_type();
+  CHECK(buffer_device != DeviceType::kDeviceUnknown &&
+        current_device != DeviceType::kDeviceUnknown);
 
-  void* Buffer::ptr() {
-        return ptr_;
+  if (buffer_device == DeviceType::kDeviceCPU &&
+      current_device == DeviceType::kDeviceCPU) {
+    return allocator_->memcpy(buffer.ptr(), this->ptr_, byte_size);
+  } else if (buffer_device == DeviceType::kDeviceCUDA &&
+             current_device == DeviceType::kDeviceCPU) {
+    return allocator_->memcpy(buffer.ptr(), this->ptr_, byte_size,
+                              MemcpyKind::kMemcpyCUDA2CPU);
+  } else if (buffer_device == DeviceType::kDeviceCPU &&
+             current_device == DeviceType::kDeviceCUDA) {
+    return allocator_->memcpy(buffer.ptr(), this->ptr_, byte_size,
+                              MemcpyKind::kMemcpyCPU2CUDA);
+  } else {
+    return allocator_->memcpy(buffer.ptr(), this->ptr_, byte_size,
+                              MemcpyKind::kMemcpyCUDA2CUDA);
   }
-
-  const void* Buffer::ptr() const {
-        return ptr_;
-  }
-
-  size_t Buffer::byte_size() const {
-        return byte_size_;
-  }
-
-  std::shared_ptr<DeviceAllocator> Buffer::allocator() const {
-        return allocator_;
-  }
-
-  DeviceType Buffer::device_type() const {
-        return device_type_;
-  }
-  void Buffer::set_device_type(DeviceType device_type){
-        device_type_ = device_type;
-  }
-
-  std::shared_ptr<Buffer> Buffer::get_shared_from_this() {
-    return shared_from_this();
-  }
-
-  bool Buffer::is_external() const {
-    return this->use_external_;
-  }
-
 }
+
+void Buffer::copy_from(const Buffer* buffer) const {
+  CHECK(allocator_ != nullptr);
+  CHECK(buffer != nullptr || buffer->ptr_ != nullptr);
+
+  size_t dest_size = byte_size_;
+  size_t src_size = buffer->byte_size_;
+  size_t byte_size = src_size < dest_size ? src_size : dest_size;
+
+  const DeviceType& buffer_device = buffer->device_type();
+  const DeviceType& current_device = this->device_type();
+  CHECK(buffer_device != DeviceType::kDeviceUnknown &&
+        current_device != DeviceType::kDeviceUnknown);
+
+  if (buffer_device == DeviceType::kDeviceCPU &&
+      current_device == DeviceType::kDeviceCPU) {
+    return allocator_->memcpy(buffer->ptr_, this->ptr_, byte_size);
+  } else if (buffer_device == DeviceType::kDeviceCUDA &&
+             current_device == DeviceType::kDeviceCPU) {
+    return allocator_->memcpy(buffer->ptr_, this->ptr_, byte_size,
+                              MemcpyKind::kMemcpyCUDA2CPU);
+  } else if (buffer_device == DeviceType::kDeviceCPU &&
+             current_device == DeviceType::kDeviceCUDA) {
+    return allocator_->memcpy(buffer->ptr_, this->ptr_, byte_size,
+                              MemcpyKind::kMemcpyCPU2CUDA);
+  } else {
+    return allocator_->memcpy(buffer->ptr_, this->ptr_, byte_size,
+                              MemcpyKind::kMemcpyCUDA2CUDA);
+  }
+}
+
+DeviceType Buffer::device_type() const {
+  return device_type_;
+}
+
+void Buffer::set_device_type(DeviceType device_type) {
+  device_type_ = device_type;
+}
+
+std::shared_ptr<Buffer> Buffer::get_shared_from_this() {
+  return shared_from_this();
+}
+
+bool Buffer::is_external() const {
+  return this->use_external_;
+}
+
+}  // namespace base

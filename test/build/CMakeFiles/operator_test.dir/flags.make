@@ -5,13 +5,13 @@
 # compile CXX with /usr/bin/c++
 CUDA_DEFINES = -DGLOG_USE_GLOG_EXPORT -DGOOGLE_GLOG_NO_GTEST_COMPAT=1
 
-CUDA_INCLUDES = -I/pfs/wukeliang/glog/include -I/pfs/wukeliang/armadillo/include -I/pfs/wukeliang/KLiteInfer/include -I/pfs/wukeliang/KLiteInfer/src -I/pfs/wukeliang/KLiteInfer/test/. -I/pfs/wukeliang/KLiteInfer/test/build/glog_build -I/pfs/wukeliang/glog/src -isystem=/pfs/wukeliang/googletest/googletest/include -isystem=/pfs/wukeliang/googletest/googlemock/include -isystem=/usr/local/cuda-12.8/include -isystem=/pfs/wukeliang/googletest/googletest -isystem=/pfs/wukeliang/googletest/googlemock
+CUDA_INCLUDES = -I/pfs/wukeliang/glog/include -I/pfs/wukeliang/armadillo/include -I/pfs/wukeliang/KLiteInfer/include -I/pfs/wukeliang/KLiteInfer/src -I/pfs/wukeliang/KLiteInfer/test/. -I/pfs/wukeliang/KLiteInfer/test/build/glog_build -I/pfs/wukeliang/glog/src -I/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tmp/include -isystem=/pfs/wukeliang/googletest/googletest/include -isystem=/pfs/wukeliang/googletest/googlemock/include -isystem=/usr/local/cuda-12.8/include -isystem=/pfs/wukeliang/googletest/googletest -isystem=/pfs/wukeliang/googletest/googlemock
 
 CUDA_FLAGS = -std=c++17
 
 CXX_DEFINES = -DGLOG_USE_GLOG_EXPORT -DGOOGLE_GLOG_NO_GTEST_COMPAT=1
 
-CXX_INCLUDES = -I/pfs/wukeliang/glog/include -I/pfs/wukeliang/armadillo/include -I/pfs/wukeliang/KLiteInfer/include -I/pfs/wukeliang/KLiteInfer/src -I/pfs/wukeliang/KLiteInfer/test/. -I/pfs/wukeliang/KLiteInfer/test/build/glog_build -I/pfs/wukeliang/glog/src -isystem /pfs/wukeliang/googletest/googletest/include -isystem /pfs/wukeliang/googletest/googlemock/include -isystem /usr/local/cuda-12.8/include -isystem /pfs/wukeliang/googletest/googletest -isystem /pfs/wukeliang/googletest/googlemock
+CXX_INCLUDES = -I/pfs/wukeliang/glog/include -I/pfs/wukeliang/armadillo/include -I/pfs/wukeliang/KLiteInfer/include -I/pfs/wukeliang/KLiteInfer/src -I/pfs/wukeliang/KLiteInfer/test/. -I/pfs/wukeliang/KLiteInfer/test/build/glog_build -I/pfs/wukeliang/glog/src -I/pfs/wukeliang/KLiteInfer/test/build/armadillo_build/tmp/include -isystem /pfs/wukeliang/googletest/googletest/include -isystem /pfs/wukeliang/googletest/googlemock/include -isystem /usr/local/cuda-12.8/include -isystem /pfs/wukeliang/googletest/googletest -isystem /pfs/wukeliang/googletest/googlemock
 
 CXX_FLAGS = -std=gnu++17
 

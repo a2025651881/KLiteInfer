@@ -1,23 +1,40 @@
-#include "base/alloc.h"
 #include <glog/logging.h>
+#include <cstdlib>
+#include "base/alloc.h"
+
+#if (defined(_POSIX_ADVISORY_INFO) && (_POSIX_ADVISORY_INFO >= 200112L))
+#define KUIPER_HAVE_POSIX_MEMALIGN
+#endif
+
 namespace base {
-void* CPUAllocator::allocate(size_t size){
-    // Implementation of CPU memory allocation
-    if(size <= 0){
-        LOG(ERROR) << "Invalid size for CPU memory allocation: " << size;
-        return nullptr;
-    }
-    void* ptr = malloc(size);
-    CHECK_EQ(ptr, nullptr) << "CPU memory allocation failed for size: " << size;
-    return ptr;
+CPUDeviceAllocator::CPUDeviceAllocator() : DeviceAllocator(DeviceType::kDeviceCPU) {
 }
-bool CPUAllocator::release(void* ptr) {
-    // Implementation of CPU memory release
-    if (!ptr)
-    {
-        return false;
-    }
+
+void* CPUDeviceAllocator::allocate(size_t byte_size) const {
+  if (!byte_size) {
+    return nullptr;
+  }
+#ifdef KUIPER_HAVE_POSIX_MEMALIGN
+  void* data = nullptr;
+  const size_t alignment = (byte_size >= size_t(1024)) ? size_t(32) : size_t(16);
+  int status = posix_memalign((void**)&data,
+                              ((alignment >= sizeof(void*)) ? alignment : sizeof(void*)),
+                              byte_size);
+  if (status != 0) {
+    return nullptr;
+  }
+  return data;
+#else
+  void* data = malloc(byte_size);
+  return data;
+#endif
+}
+
+void CPUDeviceAllocator::release(void* ptr) const {
+  if (ptr) {
     free(ptr);
-    return true;
+  }
 }
-}
+
+std::shared_ptr<CPUDeviceAllocator> CPUDeviceAllocatorFactory::instance = nullptr;
+}  // namespace base

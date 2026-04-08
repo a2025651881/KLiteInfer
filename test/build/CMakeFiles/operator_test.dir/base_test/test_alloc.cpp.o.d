@@ -1,9 +1,16 @@
 CMakeFiles/operator_test.dir/base_test/test_alloc.cpp.o: \
  /pfs/wukeliang/KLiteInfer/test/base_test/test_alloc.cpp \
- /usr/include/stdc-predef.h /pfs/wukeliang/glog/src/glog/logging.h \
- /usr/include/c++/11/atomic /usr/include/c++/11/bits/atomic_base.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
+ /usr/include/stdc-predef.h \
+ /usr/local/cuda-12.8/include/cuda_runtime_api.h \
+ /usr/local/cuda-12.8/include/crt/host_defines.h \
+ /usr/local/cuda-12.8/include/builtin_types.h \
+ /usr/local/cuda-12.8/include/device_types.h \
+ /usr/local/cuda-12.8/include/driver_types.h \
+ /usr/local/cuda-12.8/include/vector_types.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/include/limits.h \
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
  /usr/include/x86_64-linux-gnu/bits/timesize.h \
@@ -11,10 +18,24 @@ CMakeFiles/operator_test.dir/base_test/test_alloc.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+ /usr/include/linux/limits.h \
+ /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
+ /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/local/cuda-12.8/include/surface_types.h \
+ /usr/local/cuda-12.8/include/texture_types.h \
+ /usr/local/cuda-12.8/include/cuda_device_runtime_api.h \
+ /pfs/wukeliang/glog/src/glog/logging.h /usr/include/c++/11/atomic \
+ /usr/include/c++/11/bits/atomic_base.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
  /usr/include/c++/11/pstl/pstl_config.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/x86_64-linux-gnu/bits/types.h \
  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
  /usr/include/x86_64-linux-gnu/bits/time64.h \
@@ -31,7 +52,6 @@ CMakeFiles/operator_test.dir/base_test/test_alloc.cpp.o: \
  /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
  /usr/include/c++/11/cstdint /usr/include/c++/11/limits \
  /usr/include/c++/11/ctime /usr/include/time.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/time.h \
  /usr/include/x86_64-linux-gnu/bits/timex.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
@@ -126,7 +146,6 @@ CMakeFiles/operator_test.dir/base_test/test_alloc.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
  /usr/include/x86_64-linux-gnu/bits/setjmp.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h \
- /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h \
  /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
  /usr/include/c++/11/ext/concurrence.h /usr/include/c++/11/exception \
@@ -282,18 +301,12 @@ CMakeFiles/operator_test.dir/base_test/test_alloc.cpp.o: \
  /pfs/wukeliang/googletest/googletest/include/gtest/gtest-typed-test.h \
  /pfs/wukeliang/googletest/googletest/include/gtest/gtest_pred_impl.h \
  /pfs/wukeliang/googletest/googletest/include/gtest/gtest_prod.h \
+ /pfs/wukeliang/KLiteInfer/include/tensor/tensor.h \
+ /usr/local/cuda-12.8/include/driver_types.h \
  /pfs/wukeliang/armadillo/include/armadillo \
  /pfs/wukeliang/armadillo/include/armadillo_bits/config.hpp \
  /pfs/wukeliang/armadillo/include/armadillo_bits/compiler_check.hpp \
- /usr/include/c++/11/climits \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
- /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
- /usr/include/x86_64-linux-gnu/bits/local_lim.h \
- /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
- /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
- /usr/include/x86_64-linux-gnu/bits/uio_lim.h /usr/include/c++/11/cmath \
+ /usr/include/c++/11/climits /usr/include/c++/11/cmath \
  /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
@@ -967,36 +980,8 @@ CMakeFiles/operator_test.dir/base_test/test_alloc.cpp.o: \
  /pfs/wukeliang/armadillo/include/armadillo_bits/newarp_UpperHessenbergEigen_meat.hpp \
  /pfs/wukeliang/armadillo/include/armadillo_bits/newarp_UpperHessenbergQR_meat.hpp \
  /pfs/wukeliang/armadillo/include/armadillo_bits/compiler_setup_post.hpp \
- /usr/local/cuda-12.8/include/cuda_runtime.h \
- /usr/local/cuda-12.8/include/crt/host_config.h \
- /usr/local/cuda-12.8/include/builtin_types.h \
- /usr/local/cuda-12.8/include/device_types.h \
- /usr/local/cuda-12.8/include/crt/host_defines.h \
- /usr/local/cuda-12.8/include/driver_types.h \
- /usr/local/cuda-12.8/include/vector_types.h \
- /usr/local/cuda-12.8/include/surface_types.h \
- /usr/local/cuda-12.8/include/texture_types.h \
- /usr/local/cuda-12.8/include/library_types.h \
- /usr/local/cuda-12.8/include/channel_descriptor.h \
- /usr/local/cuda-12.8/include/cuda_runtime_api.h \
- /usr/local/cuda-12.8/include/cuda_device_runtime_api.h \
- /usr/local/cuda-12.8/include/driver_functions.h \
- /usr/local/cuda-12.8/include/vector_functions.h \
- /usr/local/cuda-12.8/include/vector_functions.hpp \
- /pfs/wukeliang/KLiteInfer/include/base/buffer.h \
  /pfs/wukeliang/KLiteInfer/include/base/base.h \
+ /pfs/wukeliang/KLiteInfer/include/base/buffer.h \
  /pfs/wukeliang/KLiteInfer/include/base/alloc.h \
- /pfs/wukeliang/KLiteInfer/include/base/cuda_config.h \
- /usr/local/cuda-12.8/include/cublas_v2.h \
- /usr/local/cuda-12.8/include/cublas_api.h \
- /usr/local/cuda-12.8/include/cuComplex.h /usr/include/c++/11/math.h \
- /usr/local/cuda-12.8/include/cuda_fp16.h \
- /usr/local/cuda-12.8/include/nv/target \
- /usr/local/cuda-12.8/include/nv/detail/__target_macros \
- /usr/local/cuda-12.8/include/nv/detail/__preprocessor \
- /usr/local/cuda-12.8/include/cuda_fp16.hpp \
- /usr/local/cuda-12.8/include/cuda_bf16.h \
- /usr/local/cuda-12.8/include/cuda_fp16.h \
- /usr/local/cuda-12.8/include/cuda_bf16.hpp \
- /usr/local/cuda-12.8/include/library_types.h \
- /usr/local/cuda-12.8/include/cuda_runtime_api.h
+ /pfs/wukeliang/KLiteInfer/include/base/base.h \
+ /pfs/wukeliang/KLiteInfer/test/base_test/../utils.cuh

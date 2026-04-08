@@ -1,4 +1,4 @@
-#include "config/cfg.h"
+#include "config/config.h"
 namespace config {
 // Qwen3 0.6B
 const std::string qwen3_model_path    = "./qwen3-0.6b/model.safetensors";

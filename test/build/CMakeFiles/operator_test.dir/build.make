@@ -111,10 +111,136 @@ CMakeFiles/operator_test.dir/op_test/test_cuda_add.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/op_test/test_cuda_add.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_add.cpp -o CMakeFiles/operator_test.dir/op_test/test_cuda_add.cpp.s
 
+CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.o: ../op_test/test_cuda_emb.cpp
+CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.o -MF CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.o.d -o CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.o -c /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_emb.cpp
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_emb.cpp > CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.i
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_emb.cpp -o CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.s
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.o: ../op_test/test_cuda_matmul.cpp
+CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.o -MF CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.o.d -o CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.o -c /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_matmul.cpp
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_matmul.cpp > CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.i
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_matmul.cpp -o CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.s
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.o: ../op_test/test_cuda_rmsnorm.cpp
+CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.o -MF CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.o.d -o CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.o -c /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_rmsnorm.cpp
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_rmsnorm.cpp > CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.i
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_rmsnorm.cpp -o CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.s
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.o: ../op_test/test_cuda_rope.cpp
+CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.o -MF CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.o.d -o CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.o -c /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_rope.cpp
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_rope.cpp > CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.i
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_rope.cpp -o CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.s
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.o: ../op_test/test_cuda_softmax.cpp
+CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.o -MF CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.o.d -o CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.o -c /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_softmax.cpp
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_softmax.cpp > CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.i
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_softmax.cpp -o CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.s
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.o: ../op_test/test_cuda_swiglu.cpp
+CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.o -MF CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.o.d -o CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.o -c /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_swiglu.cpp
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_swiglu.cpp > CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.i
+
+CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/test/op_test/test_cuda_swiglu.cpp -o CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.s
+
+CMakeFiles/operator_test.dir/op_test/test_scale.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/op_test/test_scale.cpp.o: ../op_test/test_scale.cpp
+CMakeFiles/operator_test.dir/op_test/test_scale.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/operator_test.dir/op_test/test_scale.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/op_test/test_scale.cpp.o -MF CMakeFiles/operator_test.dir/op_test/test_scale.cpp.o.d -o CMakeFiles/operator_test.dir/op_test/test_scale.cpp.o -c /pfs/wukeliang/KLiteInfer/test/op_test/test_scale.cpp
+
+CMakeFiles/operator_test.dir/op_test/test_scale.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/op_test/test_scale.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/test/op_test/test_scale.cpp > CMakeFiles/operator_test.dir/op_test/test_scale.cpp.i
+
+CMakeFiles/operator_test.dir/op_test/test_scale.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/op_test/test_scale.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/test/op_test/test_scale.cpp -o CMakeFiles/operator_test.dir/op_test/test_scale.cpp.s
+
+CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.o: ../tensor_test/test_buffer.cpp
+CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.o -MF CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.o.d -o CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.o -c /pfs/wukeliang/KLiteInfer/test/tensor_test/test_buffer.cpp
+
+CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/test/tensor_test/test_buffer.cpp > CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.i
+
+CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/test/tensor_test/test_buffer.cpp -o CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.s
+
+CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.o: ../tensor_test/test_tenosr.cpp
+CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.o -MF CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.o.d -o CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.o -c /pfs/wukeliang/KLiteInfer/test/tensor_test/test_tenosr.cpp
+
+CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/test/tensor_test/test_tenosr.cpp > CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.i
+
+CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/test/tensor_test/test_tenosr.cpp -o CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.s
+
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o: /pfs/wukeliang/KLiteInfer/src/base/alloc.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o -c /pfs/wukeliang/KLiteInfer/src/base/alloc.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.i: cmake_force
@@ -128,7 +254,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.s: cmak
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.o: /pfs/wukeliang/KLiteInfer/src/base/base.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.o -c /pfs/wukeliang/KLiteInfer/src/base/base.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.i: cmake_force
@@ -142,7 +268,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.s: cmake
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o: /pfs/wukeliang/KLiteInfer/src/base/buffer.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o -c /pfs/wukeliang/KLiteInfer/src/base/buffer.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.i: cmake_force
@@ -156,7 +282,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.s: cma
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o: /pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o -c /pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.i: cmake_force
@@ -170,7 +296,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.s: 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o: /pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o -c /pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.i: cmake_force
@@ -181,10 +307,38 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.s: 
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.s
 
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.o: /pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.o -c /pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.i
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.s
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.o: /pfs/wukeliang/KLiteInfer/src/base/unicode.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.o -c /pfs/wukeliang/KLiteInfer/src/base/unicode.cpp
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/base/unicode.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.i
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/base/unicode.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.s
+
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.o: /pfs/wukeliang/KLiteInfer/src/config/config.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.o -c /pfs/wukeliang/KLiteInfer/src/config/config.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.i: cmake_force
@@ -198,7 +352,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.s: c
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.i: cmake_force
@@ -212,7 +366,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.s: cmak
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/add.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/add.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.i: cmake_force
@@ -226,7 +380,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.s: cmake_fo
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/embedding.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/embedding.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.i: cmake_force
@@ -240,7 +394,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.s: cm
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/encode.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/encode.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.i: cmake_force
@@ -254,7 +408,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.s: cmake
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.i: cmake_force
@@ -265,122 +419,136 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_ker
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.s
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o"
-	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.i
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.s
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o"
-	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.i
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.s
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o"
-	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.i
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.s
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o"
-	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.i
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.s
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o"
-	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.i
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.s
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o"
-	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.i
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.s
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o"
-	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.i
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.s
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o"
-	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.i
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.s
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.i
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.s
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.i: cmake_force
@@ -394,7 +562,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_int
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/layer.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/layer.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.i: cmake_force
@@ -408,7 +576,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.s: cmake_
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/matmul.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/matmul.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.i: cmake_force
@@ -422,7 +590,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.s: cmake
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/mha.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/mha.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.i: cmake_force
@@ -436,7 +604,7 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.s: cmake_fo
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/ropa.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/ropa.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.i: cmake_force
@@ -447,38 +615,24 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.s: cmake_f
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/ropa.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.s
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o: CMakeFiles/operator_test.dir/flags.make
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/swglu.cpp
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/swglu.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.o: /pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.o -c /pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/op/swglu.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.i
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.i
 
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/swglu.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.s
-
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o: CMakeFiles/operator_test.dir/flags.make
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o: /pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o -c /pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp
-
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp > CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.i
-
-CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.s
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.s
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o: CMakeFiles/operator_test.dir/flags.make
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o: /pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o: CMakeFiles/operator_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building CXX object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o.d -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o -c /pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp
 
 CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.i: cmake_force
@@ -489,38 +643,199 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.s: c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.s
 
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.o"
+	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.o
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.o"
+	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.o
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.o"
+	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.o
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.o"
+	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.o
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.o"
+	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.o
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.o"
+	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.o
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.o"
+	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.o
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.o: /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building CUDA object CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.o"
+	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.o -MF CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu -o CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.o
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.o: CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu
+CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building CUDA object CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.o"
+	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.o -MF CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/test/build/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu -o CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.o
+
+CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/operator_test.dir/utils.cu.o: CMakeFiles/operator_test.dir/flags.make
+CMakeFiles/operator_test.dir/utils.cu.o: ../utils.cu
+CMakeFiles/operator_test.dir/utils.cu.o: CMakeFiles/operator_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CUDA object CMakeFiles/operator_test.dir/utils.cu.o"
+	/usr/local/cuda-12.8/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/operator_test.dir/utils.cu.o -MF CMakeFiles/operator_test.dir/utils.cu.o.d -x cu -c /pfs/wukeliang/KLiteInfer/test/utils.cu -o CMakeFiles/operator_test.dir/utils.cu.o
+
+CMakeFiles/operator_test.dir/utils.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/operator_test.dir/utils.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/operator_test.dir/utils.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/operator_test.dir/utils.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
 # Object files for target operator_test
 operator_test_OBJECTS = \
 "CMakeFiles/operator_test.dir/base_test/test_alloc.cpp.o" \
 "CMakeFiles/operator_test.dir/main.cpp.o" \
 "CMakeFiles/operator_test.dir/op_test/test_cuda_add.cpp.o" \
+"CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.o" \
+"CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.o" \
+"CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.o" \
+"CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.o" \
+"CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.o" \
+"CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.o" \
+"CMakeFiles/operator_test.dir/op_test/test_scale.cpp.o" \
+"CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.o" \
+"CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o" \
-"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o" \
-"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o" \
-"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o" \
-"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o" \
-"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o" \
-"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o" \
-"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o" \
-"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o" \
 "CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o" \
-"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o" \
-"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o" \
-"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o"
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.o" \
+"CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.o" \
+"CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.o" \
+"CMakeFiles/operator_test.dir/utils.cu.o"
 
 # External object files for target operator_test
 operator_test_EXTERNAL_OBJECTS =
@@ -528,43 +843,70 @@ operator_test_EXTERNAL_OBJECTS =
 operator_test: CMakeFiles/operator_test.dir/base_test/test_alloc.cpp.o
 operator_test: CMakeFiles/operator_test.dir/main.cpp.o
 operator_test: CMakeFiles/operator_test.dir/op_test/test_cuda_add.cpp.o
+operator_test: CMakeFiles/operator_test.dir/op_test/test_cuda_emb.cpp.o
+operator_test: CMakeFiles/operator_test.dir/op_test/test_cuda_matmul.cpp.o
+operator_test: CMakeFiles/operator_test.dir/op_test/test_cuda_rmsnorm.cpp.o
+operator_test: CMakeFiles/operator_test.dir/op_test/test_cuda_rope.cpp.o
+operator_test: CMakeFiles/operator_test.dir/op_test/test_cuda_softmax.cpp.o
+operator_test: CMakeFiles/operator_test.dir/op_test/test_cuda_swiglu.cpp.o
+operator_test: CMakeFiles/operator_test.dir/op_test/test_scale.cpp.o
+operator_test: CMakeFiles/operator_test.dir/tensor_test/test_buffer.cpp.o
+operator_test: CMakeFiles/operator_test.dir/tensor_test/test_tenosr.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/alloc.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/base.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/buffer.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/cpu_alloc.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/gpu_alloc.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode-data.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/base/unicode.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/config/config.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/RMSNorm.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/add.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/embedding.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/add_kernel.cpp.o
-operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/add_kernel.cu.o
-operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/argmax_kernel.cu.o
-operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/emb_kernel.cu.o
-operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/matmul_kernel.cu.o
-operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/mha_kernel.cu.o
-operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rms_norm_kernel.cu.o
-operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/rope_kernel.cu.o
-operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/gpu/swiglu_kernel.cu.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/emb_kernel.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/matmul_kernel.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/mha_kernel.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rmsnorm_kernel.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/rope_kernel.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_kernel.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/scale_sum_kernel.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/softmax_kernel.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cpu/swiglu_kernel.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/kernels_interface.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/layer.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/matmul.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/mha.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/ropa.cpp.o
-operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swglu.cpp.o
-operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/sampler/argmax_sampler.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/swiglu.cpp.o
 operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/tensor/tensor.cpp.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/add_kernel.cu.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/argmax_kernel.cu.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/emb_kernel.cu.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/matmul_kernel.cu.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/mha_kernel.cu.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rmsnorm_kernel.cu.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/rope_kernel.cu.o
+operator_test: CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/kernels/cuda/swiglu_kernel.cu.o
+operator_test: CMakeFiles/operator_test.dir/CMakeFiles/3.22.1/CompilerIdCUDA/CMakeCUDACompilerId.cu.o
+operator_test: CMakeFiles/operator_test.dir/utils.cu.o
 operator_test: CMakeFiles/operator_test.dir/build.make
 operator_test: lib/libgtest.a
 operator_test: lib/libgtest_main.a
 operator_test: lib/libgmock.a
 operator_test: glog_build/libglog.so.0.8.0
+operator_test: armadillo_build/libarmadillo.so.15.2.4
+operator_test: sentencepiece_build/src/libsentencepiece.so.0.0.0
 operator_test: /usr/local/cuda-12.8/lib64/libcudart.so
 operator_test: /usr/local/cuda-12.8/lib64/libcublas.so
 operator_test: lib/libgtest.a
+operator_test: /usr/lib/x86_64-linux-gnu/libopenblas.so
+operator_test: /usr/lib/x86_64-linux-gnu/liblapack.so
+operator_test: /usr/lib/x86_64-linux-gnu/libarpack.so
+operator_test: /usr/lib/x86_64-linux-gnu/libsuperlu.so
 operator_test: CMakeFiles/operator_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Linking CXX executable operator_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/pfs/wukeliang/KLiteInfer/test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Linking CXX executable operator_test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/operator_test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

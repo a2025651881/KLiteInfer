@@ -605,6 +605,36 @@ PRINT_UNSYMBOLIZED_STACK_TRACES:BOOL=OFF
 //Name of the computer/site where compile is being run
 SITE:STRING=aibox-r513fbf58f3b-7898d8bbd-8rcg9
 
+//Provider of absl library
+SPM_ABSL_PROVIDER:STRING=internal
+
+//Builds test binaries.
+SPM_BUILD_TEST:BOOL=OFF
+
+//Override system processor
+SPM_CROSS_SYSTEM_PROCESSOR,:BOOL=OFF
+
+//Disable to embed pre-compiled data.
+SPM_DISABLE_EMBEDDED_DATA,:BOOL=OFF
+
+//Use /MT flag in MSVC build
+SPM_ENABLE_MSVC_MT_BUILD,:BOOL=OFF
+
+//Enables NFKC compile
+SPM_ENABLE_NFKC_COMPILE:BOOL=OFF
+
+//Builds shared libaries in addition to static libraries.
+SPM_ENABLE_SHARED:BOOL=ON
+
+//Enable TCMalloc if available.
+SPM_ENABLE_TCMALLOC:BOOL=ON
+
+//Provider of protobuf library
+SPM_PROTOBUF_PROVIDER:STRING=internal
+
+//Link static library of TCMALLOC.
+SPM_TCMALLOC_STATIC:BOOL=OFF
+
 //Generate static library instead of shared library
 STATIC_LIB:BOOL=OFF
 
@@ -613,6 +643,9 @@ SuperLU_INCLUDE_DIR:PATH=/usr/include/superlu
 
 //Path to a library.
 SuperLU_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libsuperlu.so
+
+//Path to a library.
+TCMALLOC_LIB:FILEPATH=TCMALLOC_LIB-NOTFOUND
 
 //unwind include directory
 Unwind_INCLUDE_DIR:PATH=Unwind_INCLUDE_DIR-NOTFOUND
@@ -734,6 +767,18 @@ openblasp_LIBRARY:FILEPATH=openblasp_LIBRARY-NOTFOUND
 
 //Path to a library.
 satlas_LIBRARY:FILEPATH=satlas_LIBRARY-NOTFOUND
+
+//Value Computed by CMake
+sentencepiece_BINARY_DIR:STATIC=/pfs/wukeliang/KLiteInfer/test/build/sentencepiece_build
+
+//Value Computed by CMake
+sentencepiece_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+sentencepiece_SOURCE_DIR:STATIC=/pfs/wukeliang/sentencepiece
+
+//Dependencies for the target
+sentencepiece_train_LIB_DEPENDS:STATIC=general;sentencepiece;
 
 //Path to a library.
 tatlas_LIBRARY:FILEPATH=tatlas_LIBRARY-NOTFOUND
@@ -895,7 +940,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=10
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -1196,6 +1241,10 @@ MEMORYCHECK_SUPPRESSIONS_FILE-ADVANCED:INTERNAL=1
 PC_FROM_UCONTEXT-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: SITE
 SITE-ADVANCED:INTERNAL=1
+//STRINGS property for variable: SPM_ABSL_PROVIDER
+SPM_ABSL_PROVIDER-STRINGS:INTERNAL=internal;module;package
+//STRINGS property for variable: SPM_PROTOBUF_PROVIDER
+SPM_PROTOBUF_PROVIDER-STRINGS:INTERNAL=internal;package
 //ADVANCED property for variable: Unwind_INCLUDE_DIR
 Unwind_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Unwind_LIBRARY

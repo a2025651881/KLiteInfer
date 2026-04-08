@@ -66,6 +66,20 @@ class Model {
   virtual base::Status generate_model_infos(const ModelConfig& config) const;
 
   virtual int32_t post_processing(const tensor::Tensor& pos, bool is_prompt) const = 0;
+  // 多模态 embedding：文本 + 图像
+  virtual op::EmbeddingOutput embedding_multimodal(const std::vector<int>& tokens,const std::vector<ProcessedImage>& images) const {
+    return embedding(tokens);
+  }
+
+// 多模态预测 
+  virtual base::Status predict_multimodal(
+    const std::vector<int>& tokens,
+    const std::vector<ProcessedImage>& images,
+    bool is_prompt,
+    int& next_token) const {
+    LOG(FATAL) << "Multimodal not supported!";
+    return base::error::NotImplemented();
+  }
 
  private:
   virtual void init_mem() = 0;

@@ -1,14 +1,12 @@
-#ifndef KELI_INCLUDE_TENSOR_H_
-#define KELI_INCLUDE_TENSOR_H_
-
+#ifndef KUIPER_INCLUDE_TENSOR_TENSOR_H_
+#define KUIPER_INCLUDE_TENSOR_TENSOR_H_
 #include <driver_types.h>
-#include <vector>
-#include <memory>
-#include <armadillo>
 #include <glog/logging.h>
+#include <armadillo>
+#include <memory>
+#include <vector>
 #include "base/base.h"
 #include "base/buffer.h"
-
 namespace tensor {
 
 class Tensor {
@@ -21,13 +19,15 @@ class Tensor {
   explicit Tensor(base::DataType data_type, int32_t dim0, int32_t dim1, bool need_alloc = false,
                   std::shared_ptr<base::DeviceAllocator> alloc = nullptr, void* ptr = nullptr);
 
-  explicit Tensor(base::DataType data_type, int32_t dim0, int32_t dim1, int32_t dim2, bool need_alloc = false,
-                  std::shared_ptr<base::DeviceAllocator> alloc = nullptr, void* ptr = nullptr);
+  explicit Tensor(base::DataType data_type, int32_t dim0, int32_t dim1, int32_t dim2,
+                  bool need_alloc = false, std::shared_ptr<base::DeviceAllocator> alloc = nullptr,
+                  void* ptr = nullptr);
 
-  explicit Tensor(base::DataType data_type, int32_t dim0, int32_t dim1, int32_t dim2, int32_t dim3, bool need_alloc = false,
-                  std::shared_ptr<base::DeviceAllocator> alloc = nullptr, void* ptr = nullptr);
+  explicit Tensor(base::DataType data_type, int32_t dim0, int32_t dim1, int32_t dim2, int32_t dim3,
+                  bool need_alloc = false, std::shared_ptr<base::DeviceAllocator> alloc = nullptr,
+                  void* ptr = nullptr);
 
-  explicit Tensor(base::DataType data_type, const std::vector<int32_t>& dims, bool need_alloc = false,
+  explicit Tensor(base::DataType data_type, std::vector<int32_t> dims, bool need_alloc = false,
                   std::shared_ptr<base::DeviceAllocator> alloc = nullptr, void* ptr = nullptr);
 
   void to_cpu();
@@ -67,11 +67,11 @@ class Tensor {
 
   void reset(base::DataType data_type, const std::vector<int32_t>& dims);
 
-  void set_device_type(base::DeviceType device_type);
+  void set_device_type(base::DeviceType device_type) const;
 
   base::DeviceType device_type() const;
 
-  bool allocate(std::shared_ptr<base::DeviceAllocator> allocator, bool need_alloc = false);
+  bool allocate(std::shared_ptr<base::DeviceAllocator> allocator, bool need_realloc = false);
 
   template <typename T>
   T* ptr(int64_t index);
@@ -94,51 +94,50 @@ class Tensor {
   base::DataType data_type_ = base::DataType::kDataTypeUnknown;
 };
 
-// ==================== 模板函数实现（必须放在头文件） ====================
+template <typename T>
+T& Tensor::index(int64_t offset) {
+  CHECK_GE(offset, 0);
+  CHECK_LT(offset, this->size());
+  T& val = *(reinterpret_cast<T*>(buffer_->ptr()) + offset);
+  return val;
+}
+
+template <typename T>
+const T& Tensor::index(int64_t offset) const {
+  CHECK_GE(offset, 0);
+  CHECK_LT(offset, this->size());
+  const T& val = *(reinterpret_cast<T*>(buffer_->ptr()) + offset);
+  return val;
+}
+
+template <typename T>
+const T* Tensor::ptr() const {
+  if (!buffer_) {
+    return nullptr;
+  }
+  return const_cast<const T*>(reinterpret_cast<T*>(buffer_->ptr()));
+}
+
 template <typename T>
 T* Tensor::ptr() {
-  if (!buffer_ || buffer_->is_empty()) {
+  if (!buffer_) {
     return nullptr;
   }
   return reinterpret_cast<T*>(buffer_->ptr());
 }
 
 template <typename T>
-const T* Tensor::ptr() const {
-  if (!buffer_ || buffer_->is_empty()) {
-    return nullptr;
-  }
-  return reinterpret_cast<const T*>(buffer_->ptr());
-}
-
-template <typename T>
 T* Tensor::ptr(int64_t index) {
-  CHECK_GE(index, 0);
-  CHECK_LT(index, size_);
-  return ptr<T>() + index;
+  CHECK(buffer_ != nullptr && buffer_->ptr() != nullptr)
+      << "The data area buffer of this tensor is empty or it points to a null pointer.";
+  return const_cast<T*>(reinterpret_cast<const T*>(buffer_->ptr())) + index;
 }
 
 template <typename T>
 const T* Tensor::ptr(int64_t index) const {
-  CHECK_GE(index, 0);
-  CHECK_LT(index, size_);
-  return ptr<T>() + index;
+  CHECK(buffer_ != nullptr && buffer_->ptr() != nullptr)
+      << "The data area buffer of this tensor is empty or it points to a null pointer.";
+  return reinterpret_cast<const T*>(buffer_->ptr()) + index;
 }
-
-template <typename T>
-T& Tensor::index(int64_t offset) {
-  CHECK_GE(offset, 0);
-  CHECK_LT(offset, size_);
-  return *(ptr<T>() + offset);
-}
-
-template <typename T>
-const T& Tensor::index(int64_t offset) const {
-  CHECK_GE(offset, 0);
-  CHECK_LT(offset, size_);
-  return *(ptr<T>() + offset);
-}
-
 }  // namespace tensor
-
-#endif  // KELI_INCLUDE_TENSOR_H_
+#endif  // KUIPER_INCLUDE_TENSOR_TENSOR_H_

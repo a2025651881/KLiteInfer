@@ -2,14 +2,6 @@
 #include <glog/logging.h>
 #include "base/unicode.h"
 namespace op {
-
-// EncodeLayer::EncodeLayer(
-//     base::DeviceType device_type,std::string token_model_path, bool has_bos, bool has_eos,
-//     : Layer(device_type, LayerType::kLayerEncode, "Encode"),
-//       has_bos_(has_bos),
-//       has_eos_(has_eos),
-//       spe(std::move(sentence_piece_processor)) {}
-
 std::string SpeEncodeLayer::decode(int32_t token_id) const {
   CHECK(spe != nullptr);
   std::vector<int32_t> token_ids{token_id};

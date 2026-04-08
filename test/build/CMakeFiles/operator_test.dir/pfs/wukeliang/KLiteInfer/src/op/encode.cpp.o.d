@@ -155,13 +155,68 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o: \
  /usr/include/c++/11/bits/stl_bvector.h \
  /usr/include/c++/11/bits/vector.tcc \
  /pfs/wukeliang/KLiteInfer/include/op/layer.h \
+ /pfs/wukeliang/KLiteInfer/include/base/cuda_config.h \
+ /usr/local/cuda-12.8/include/cublas_v2.h \
+ /usr/local/cuda-12.8/include/cublas_api.h \
+ /usr/local/cuda-12.8/include/driver_types.h \
+ /usr/local/cuda-12.8/include/crt/host_defines.h \
+ /usr/local/cuda-12.8/include/vector_types.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+ /usr/include/linux/limits.h \
+ /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+ /usr/local/cuda-12.8/include/cuComplex.h /usr/include/c++/11/math.h \
+ /usr/include/c++/11/cmath /usr/include/math.h \
+ /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+ /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+ /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+ /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+ /usr/include/c++/11/bits/specfun.h /usr/include/c++/11/limits \
+ /usr/include/c++/11/tr1/gamma.tcc \
+ /usr/include/c++/11/tr1/special_function_util.h \
+ /usr/include/c++/11/tr1/bessel_function.tcc \
+ /usr/include/c++/11/tr1/beta_function.tcc \
+ /usr/include/c++/11/tr1/ell_integral.tcc \
+ /usr/include/c++/11/tr1/exp_integral.tcc \
+ /usr/include/c++/11/tr1/hypergeometric.tcc \
+ /usr/include/c++/11/tr1/legendre_function.tcc \
+ /usr/include/c++/11/tr1/modified_bessel_func.tcc \
+ /usr/include/c++/11/tr1/poly_hermite.tcc \
+ /usr/include/c++/11/tr1/poly_laguerre.tcc \
+ /usr/include/c++/11/tr1/riemann_zeta.tcc \
+ /usr/local/cuda-12.8/include/cuda_fp16.h \
+ /usr/local/cuda-12.8/include/vector_functions.h \
+ /usr/local/cuda-12.8/include/cuda_runtime_api.h \
+ /usr/local/cuda-12.8/include/builtin_types.h \
+ /usr/local/cuda-12.8/include/device_types.h \
+ /usr/local/cuda-12.8/include/surface_types.h \
+ /usr/local/cuda-12.8/include/texture_types.h \
+ /usr/local/cuda-12.8/include/cuda_device_runtime_api.h \
+ /usr/local/cuda-12.8/include/vector_functions.hpp \
+ /usr/local/cuda-12.8/include/nv/target \
+ /usr/local/cuda-12.8/include/nv/detail/__target_macros \
+ /usr/local/cuda-12.8/include/nv/detail/__preprocessor \
+ /usr/local/cuda-12.8/include/cuda_fp16.hpp \
+ /usr/local/cuda-12.8/include/cuda_bf16.h \
+ /usr/local/cuda-12.8/include/cuda_fp16.h \
+ /usr/local/cuda-12.8/include/cuda_bf16.hpp \
+ /usr/local/cuda-12.8/include/library_types.h \
+ /usr/local/cuda-12.8/include/cuda_runtime_api.h \
  /pfs/wukeliang/KLiteInfer/include/base/base.h \
  /pfs/wukeliang/glog/src/glog/logging.h /usr/include/c++/11/atomic \
  /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
- /usr/include/c++/11/limits /usr/include/c++/11/ctime \
- /usr/include/c++/11/bits/parse_numbers.h /usr/include/c++/11/cstddef \
- /usr/include/c++/11/ostream /usr/include/c++/11/ios \
- /usr/include/c++/11/bits/ios_base.h \
+ /usr/include/c++/11/ctime /usr/include/c++/11/bits/parse_numbers.h \
+ /usr/include/c++/11/cstddef /usr/include/c++/11/ostream \
+ /usr/include/c++/11/ios /usr/include/c++/11/bits/ios_base.h \
  /usr/include/c++/11/bits/locale_classes.h \
  /usr/include/c++/11/bits/locale_classes.tcc \
  /usr/include/c++/11/system_error \
@@ -189,41 +244,10 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o: \
  /pfs/wukeliang/glog/src/glog/vlog_is_on.h \
  /pfs/wukeliang/KLiteInfer/include/tensor/tensor.h \
  /usr/local/cuda-12.8/include/driver_types.h \
- /usr/local/cuda-12.8/include/crt/host_defines.h \
- /usr/local/cuda-12.8/include/vector_types.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
- /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
- /usr/include/x86_64-linux-gnu/bits/local_lim.h \
- /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
- /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
- /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
  /pfs/wukeliang/armadillo/include/armadillo \
  /pfs/wukeliang/armadillo/include/armadillo_bits/config.hpp \
  /pfs/wukeliang/armadillo/include/armadillo_bits/compiler_check.hpp \
- /usr/include/c++/11/climits /usr/include/c++/11/cmath \
- /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/math-vector.h \
- /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
- /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
- /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
- /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
- /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
- /usr/include/c++/11/bits/specfun.h /usr/include/c++/11/tr1/gamma.tcc \
- /usr/include/c++/11/tr1/special_function_util.h \
- /usr/include/c++/11/tr1/bessel_function.tcc \
- /usr/include/c++/11/tr1/beta_function.tcc \
- /usr/include/c++/11/tr1/ell_integral.tcc \
- /usr/include/c++/11/tr1/exp_integral.tcc \
- /usr/include/c++/11/tr1/hypergeometric.tcc \
- /usr/include/c++/11/tr1/legendre_function.tcc \
- /usr/include/c++/11/tr1/modified_bessel_func.tcc \
- /usr/include/c++/11/tr1/poly_hermite.tcc \
- /usr/include/c++/11/tr1/poly_laguerre.tcc \
- /usr/include/c++/11/tr1/riemann_zeta.tcc /usr/include/c++/11/iostream \
+ /usr/include/c++/11/climits /usr/include/c++/11/iostream \
  /usr/include/c++/11/fstream /usr/include/c++/11/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
@@ -901,32 +925,5 @@ CMakeFiles/operator_test.dir/pfs/wukeliang/KLiteInfer/src/op/encode.cpp.o: \
  /pfs/wukeliang/armadillo/include/armadillo_bits/compiler_setup_post.hpp \
  /pfs/wukeliang/KLiteInfer/include/base/buffer.h \
  /pfs/wukeliang/KLiteInfer/include/base/alloc.h \
- /pfs/wukeliang/KLiteInfer/include/base/cuda_config.h \
- /usr/local/cuda-12.8/include/cublas_v2.h \
- /usr/local/cuda-12.8/include/cublas_api.h \
- /usr/local/cuda-12.8/include/driver_types.h \
- /usr/local/cuda-12.8/include/cuComplex.h /usr/include/c++/11/math.h \
- /usr/local/cuda-12.8/include/cuda_fp16.h \
- /usr/local/cuda-12.8/include/vector_functions.h \
- /usr/local/cuda-12.8/include/cuda_runtime_api.h \
- /usr/local/cuda-12.8/include/builtin_types.h \
- /usr/local/cuda-12.8/include/device_types.h \
- /usr/local/cuda-12.8/include/surface_types.h \
- /usr/local/cuda-12.8/include/texture_types.h \
- /usr/local/cuda-12.8/include/cuda_device_runtime_api.h \
- /usr/local/cuda-12.8/include/vector_functions.hpp \
- /usr/local/cuda-12.8/include/nv/target \
- /usr/local/cuda-12.8/include/nv/detail/__target_macros \
- /usr/local/cuda-12.8/include/nv/detail/__preprocessor \
- /usr/local/cuda-12.8/include/cuda_fp16.hpp \
- /usr/local/cuda-12.8/include/cuda_bf16.h \
- /usr/local/cuda-12.8/include/cuda_fp16.h \
- /usr/local/cuda-12.8/include/cuda_bf16.hpp \
- /usr/local/cuda-12.8/include/library_types.h \
- /usr/local/cuda-12.8/include/cuda_runtime_api.h \
- /usr/local/cuda-12.8/include/cuda_runtime.h \
- /usr/local/cuda-12.8/include/crt/host_config.h \
- /usr/local/cuda-12.8/include/library_types.h \
- /usr/local/cuda-12.8/include/channel_descriptor.h \
- /usr/local/cuda-12.8/include/driver_functions.h \
+ /pfs/wukeliang/KLiteInfer/include/base/base.h \
  /pfs/wukeliang/KLiteInfer/include/base/unicode.h

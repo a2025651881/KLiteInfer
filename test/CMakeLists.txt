@@ -1,74 +1,33 @@
-cmake_minimum_required(VERSION 3.10)
-project(ForTest)
+include(../cmake/cuda.cmake)
+find_package(GTest REQUIRED)
+find_package(glog REQUIRED)
 
-# 启用 C++17
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(link_ext_lib glog::glog GTest::gtest)
+aux_source_directory(../test DIR_TEST)
 
-# 启用 CUDA
-enable_language(CUDA)
-find_package(CUDAToolkit REQUIRED)
+aux_source_directory(../test/test_cu DIR_TEST_CU)
+aux_source_directory(../test/test_op DIR_TEST_OP)
+aux_source_directory(../test/test_model DIR_TEST_MODEL)
+aux_source_directory(../test/test_tensor DIR_TEST_TENSOR)
+aux_source_directory(../test/optimized DIR_TEST_OPTIMIZED)
 
-# 路径配置（你的本地源码路径）
-set(GTEST_SRC_DIR "/pfs/wukeliang/googletest")
-set(GLOG_SRC_DIR "/pfs/wukeliang/glog")
-set(Armadillo_SRC_DIR "/pfs/wukeliang/armadillo")
-set(KL_SRC_DIR "/pfs/wukeliang/KLiteInfer")
+add_executable(test_llm ${DIR_TEST} ${DIR_TEST_CU} ${DIR_TEST_OP} ${DIR_TEST_OPTIMIZED} ${DIR_TEST_TENSOR} ${DIR_TEST_MODEL})
 
-# 编译第三方库
-add_subdirectory(${GTEST_SRC_DIR} ${CMAKE_BINARY_DIR}/gtest_build)
-add_subdirectory(${GLOG_SRC_DIR} ${CMAKE_BINARY_DIR}/glog_build)
-add_subdirectory(${Armadillo_SRC_DIR} ${CMAKE_BINARY_DIR}/armadillo_build)
+#set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -g -G")
+target_link_libraries(test_llm ${link_ext_lib})
+target_include_directories(test_llm PUBLIC ${glog_INCLUDE_DIR})
+target_include_directories(test_llm PUBLIC ${GTest_INCLUDE_DIR})
 
-# 包含头文件目录
-include_directories(
-    ${GTEST_SRC_DIR}/googletest/include
-    ${GTEST_SRC_DIR}/googlemock/include
-    ${GLOG_SRC_DIR}/include
-    ${Armadillo_SRC_DIR}/include 
-    ${KL_SRC_DIR}/include
-    ${KL_SRC_DIR}/src
-    ${CUDAToolkit_INCLUDE_DIRS}
-    ./
-)
+target_include_directories(test_llm PUBLIC ../kuiper/include)
+target_link_directories(test_llm PUBLIC ${PROJECT_SOURCE_DIR}/lib)
+if (LLAMA3_SUPPORT OR QWEN2_SUPPORT OR QWEN3_SUPPORT)
+    message(STATUS "LINK LLAMA3 SUPPORT")
+    find_package(absl REQUIRED)
+    find_package(re2 REQUIRED)
+    find_package(nlohmann_json REQUIRED)
+    target_link_libraries(llama absl::base re2::re2 nlohmann_json::nlohmann_json)
+endif ()
+target_link_libraries(test_llm llama)
 
-# 收集源文件
-file(GLOB_RECURSE BASE_SOURCES
-    ${KL_SRC_DIR}/src/base/*.cpp
-    ${KL_SRC_DIR}/src/op/*.cpp
-    ${KL_SRC_DIR}/src/op/kernels/cpu/*.cpp
-    ${KL_SRC_DIR}/src/op/kernels/gpu/*.cu    
-    ${KL_SRC_DIR}/src/tensor/*.cpp
-    ${KL_SRC_DIR}/src/config/*.cpp
-    ${KL_SRC_DIR}/src/sampler/*.cpp
-)
-
-file(GLOB TEST_SOURCES
-    ${KL_SRC_DIR}/test/main.cpp              
-    ${KL_SRC_DIR}/test/op_test/*.cpp         
-    ${KL_SRC_DIR}/test/base_test/*.cpp
-)
-
-# 生成测试可执行文件
-add_executable(operator_test
-    ${TEST_SOURCES}
-    ${BASE_SOURCES}
-)
-
-# 链接库
-target_link_libraries(operator_test
-    gtest
-    gtest_main
-    gmock
-    glog
-    pthread
-    CUDA::cudart
-    CUDA::cublas
-)
-
-# 宏定义
-add_definitions(-DGOOGLE_GLOG_NO_GTEST_COMPAT=1)
-
-# 启用测试
-enable_testing()
-add_test(NAME operator_test COMMAND operator_test)
+set_target_properties(test_llm PROPERTIES WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_target_properties(test_llm PROPERTIES CUDA_SEPARABLE_COMPILATION ON)

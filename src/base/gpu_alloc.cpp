@@ -1,119 +1,115 @@
+#include <cuda_runtime_api.h>
 #include "base/alloc.h"
-#include <glog/logging.h>
-#include <cuda_runtime.h>
 namespace base {
-void* GPUAllocator::allocate_from_BigBuffer(size_t size) {
-    // Implementation to allocate from big buffer pool
-    int id;
-    cudaGetDevice(&id);
-    int index=-1;
-    for(int i=0;i< this->Big_Buffers[id].size();i++){
-        if(this->Big_Buffers[id][i]->size - size < 1024*1024 && !this->Big_Buffers[id][i]->isBusy){
-            index = i;
+
+CUDADeviceAllocator::CUDADeviceAllocator() : DeviceAllocator(DeviceType::kDeviceCUDA) {}
+
+void* CUDADeviceAllocator::allocate(size_t byte_size) const {
+  int id = -1;
+  cudaError_t state = cudaGetDevice(&id);
+  CHECK(state == cudaSuccess);
+  if (byte_size > 1024 * 1024) {
+    auto& big_buffers = big_buffers_map_[id];
+    int sel_id = -1;
+    for (int i = 0; i < big_buffers.size(); i++) {
+      if (big_buffers[i].byte_size >= byte_size && !big_buffers[i].busy &&
+          big_buffers[i].byte_size - byte_size < 1 * 1024 * 1024) {
+        if (sel_id == -1 || big_buffers[sel_id].byte_size > big_buffers[i].byte_size) {
+          sel_id = i;
         }
+      }
     }
-    if(index != -1){
-        this->Big_Buffers[id][index]->isBusy = true;
-        return this->Big_Buffers[id][index]->ptr;  
+    if (sel_id != -1) {
+      big_buffers[sel_id].busy = true;
+      return big_buffers[sel_id].data;
     }
-    // If no suitable big buffer is available, allocate a new one
-    void* ptr;
-    cudaError_t err = cudaMalloc(&ptr, size);
-    CHECK_EQ(err, cudaSuccess) << "CUDA malloc failed for big buffer: " << cudaGetErrorString(err);
-    GPUBuffer* newBuffer = new GPUBuffer(ptr, size);
-    newBuffer->isBusy = true;
-    this->Big_Buffers[id].emplace_back(newBuffer);
+
+    void* ptr = nullptr;
+    state = cudaMalloc(&ptr, byte_size);
+    if (cudaSuccess != state) {
+      char buf[256];
+      snprintf(buf, 256,
+               "Error: CUDA error when allocating %lu MB memory! maybe there's no enough memory "
+               "left on  device.",
+               byte_size >> 20);
+      LOG(ERROR) << buf;
+      return nullptr;
+    }
+    big_buffers.emplace_back(ptr, byte_size, true);
     return ptr;
-}
-void* GPUAllocator::allocate_from_SmallBuffer(size_t size) {
-    // Implementation to allocate from small buffer pool
-    // Check if there are available small buffers of the requested size
-    int id;
-    cudaGetDevice(&id);
-    if(size > no_use_size[id]) goto allocate_new;
-    for(int i=0;i<Small_Buffers[id].size();i++){
-        if(Small_Buffers[id][i]->size >= size && !Small_Buffers[id][i]->isBusy){
-            Small_Buffers[id][i]->isBusy = true;
-            no_use_size[id]-=size;
-            return Small_Buffers[id][i]->ptr;
-        }
+  }
+
+  auto& cuda_buffers = cuda_buffers_map_[id];
+  for (int i = 0; i < cuda_buffers.size(); i++) {
+    if (cuda_buffers[i].byte_size >= byte_size && !cuda_buffers[i].busy) {
+      cuda_buffers[i].busy = true;
+      no_busy_cnt_[id] -= cuda_buffers[i].byte_size;
+      return cuda_buffers[i].data;
     }
-    allocate_new:
-        // If no suitable small buffer is available, allocate a new one
-        void* ptr;
-        cudaError_t err = cudaMalloc(&ptr, size);
-        CHECK_EQ(err, cudaSuccess) << "CUDA malloc failed for small buffer: " << cudaGetErrorString(err);
-        // Add the new buffer to the small buffer pool for future reuse
-        // smallBuffers[size].emplace_back(ptr);
-        GPUBuffer* newBuffer = new GPUBuffer(ptr, size);
-        newBuffer->isBusy = true;
-        this->no_use_size[id]+=size;
-        this->Small_Buffers[id].emplace_back(newBuffer);
-        return ptr;
-}
-bool GPUAllocator::release_from_BigBuffer(void* ptr) {
-    // Implementation to release a buffer back to the big buffer pool
-    for(int i=0;i<Big_Buffers.size();i++){
-        for(int j=0;j<Big_Buffers[i].size();j++){
-            if(Big_Buffers[i][j]->ptr == ptr){
-                Big_Buffers[i][j]->isBusy = false;
-                return true;
-            }
-        }
-    }
-    return false; // Pointer not found in big buffer pool
-}
-bool GPUAllocator::release_from_SmallBuffer(void* ptr) {
-    // Implementation to release a buffer back to the small buffer pool
-    for(int i=0;i<Small_Buffers.size();i++){
-        for(int j=0;j<Small_Buffers[i].size();j++){
-            if(Small_Buffers[i][j]->ptr == ptr){
-                Small_Buffers[i][j]->isBusy = false;
-                no_use_size[i]+=Small_Buffers[i][j]->size;
-                return true;
-            }
-        }
-    }
-    return false; // Pointer not found in small buffer pool
-}
-void* GPUAllocator::allocate(size_t size){
-    if(size <= 0) return nullptr;
-    
-    if(size > 1024 * 1024){ // If requested size is greater than 1MB, allocate a new buffer
-        return allocate_from_BigBuffer(size);
-    } else { // Try to reuse existing buffers for smaller sizes
-        return allocate_from_SmallBuffer(size);
-    }
+  }
+  void* ptr = nullptr;
+  state = cudaMalloc(&ptr, byte_size);
+  if (cudaSuccess != state) {
+    char buf[256];
+    snprintf(buf, 256,
+             "Error: CUDA error when allocating %lu MB memory! maybe there's no enough memory "
+             "left on  device.",
+             byte_size >> 20);
+    LOG(ERROR) << buf;
+    return nullptr;
+  }
+  cuda_buffers.emplace_back(ptr, byte_size, true);
+  return ptr;
 }
 
-bool GPUAllocator::release(void* ptr){
-    /* call cudaGetDevice is within the release function is unreliable 
-     *because it may be called from a different thread than the one that allocated the memory, 
-     *leading to incorrect device context. 
-     */
-    for(auto now_map:Small_Buffers){
-        int id=now_map.first;
-        vector<GPUBuffer*>& buffer_list = now_map.second;
-        vector<GPUBuffer*> tmp;
-        if(no_use_size[id] > 1024*1024*1024) {
-            for(int j=0;j<buffer_list.size();j++){
-                if(!buffer_list[j]->isBusy){
-                    // switch to the correct device context before freeing the memory
-                    cudaError_t state=cudaSetDevice(id);
-                    state=cudaFree(buffer_list[j]->ptr);
-                    CHECK_EQ(state, cudaSuccess) << "CUDA free failed: " << cudaGetErrorString(state);
-                }else{
-                    tmp.push_back(buffer_list[j]);
-                }
-            }
+void CUDADeviceAllocator::release(void* ptr) const {
+  if (!ptr) {
+    return;
+  }
+  if (cuda_buffers_map_.empty()) {
+    return;
+  }
+  cudaError_t state = cudaSuccess;
+  for (auto& it : cuda_buffers_map_) {
+    if (no_busy_cnt_[it.first] > 1024 * 1024 * 1024) {
+      auto& cuda_buffers = it.second;
+      std::vector<CudaMemoryBuffer> temp;
+      for (int i = 0; i < cuda_buffers.size(); i++) {
+        if (!cuda_buffers[i].busy) {
+          state = cudaSetDevice(it.first);
+          state = cudaFree(cuda_buffers[i].data);
+          CHECK(state == cudaSuccess)
+              << "Error: CUDA error when release memory on device " << it.first;
+        } else {
+          temp.push_back(cuda_buffers[i]);
         }
-        buffer_list.clear();
-        this->Small_Buffers[id] = tmp;
-        this->no_use_size[id] = 0;
+      }
+      cuda_buffers.clear();
+      it.second = temp;
+      no_busy_cnt_[it.first] = 0;
     }
-    if(release_from_SmallBuffer(ptr)) return true;
-    if(release_from_BigBuffer(ptr)) return true;
-    LOG(ERROR) << "Attempted to release a pointer that was not allocated by this allocator: " << ptr;
-    return false;
+  }
+
+  for (auto& it : cuda_buffers_map_) {
+    auto& cuda_buffers = it.second;
+    for (int i = 0; i < cuda_buffers.size(); i++) {
+      if (cuda_buffers[i].data == ptr) {
+        no_busy_cnt_[it.first] += cuda_buffers[i].byte_size;
+        cuda_buffers[i].busy = false;
+        return;
+      }
+    }
+    auto& big_buffers = big_buffers_map_[it.first];
+    for (int i = 0; i < big_buffers.size(); i++) {
+      if (big_buffers[i].data == ptr) {
+        big_buffers[i].busy = false;
+        return;
+      }
+    }
+  }
+  state = cudaFree(ptr);
+  CHECK(state == cudaSuccess) << "Error: CUDA error when release memory on device";
 }
-}
+std::shared_ptr<CUDADeviceAllocator> CUDADeviceAllocatorFactory::instance = nullptr;
+
+}  // namespace base

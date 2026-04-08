@@ -1,29 +1,35 @@
-#ifndef KELI_INCLUDE_OP_EMBEDDING_H_
-#define KELI_INCLUDE_OP_EMBEDDING_H_
-namespace op{
-struct EmbeddingOutput{
-    tensor::Tensor input_tokens;
-    tensor::Tensor input_embeddings;
-    tensor::Tensor input_token_num;
-    explicit EmbeddingOutput(tensor::Tensor input_tokens,tensor::Tensor input_embeddings
-                            ,tensor::Tensor input_token_num):
-         input_tokens(std::move(input_tokens)),
-         input_embeddings(std::move(input_embeddings)),
-         input_token_num(std::move(input_token_num)){}
+
+#ifndef KUIPER_INCLUDE_OP_EMBEDDING_H_
+#define KUIPER_INCLUDE_OP_EMBEDDING_H_
+#include <utility>
+#include "layer.h"
+#include "base/base.h"
+#include <cstdint>
+namespace op {
+struct EmbeddingOutput {
+  tensor::Tensor input_tokens;
+  tensor::Tensor input_embeddings;
+  tensor::Tensor input_token_num;
+  explicit EmbeddingOutput(tensor::Tensor input_tokens, tensor::Tensor input_embeddings,
+                           tensor::Tensor input_token_num)
+      : input_tokens(std::move(input_tokens)),
+        input_embeddings(std::move(input_embeddings)),
+        input_token_num(std::move(input_token_num)) {}
 };
 
-class EmbeddingLayer: public LayerParam{
-    public:
-        explicit EmbeddingLayer(base::DeviceType device_type,int32_t dim,int32_t seq_len,
-                            int32_t vocab_size);
-    
-        base::Status check() const override;
+class EmbeddingLayer : public LayerParam {
+ public:
+  explicit EmbeddingLayer(base::DeviceType device_type, int32_t dim, int32_t seq_len,
+                          int32_t vocab_size);
 
-        base::Status forward() override;
-    private:
-        int32_t dim_ = 0;
-        int32_t seq_len_ = 0;
-        int32_t vocab_size_ =0;
+  base::Status check() const override;
+
+  base::Status forward() override;
+
+ private:
+  int32_t dim_ = 0;
+  int32_t seq_len_ = 0;
+  int32_t vocab_size_ = 0;
 };
-}
-#endif
+}  // namespace op
+#endif  // KUIPER_INCLUDE_OP_EMBEDDING_H_

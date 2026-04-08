@@ -1,105 +1,94 @@
-#ifndef BASE_ALLOC_H
-#define BASE_ALLOC_H
-#include "base/cuda_config.h"
-#include <cstddef>
-#include <cuda_runtime.h>
+#ifndef KUIPER_INCLUDE_BASE_ALLOC_H_
+#define KUIPER_INCLUDE_BASE_ALLOC_H_
 #include <map>
-#include <vector>
-#include <ostream>
-#include "base/base.h"
-using namespace std;
+#include <memory>
+#include "base.h"
 namespace base {
-inline std::ostream& operator<<(std::ostream& os, const DeviceType& type) {
-    switch (type) {
-        case DeviceType::CPU:
-            os << "CPU";
-            break;
-        case DeviceType::GPU:
-            os << "GPU";
-            break;
-        default:
-            os << "UnknownDeviceType(" << static_cast<int>(type) << ")";
-            break;
-    }
-    return os;
-}
-
 enum class MemcpyKind {
-    HostToHost=0,
-    HostToDevice=1,
-    DeviceToHost=2,
-    DeviceToDevice=3
+  kMemcpyCPU2CPU = 0,
+  kMemcpyCPU2CUDA = 1,
+  kMemcpyCUDA2CPU = 2,
+  kMemcpyCUDA2CUDA = 3,
 };
 
 class DeviceAllocator {
-    public:
-        explicit DeviceAllocator(DeviceType device_type) : device_type_(device_type){};
-        virtual ~DeviceAllocator() = default; // 只加虚析构，不改名
-        virtual void* allocate(size_t size) = 0;
-        virtual bool release(void* ptr) = 0;
-        virtual bool memcpy(void* dest, const void* src, size_t count, MemcpyKind kind,cudaStream_t stream=nullptr,bool async=false);
-        virtual bool memsetZero(void* dest, size_t count,DeviceType deviceType,cudaStream_t stream=nullptr,bool async=false);
-        DeviceType device_type() const {
-            return device_type_;
-        }
-    protected:
-        DeviceType device_type_ = DeviceType::UNKNOWN;
+ public:
+  explicit DeviceAllocator(DeviceType device_type) : device_type_(device_type) {}
+
+  virtual DeviceType device_type() const { return device_type_; }
+
+  virtual void release(void* ptr) const = 0;
+
+  virtual void* allocate(size_t byte_size) const = 0;
+
+  virtual void memcpy(const void* src_ptr, void* dest_ptr, size_t byte_size,
+                      MemcpyKind memcpy_kind = MemcpyKind::kMemcpyCPU2CPU, void* stream = nullptr,
+                      bool need_sync = false) const;
+
+  virtual void memset_zero(void* ptr, size_t byte_size, void* stream, bool need_sync = false);
+
+ private:
+  DeviceType device_type_ = DeviceType::kDeviceUnknown;
 };
 
-class CPUAllocator: public DeviceAllocator {
-    public:
-        explicit CPUAllocator():DeviceAllocator(DeviceType::CPU){}
-        void* allocate(size_t size) override;
-        bool release(void* ptr) override;
+class CPUDeviceAllocator : public DeviceAllocator {
+ public:
+  explicit CPUDeviceAllocator();
+
+  void* allocate(size_t byte_size) const override;
+
+  void release(void* ptr) const override;
 };
 
-class GPUBuffer{
-    public:
-        void* ptr;
-        size_t size;
-        bool isBusy;
-        GPUBuffer(void* ptr,size_t size):ptr(ptr),size(size),isBusy(false){
-        }
-        ~GPUBuffer(){
-            if(ptr != nullptr){
-                cudaFree(ptr);
-                ptr = nullptr;
-            }
-        }
+struct CudaMemoryBuffer {
+  void* data;
+  size_t byte_size;
+  bool busy;
+
+  CudaMemoryBuffer() = default;
+
+  CudaMemoryBuffer(void* data, size_t byte_size, bool busy)
+      : data(data), byte_size(byte_size), busy(busy) {}
 };
 
-class GPUAllocator: public DeviceAllocator {
-    public:
-        GPUAllocator():DeviceAllocator(DeviceType::GPU){}
-        void* allocate(size_t size) override;
-        bool release(void* ptr) override;
-    private:
-        void* allocate_from_BigBuffer(size_t size);
-        void* allocate_from_SmallBuffer(size_t size);
-        bool release_from_BigBuffer(void* ptr);
-        bool release_from_SmallBuffer(void* ptr);
-        
-        map<int,size_t> no_use_size;
-        map<int,vector<GPUBuffer*>> Big_Buffers;
-        map<int,vector<GPUBuffer*>> Small_Buffers;
+class CUDADeviceAllocator : public DeviceAllocator {
+ public:
+  explicit CUDADeviceAllocator();
+
+  void* allocate(size_t byte_size) const override;
+
+  void release(void* ptr) const override;
+
+ private:
+  mutable std::map<int, size_t> no_busy_cnt_;
+  mutable std::map<int, std::vector<CudaMemoryBuffer>> big_buffers_map_;
+  mutable std::map<int, std::vector<CudaMemoryBuffer>> cuda_buffers_map_;
 };
 
-class GPUAllocatorInstance {
-    public:
-        static GPUAllocator& getInstance() {
-            static GPUAllocator instance;
-            return instance;
-        }
+class CPUDeviceAllocatorFactory {
+ public:
+  static std::shared_ptr<CPUDeviceAllocator> get_instance() {
+    if (instance == nullptr) {
+      instance = std::make_shared<CPUDeviceAllocator>();
+    }
+    return instance;
+  }
+
+ private:
+  static std::shared_ptr<CPUDeviceAllocator> instance;
 };
 
-class CPUAllocatorInstance {
-    public:
-        static CPUAllocator& getInstance() {
-            static CPUAllocator instance;
-            return instance;
-        }
+class CUDADeviceAllocatorFactory {
+ public:
+  static std::shared_ptr<CUDADeviceAllocator> get_instance() {
+    if (instance == nullptr) {
+      instance = std::make_shared<CUDADeviceAllocator>();
+    }
+    return instance;
+  }
+
+ private:
+  static std::shared_ptr<CUDADeviceAllocator> instance;
 };
-
-}
-
-#endif
+}  // namespace base
+#endif  // KUIPER_INCLUDE_BASE_ALLOC_H_
