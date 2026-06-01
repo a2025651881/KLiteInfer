@@ -61,36 +61,11 @@ KLiteInfer/
 
 ## 🧩 架构概览
 
-```
-                ┌────────────────────────────────┐
-                │           main.cpp             │
-                │   选择模型 → 加载 → 推理循环   │
-                └──────────────┬─────────────────┘
-                               │
-                    ┌──────────▼──────────┐
-                    │      model::Model    │  (抽象基类)
-                    │  ├── Qwen3Model      │
-                    │  └── PaddleOCRVLModel│  (多模态)
-                    └──────────┬──────────┘
-                               │
-              ┌────────────────┼────────────────┐
-              │                │                │
-       ┌──────▼─────┐   ┌──────▼─────┐   ┌──────▼─────┐
-       │   op::*    │   │ sampler::* │   │ tokenizer  │
-       │  Layer体系 │   │   argmax   │   │  bpe / spe │
-       └──────┬─────┘   └────────────┘   └────────────┘
-              │
-     ┌────────┴────────┐
-     │   kernels/cpu   │
-     │   kernels/cuda  │
-     └─────────────────┘
-              │
-     ┌────────▼────────┐
-     │ tensor::Tensor  │
-     │ base::Buffer    │
-     │ DeviceAllocator │ (CPU / CUDA)
-     └─────────────────┘
-```
+<p align="center">
+  <img src="docs/images/architecture.png" alt="KLiteInfer 架构概览" width="780" />
+</p>
+
+> 自顶向下：`main.cpp` 入口 → `model::Model` 抽象（Qwen3 / PaddleOCR-VL）→ `op` / `sampler` / `tokenizer` 三大子系统 → `kernels/cpu` 与 `kernels/cuda` 双后端 → 底座 `tensor::Tensor` / `base::Buffer` / `DeviceAllocator`。
 
 ### 核心模块说明
 
