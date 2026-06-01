@@ -10,6 +10,7 @@
 #include "sampler/argmax_sampler.h"
 #include "sentencepiece_processor.h"
 #include "tensor/tensor.h"
+#include "model/multimodal_types.h"
 
 namespace model {
 class Model {

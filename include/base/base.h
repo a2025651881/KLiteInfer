@@ -29,6 +29,14 @@ enum class ModelBufferType {
 
   kSinCache = 17,
   kCosCache = 18,
+
+  // ============== Multimodal (PaddleOCR-VL) ==============
+  kVisionPixelValues   = 32,  // 输入像素 (patch 化)
+  kVisionHidden        = 33,  // ViT 中间 hidden
+  kVisionAttnOutput    = 34,  // ViT self-attention 输出
+  kVisionFFNOutput     = 35,  // ViT FFN 输出
+  kProjectorOutput     = 36,  // projector 输出 (text_hidden 维度)
+  kMRoPEPositions      = 37,  // 3D-MRoPE 位置 [3, seq_len]
 };
 }
 
@@ -49,6 +57,7 @@ enum class DataType : uint8_t {
 enum class ModelType : uint8_t {
   kModelTypeUnknown = 0,
   kModelTypeLLama2 = 1,
+  kModelTypePaddleOCRVL = 2,
 };
 
 inline size_t DataTypeSize(DataType data_type) {
@@ -136,6 +145,11 @@ namespace error {
 Status Success(const std::string& err_msg = "");
 
 Status FunctionNotImplement(const std::string& err_msg = "");
+
+// alias，方便多模态等模块直接使用 NotImplemented 语义
+inline Status NotImplemented(const std::string& err_msg = "") {
+  return FunctionNotImplement(err_msg);
+}
 
 Status PathNotValid(const std::string& err_msg = "");
 

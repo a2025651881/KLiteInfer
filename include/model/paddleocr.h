@@ -3,6 +3,7 @@
 
 #include <base/cuda_config.h>
 #include "model.h"
+#include "model/multimodal_types.h"
 #include "op/add.h"
 #include "op/embedding.h"
 #include "op/rope.h"
@@ -54,39 +55,6 @@ struct PaddleOCRVLTransformerConfig {
   int32_t vision_max_tokens_     = 1280;
 
   VisionTransformerConfig vision;
-};
-
-/**
- * @brief MRoPE 位置输出 (3D rope: t, h, w)
- */
-struct MRoPEPositions {
-  tensor::Tensor positions;          // shape: [3, seq_len] (int32, CPU)
-  int32_t        mrope_position_delta = 0;
-};
-
-/**
- * @brief 图像网格信息 (t, h, w) in patches
- */
-struct ImageGridTHW {
-  int32_t t = 1;
-  int32_t h = 0;
-  int32_t w = 0;
-
-  int32_t num_patches() const {
-    return t * h * w;
-  }
-
-  int32_t num_img_tokens(int32_t merge) const {
-    return t * (h / merge) * (w / merge);
-  }
-};
-
-/**
- * @brief 预处理后图像
- */
-struct ProcessedImage {
-  tensor::Tensor pixel_values;   // normalized image patches
-  ImageGridTHW   grid_thw;       // t, h, w (in patches)
 };
 
 // ----------------------------------------------------------------------------
@@ -198,6 +166,15 @@ class PaddleOCRVLModel : public Model {
   tensor::Tensor _patch_embed(const tensor::Tensor& pixel_values) const;
 
   /**
+   * @brief Conv2d 等价展开：[T, C, H_pix, W_pix] → [T*Hg*Wg, C*p*p]
+   * @param pixel_values 原始像素张量 (CPU, fp32, 已 normalize)
+   * @param grid_thw     patch 网格 (单位为 patch)
+   * @return 展开后的 tensor，CPU 上分配
+   */
+  tensor::Tensor _unfold_pixels(const tensor::Tensor& pixel_values,
+                                 const ImageGridTHW& grid_thw) const;
+
+  /**
    * @brief 构建视觉 Rotory Position Embedding
    */
   void _build_vision_rope(const ImageGridTHW& grid_thw,
@@ -239,6 +216,10 @@ class PaddleOCRVLModel : public Model {
   std::unique_ptr<SiglipVisionLayers>          siglip_layers_;
   std::unique_ptr<PaddleOCRVLProjectorLayers>  projector_layers_;
   const PaddleOCRVLTransformerConfig*          vl_config_ = nullptr;
+
+  // 多模态 decode 阶段需要跨 step 维护的位置；
+  // prompt 阶段会被重置为 0
+  mutable int32_t mm_decode_step_ = 0;
 };
 
 }  // namespace model

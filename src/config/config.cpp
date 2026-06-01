@@ -12,6 +12,14 @@ const std::string llama_tokenizer_path = "./llama/tokenizer.model";
 const std::string qwen_model_path      = "./qwen/model.safetensors";
 const std::string qwen_tokenizer_path = "./qwen/tokenizer.json";
 
+// PaddleOCR-VL
+const std::string paddleocr_model_path     = "./paddleocr-vl/model.safetensors";
+const std::string paddleocr_tokenizer_path = "./paddleocr-vl/tokenizer.json";
+const std::string paddleocr_image_path     = "./paddleocr-vl/sample_image.bin";
+const int paddleocr_image_t = 1;
+const int paddleocr_image_h = 16;  // 16 * 14 = 224 像素
+const int paddleocr_image_w = 16;
+
 // 推理参数
 const int max_generate_steps = 2048;
 const bool use_cuda = true;
