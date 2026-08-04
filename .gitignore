@@ -1,11 +1,29 @@
-# 忽略日志库、数学库和测试库的源代码
+# ---- 构建产物 ----
+build/
+build_*/
+cmake-build-*/
+compile_commands.json
+
+# ---- 第三方依赖源码（本地手动放置，不纳入版本控制）----
 armadillo/
 glog/
-googletest
-.vscode/
-/test/build/
+googletest/
 
-# 额外：忽略所有子目录中残留的 .git 文件夹（防止嵌套仓库警告）
+# 防止第三方源码目录里的 git 元数据被当成嵌套仓库
 **/.git/
-**/.gitignore
 **/.gitattributes
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+
+# ---- Python 工具链缓存 ----
+__pycache__/
+*.py[cod]
+.venv/
+
+# ---- 模型权重与评测中间产物（体积大，不入库）----
+*.bin
+*.safetensors
+*.npy

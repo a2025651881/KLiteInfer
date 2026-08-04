@@ -1,912 +1,1107 @@
 // =============================================================================
-//  PaddleOCR-VL Model
+//  PaddleOCR-VL
 //
-//  结构：
-//    1. SigLIP-like Vision Transformer (patch_embed + N x [Attn + FFN] + post_ln)
-//    2. Projector MLP (linear_1 -> GELU -> linear_2) + 2x2 spatial merge
-//    3. ERNIE / Qwen 系文本解码器 (复用 Qwen3Layers，由权重加载阶段挂载)
-//    4. 3D-MRoPE (t, h, w) 位置编码
+//  实现严格对照 HF 参考实现 modeling_paddleocr_vl.py 的推理路径：
 //
-//  说明：
-//    - 视觉路径目前为 CPU 主路径 (LayerNorm/GELU/PatchEmbed 仅 CPU)。
-//      对外接口对设备透明：CUDA 模式下视觉 hidden 在 CPU 上算完后，
-//      通过 DeviceAllocator::memcpy 注入到 LLM 的 (可能位于 CUDA 的) embedding 张量。
+//  视觉 (SigLIP-like, 27 层, CPU 显式计算):
+//    pixel_values [N,3*14*14]
+//      -> patch_embedding (等价 Conv2d(k=14,s=14) + bias) -> [N, 1152]
+//      -> + bilinear 插值后的 position_embedding(27x27 -> h x w)
+//      -> 27 x { LN1 -> QKV(+bias) -> 2D RoPE -> 全可见双向注意力 -> out_proj(+bias) -> +res
+//                LN2 -> fc1(+bias) -> tanh-GELU -> fc2(+bias) -> +res }
+//      -> post_layernorm
+//
+//  Projector (mlp_AR):
+//      -> pre_norm(LayerNorm eps=1e-5，作用在 merge 之前)
+//      -> 2x2 spatial merge，拼接顺序 (p1,p2,d)
+//      -> linear_1(+bias) -> erf-GELU -> linear_2(+bias) -> [N/4, 1024]
+//
+//  文本 (ERNIE4.5 类, 18 层, GQA 16/2, head_dim 128, RMSNorm eps=1e-5):
+//      3D-MRoPE，频率轴划分 j<16 -> t, 16<=j<40 -> h, j>=40 -> w，半分割配对(j, j+64)
+//
+//  注意：视觉算子与MRoPE 目前只有 CPU 实现，因此本模型强制在 CPU 上运行，
+//        优先保证与参考实现的数值一致性。
 // =============================================================================
 #include "model/paddleocr.h"
-#include "model/qwen3.h"
-#include "op/matmul.h"
-#include "op/rmsnorm.h"
-#include "op/rope.h"
-#include "op/mha.h"
-#include "op/add.h"
-#include "op/swiglu.h"
-#include "op/embedding.h"
-#include "op/vision.h"
-#include "base/alloc.h"
 #include <glog/logging.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <unistd.h>
+#include <armadillo>
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
+#include <chrono>
 #include <cstring>
+#include <fstream>
+#include <vector>
+#include "base/alloc.h"
+#include "../op/kernels/kernels_interface.h"
+#include "op/matmul.h"
+#include "op/mha.h"
+#include "op/rmsnorm.h"
 
 namespace model {
+namespace {
 
-// =============================================================================
-//  to_cuda helpers
-// =============================================================================
-void SiglipVisionLayers::to_cuda(std::shared_ptr<kernel::CudaConfig> config) {
-  auto move = [&](std::shared_ptr<op::Layer>& l) {
-    if (l) {
-      l->set_cuda_config(config);
-      l->to_cuda();
-    }
-  };
-  move(patch_embedding);
-  for (auto& l : attn_norm) move(l);
-  for (auto& l : qkv_proj) move(l);
-  for (auto& l : out_proj) move(l);
-  for (auto& l : ffn_norm) move(l);
-  for (auto& l : fc1) move(l);
-  for (auto& l : fc2) move(l);
-  move(post_layernorm);
+constexpr int32_t kKlvlMagic = 0x4C564C4B;  // "KLVL"
+constexpr int32_t kKlvlVersion = 1;
+constexpr int32_t kKlvlHeaderInts = 24;
+
+/// 以 mmap 内存为后端创建只读权重视图（零拷贝）
+tensor::Tensor view_weight(const void* ptr, const std::vector<int32_t>& dims) {
+  tensor::Tensor t(base::DataType::kDataTypeFp32, dims, false, nullptr,
+                   const_cast<void*>(ptr));
+  t.set_device_type(base::DeviceType::kDeviceCPU);
+  return t;
 }
 
-void PaddleOCRVLProjectorLayers::to_cuda(std::shared_ptr<kernel::CudaConfig> config) {
-  auto move = [&](std::shared_ptr<op::Layer>& l) {
-    if (l) {
-      l->set_cuda_config(config);
-      l->to_cuda();
-    }
-  };
-  move(pre_norm);
-  move(linear_1);
-  move(linear_2);
-  move(act);
-}
+}  // namespace
 
 // =============================================================================
-//  Constructor
+//  构造 / 初始化
 // =============================================================================
 PaddleOCRVLModel::PaddleOCRVLModel(base::TokenizerType tokenizer_type, std::string token_path,
                                    std::string model_path, bool is_quant_model)
-    : Model(tokenizer_type, base::ModelType::kModelTypePaddleOCRVL,
-            std::move(token_path), std::move(model_path), is_quant_model) {}
+    : Model(tokenizer_type, base::ModelType::kModelTypePaddleOCRVL, std::move(token_path),
+            std::move(model_path), is_quant_model) {}
 
-// =============================================================================
-//  init
-// =============================================================================
 base::Status PaddleOCRVLModel::init(base::DeviceType device_type) {
   using namespace base;
   if (token_path_.empty()) {
     return error::PathNotValid(token_path_);
   }
-  if (device_type == DeviceType::kDeviceCPU && is_quant_model_) {
-    return error::InternalError("CPU device does not support int8 quant for PaddleOCR-VL.");
-  }
   device_type_ = device_type;
+  vision_device_ = device_type;
 
   if (device_type == DeviceType::kDeviceCUDA) {
     cudaSetDevice(0);
     cuda_config_ = std::make_shared<kernel::CudaConfig>();
     cudaStreamCreate(&cuda_config_->stream);
     if (cudaGetLastError() != cudaSuccess) {
-      return error::InternalError("PaddleOCR-VL: cuda stream create failed.");
+      return error::InternalError("The cuda handle create failed.");
     }
   }
 
-  // 读权重 / 解析 config
   Status read_status = gen_model_from_file();
-  if (!read_status) return read_status;
+  if (!read_status) {
+    return read_status;
+  }
 
-  // PaddleOCR-VL 自身的多模态配置；后续可由权重元信息覆盖
-  static const PaddleOCRVLTransformerConfig default_vl_cfg{};
-  vl_config_ = &default_vl_cfg;
+  if (device_type == DeviceType::kDeviceCUDA) {
+    // 视觉权重是mmap 视图，文本权重挂在算子层上，两者分别上传
+    _upload_vision_weights();
+    qwen_layers_->to_cuda(cuda_config_);
+    LOG(INFO) << "PaddleOCR-VL: vision encoder / projector 与文本 decoder 均走 CUDA。";
+  }
 
-  STATUS_CHECK(create_layers());
   init_mem();
-
   sampler_ = std::make_unique<sampler::ArgmaxSampler>(device_type_);
   mm_decode_step_ = 0;
+  mm_rope_pos_ = 0;
   return error::Success();
 }
 
+void PaddleOCRVLModel::_upload_vision_weights() {
+  CHECK(cuda_config_ != nullptr);
+  auto up = [this](tensor::Tensor& t) {
+    if (!t.is_empty()) {
+      t.to_cuda(cuda_config_->stream);
+    }
+  };
+  up(siglip_->patch_w);
+  up(siglip_->patch_b);
+  up(siglip_->pos_embed);
+  for (auto& L : siglip_->layers) {
+    up(L.ln1_w); up(L.ln1_b);
+    up(L.q_w); up(L.q_b);
+    up(L.k_w); up(L.k_b);
+    up(L.v_w); up(L.v_b);
+    up(L.o_w); up(L.o_b);
+    up(L.ln2_w); up(L.ln2_b);
+    up(L.fc1_w); up(L.fc1_b);
+    up(L.fc2_w); up(L.fc2_b);
+  }
+  up(siglip_->post_ln_w);
+  up(siglip_->post_ln_b);
+  up(projector_->pre_norm_w);
+  up(projector_->pre_norm_b);
+  up(projector_->linear1_w);
+  up(projector_->linear1_b);
+  up(projector_->linear2_w);
+  up(projector_->linear2_b);
+  cudaStreamSynchronize(cuda_config_->stream);
+}
+
+tensor::Tensor PaddleOCRVLModel::_vision_alloc(int32_t rows, int32_t cols) const {
+  std::shared_ptr<base::DeviceAllocator> alloc;
+  if (vision_device_ == base::DeviceType::kDeviceCUDA) {
+    alloc = base::CUDADeviceAllocatorFactory::get_instance();
+  } else {
+    alloc = base::CPUDeviceAllocatorFactory::get_instance();
+  }
+  return tensor::Tensor(base::DataType::kDataTypeFp32, rows, cols, true, alloc);
+}
+
+void PaddleOCRVLModel::_vision_sync() const {
+  if (vision_device_ == base::DeviceType::kDeviceCUDA && cuda_config_ != nullptr) {
+    cudaStreamSynchronize(cuda_config_->stream);
+  }
+}
+
 // =============================================================================
-//  create_layers
+//  权重文件解析（KLVL 扩展头）
 // =============================================================================
+base::Status PaddleOCRVLModel::read_model_file() {
+  using namespace base;
+  if (model_path_.empty()) {
+    return error::PathNotValid("PaddleOCR-VL: the model path is empty.");
+  }
+
+  int32_t fd = open(model_path_.data(), O_RDONLY);
+  if (fd == -1) {
+    return error::PathNotValid("Failed to open the weight file " + model_path_);
+  }
+  FILE* file = fopen(model_path_.data(), "rb");
+  if (!file) {
+    close(fd);
+    return error::PathNotValid("Failed to open the weight file " + model_path_);
+  }
+
+  int32_t hdr[kKlvlHeaderInts] = {0};
+  if (fread(hdr, sizeof(int32_t), kKlvlHeaderInts, file) != kKlvlHeaderInts) {
+    fclose(file);
+    close(fd);
+    return error::ModelParseError("PaddleOCR-VL: failed to read the KLVL header.");
+  }
+  if (hdr[0] != kKlvlMagic) {
+    fclose(file);
+    close(fd);
+    return error::ModelParseError(
+        "PaddleOCR-VL: bad magic, 请用 tools/export_paddleocr_vl.py 导出权重。");
+  }
+  if (hdr[1] != kKlvlVersion) {
+    fclose(file);
+    close(fd);
+    return error::ModelParseError("PaddleOCR-VL: unsupported KLVL version " +
+                                  std::to_string(hdr[1]));
+  }
+
+  vl_config_ = std::make_unique<PaddleOCRVLTransformerConfig>();
+  auto& vc = vl_config_->vision;
+  vc.hidden_size_ = hdr[2];
+  vc.num_hidden_layers_ = hdr[3];
+  vc.num_attention_heads_ = hdr[4];
+  vc.intermediate_size_ = hdr[5];
+  vc.patch_size_ = hdr[6];
+  vc.spatial_merge_size_ = hdr[7];
+  vc.pos_grid_ = hdr[8];
+
+  vl_config_->text_hidden_size_ = hdr[9];
+  vl_config_->text_inter_size_ = hdr[10];
+  vl_config_->text_num_layers_ = hdr[11];
+  vl_config_->text_num_heads_ = hdr[12];
+  vl_config_->text_num_kv_heads_ = hdr[13];
+  vl_config_->text_head_dim_ = hdr[14];
+  vl_config_->text_vocab_size_ = hdr[15];
+  vl_config_->image_token_id_ = hdr[17];
+  vl_config_->vision_start_token_id_ = hdr[18];
+  vl_config_->mrope_section_t_ = hdr[19];
+  vl_config_->mrope_section_h_ = hdr[20];
+  vl_config_->mrope_section_w_ = hdr[21];
+
+  // 文本 decoder 的运行期配置
+  config_->dim_ = vl_config_->text_hidden_size_;
+  config_->hidden_dim_ = vl_config_->text_hidden_size_;
+  config_->immediate_dim_ = vl_config_->text_inter_size_;
+  config_->layer_num_ = vl_config_->text_num_layers_;
+  config_->head_num_ = vl_config_->text_num_heads_;
+  config_->kv_head_num_ = vl_config_->text_num_kv_heads_;
+  config_->head_size_ = vl_config_->text_head_dim_;
+  config_->q_dim_ = config_->head_num_ * config_->head_size_;
+  config_->kv_dim_ = config_->kv_head_num_ * config_->head_size_;
+  config_->kv_mul_ = config_->head_num_ / config_->kv_head_num_;
+  config_->vocab_size_ = vl_config_->text_vocab_size_;
+  config_->seq_len_ = hdr[16];
+  config_->is_shared_weight_ = hdr[22] != 0;
+
+  raw_model_data_ = std::make_shared<RawModelDataFp32>();
+  fseek(file, 0, SEEK_END);
+  raw_model_data_->file_size = static_cast<size_t>(ftell(file));
+  fclose(file);
+
+  raw_model_data_->fd = fd;
+  raw_model_data_->data = mmap(nullptr, raw_model_data_->file_size, PROT_READ, MAP_PRIVATE, fd, 0);
+  if (raw_model_data_->data == MAP_FAILED || raw_model_data_->data == nullptr) {
+    return error::ModelParseError("PaddleOCR-VL: mmap failed for " + model_path_);
+  }
+  raw_model_data_->header_size = sizeof(int32_t) * kKlvlHeaderInts;
+  raw_model_data_->weight_data =
+      static_cast<int8_t*>(raw_model_data_->data) + raw_model_data_->header_size;
+
+  LOG(INFO) << "PaddleOCR-VL: vision " << vc.hidden_size_ << "d x " << vc.num_hidden_layers_
+            << "L, text " << config_->dim_ << "d x " << config_->layer_num_ << "L, GQA "
+            << config_->head_num_ << "/" << config_->kv_head_num_ << ", head_dim "
+            << config_->head_size_ << ", vocab " << config_->vocab_size_;
+  return error::Success();
+}
+
 base::Status PaddleOCRVLModel::create_layers() {
   create_param_layers();
   create_nonparam_layers();
-  if (is_quant_model_) {
-    create_param_quant_layers();
+  if (!siglip_ || !projector_ || !qwen_layers_ || !qwen_layers_->cls_layer_) {
+    return base::error::InternalError("PaddleOCR-VL: create layers failed.");
   }
   return base::error::Success();
 }
 
-// ---------- 参数层 ----------
+// =============================================================================
+//  权重加载：顺序必须与 tools/export_paddleocr_vl.py 严格一致
+// =============================================================================
 void PaddleOCRVLModel::create_param_layers() {
+  CHECK(raw_model_data_ != nullptr);
   CHECK(vl_config_ != nullptr);
   const auto& vc = vl_config_->vision;
 
-  // 视觉算子目前只有 CPU 实现，强制使用 CPU device 创建权重张量；
-  // 这样在 CUDA 模式下也不会触发未实现的 CUDA 路径。
-  const base::DeviceType vis_dev = base::DeviceType::kDeviceCPU;
+  const int32_t vh = vc.hidden_size_;
+  const int32_t vi = vc.intermediate_size_;
+  const int32_t patch_in = vc.num_channels_ * vc.patch_size_ * vc.patch_size_;  // 588
+  const int32_t merged = vc.merged_hidden();// 4608
+  const int32_t td = config_->dim_;
+  const int32_t ti = config_->immediate_dim_;
+  const int32_t q_dim = config_->q_dim_;
+  const int32_t kv_dim = config_->kv_dim_;
+  const int32_t vocab = config_->vocab_size_;
 
-  // ----------- SigLIP Vision Encoder -----------
-  siglip_layers_ = std::make_unique<SiglipVisionLayers>();
+  size_t cursor = 0;
+  auto take = [&](size_t count) {
+    const void* p = raw_model_data_->weight(cursor);
+    cursor += count;
+    return p;
+  };
 
-  siglip_layers_->patch_embedding = std::make_shared<op::PatchEmbedLayer>(
-      vis_dev, vc.num_channels_, vc.hidden_size_, vc.patch_size_);
+  // ---------------- 视觉编码器 ----------------
+  siglip_ = std::make_unique<SiglipVisionWeights>();
+  siglip_->patch_w = view_weight(take(static_cast<size_t>(vh) * patch_in), {vh, patch_in});
+  siglip_->patch_b = view_weight(take(vh), {vh});
+  siglip_->pos_embed = view_weight(take(static_cast<size_t>(vc.pos_grid_) * vc.pos_grid_ * vh),
+                                   {vc.pos_grid_ * vc.pos_grid_, vh});
 
-  siglip_layers_->attn_norm.resize(vc.num_hidden_layers_);
-  siglip_layers_->qkv_proj.resize(vc.num_hidden_layers_);
-  siglip_layers_->out_proj.resize(vc.num_hidden_layers_);
-  siglip_layers_->ffn_norm.resize(vc.num_hidden_layers_);
-  siglip_layers_->fc1.resize(vc.num_hidden_layers_);
-  siglip_layers_->fc2.resize(vc.num_hidden_layers_);
-
+  siglip_->layers.resize(vc.num_hidden_layers_);
   for (int32_t i = 0; i < vc.num_hidden_layers_; ++i) {
-    siglip_layers_->attn_norm[i] =
-        std::make_shared<op::LayerNormLayer>(vis_dev, vc.hidden_size_, vc.layer_norm_eps_);
-    siglip_layers_->qkv_proj[i] =
-        std::make_shared<op::MatmulLayer>(vis_dev, 3 * vc.hidden_size_, vc.hidden_size_,
-                                          /*is_quant_layer=*/false, /*has_bias=*/true);
-    siglip_layers_->out_proj[i] =
-        std::make_shared<op::MatmulLayer>(vis_dev, vc.hidden_size_, vc.hidden_size_,
-                                          false, true);
-    siglip_layers_->ffn_norm[i] =
-        std::make_shared<op::LayerNormLayer>(vis_dev, vc.hidden_size_, vc.layer_norm_eps_);
-    siglip_layers_->fc1[i] =
-        std::make_shared<op::MatmulLayer>(vis_dev, vc.intermediate_size_, vc.hidden_size_,
-                                          false, true);
-    siglip_layers_->fc2[i] =
-        std::make_shared<op::MatmulLayer>(vis_dev, vc.hidden_size_, vc.intermediate_size_,
-                                          false, true);
+    auto& L = siglip_->layers[i];
+    L.ln1_w = view_weight(take(vh), {vh});
+    L.ln1_b = view_weight(take(vh), {vh});
+    L.q_w = view_weight(take(static_cast<size_t>(vh) * vh), {vh, vh});
+    L.q_b = view_weight(take(vh), {vh});
+    L.k_w = view_weight(take(static_cast<size_t>(vh) * vh), {vh, vh});
+    L.k_b = view_weight(take(vh), {vh});
+    L.v_w = view_weight(take(static_cast<size_t>(vh) * vh), {vh, vh});
+    L.v_b = view_weight(take(vh), {vh});
+    L.o_w = view_weight(take(static_cast<size_t>(vh) * vh), {vh, vh});
+    L.o_b = view_weight(take(vh), {vh});
+    L.ln2_w = view_weight(take(vh), {vh});
+    L.ln2_b = view_weight(take(vh), {vh});
+    L.fc1_w = view_weight(take(static_cast<size_t>(vi) * vh), {vi, vh});
+    L.fc1_b = view_weight(take(vi), {vi});
+    L.fc2_w = view_weight(take(static_cast<size_t>(vh) * vi), {vh, vi});
+    L.fc2_b = view_weight(take(vh), {vh});
   }
-  siglip_layers_->post_layernorm =
-      std::make_shared<op::LayerNormLayer>(vis_dev, vc.hidden_size_, vc.layer_norm_eps_);
+  siglip_->post_ln_w = view_weight(take(vh), {vh});
+  siglip_->post_ln_b = view_weight(take(vh), {vh});
 
-  // ----------- Projector MLP -----------
-  projector_layers_ = std::make_unique<PaddleOCRVLProjectorLayers>();
-  const int32_t merged = vc.merged_hidden();          // 1152 * 2 * 2 = 4608
-  // 与 LLM 文本侧 hidden 严格对齐：优先使用 config_->dim_（来自权重），
-  // 兜底再走 vl_config_->text_hidden_size_ 默认值。
-  const int32_t text_h =
-      (config_ && config_->dim_ > 0) ? config_->dim_ : vl_config_->text_hidden_size_;
+  // ---------------- Projector ----------------
+  projector_ = std::make_unique<PaddleOCRVLProjectorWeights>();
+  projector_->pre_norm_w = view_weight(take(vh), {vh});
+  projector_->pre_norm_b = view_weight(take(vh), {vh});
+  projector_->linear1_w =
+      view_weight(take(static_cast<size_t>(merged) * merged), {merged, merged});
+  projector_->linear1_b = view_weight(take(merged), {merged});
+  projector_->linear2_w = view_weight(take(static_cast<size_t>(td) * merged), {td, merged});
+  projector_->linear2_b = view_weight(take(td), {td});
 
-  projector_layers_->pre_norm =
-      std::make_shared<op::LayerNormLayer>(vis_dev, vc.hidden_size_, vc.layer_norm_eps_);
-  projector_layers_->linear_1 =
-      std::make_shared<op::MatmulLayer>(vis_dev, merged, merged, false, true);
-  projector_layers_->act      = std::make_shared<op::GELULayer>(vis_dev);
-  projector_layers_->linear_2 =
-      std::make_shared<op::MatmulLayer>(vis_dev, text_h, merged, false, true);
-
-  // ----------- Text LLM (复用 Qwen3Layers) -----------
-  // Qwen3Layers 是只持有共享指针的容器，由权重加载阶段（gen_model_from_file
-  // 的 PaddleOCR-VL 适配）按 config_ 填充。这里只构造空容器。
+  // ---------------- 文本解码器 ----------------
+  const auto cpu = base::DeviceType::kDeviceCPU;
   qwen_layers_ = std::make_unique<Qwen3Layers>();
+
+  auto embedding_layer =
+      std::make_shared<op::EmbeddingLayer>(device_type_, td, config_->seq_len_, vocab);
+  embedding_layer->set_weight(0, {vocab, td}, take(static_cast<size_t>(vocab) * td), cpu);
+  qwen_layers_->embedding_layer_ = embedding_layer;
+
+  // 每层顺序：input_ln, q, k, v, o, post_ln, gate, down, up
+  std::vector<const void*> attn_norm(config_->layer_num_), ffn_norm(config_->layer_num_);
+  for (int32_t i = 0; i < config_->layer_num_; ++i) {
+    attn_norm[i] = take(td);
+
+    auto wq = std::make_shared<op::MatmulLayer>(device_type_, q_dim, td);
+    wq->set_weight(0, {q_dim, td}, take(static_cast<size_t>(q_dim) * td), cpu);
+    qwen_layers_->wq_layers_.push_back(wq);
+
+    auto wk = std::make_shared<op::MatmulLayer>(device_type_, kv_dim, td);
+    wk->set_weight(0, {kv_dim, td}, take(static_cast<size_t>(kv_dim) * td), cpu);
+    qwen_layers_->wk_layers_.push_back(wk);
+
+    auto wv = std::make_shared<op::MatmulLayer>(device_type_, kv_dim, td);
+    wv->set_weight(0, {kv_dim, td}, take(static_cast<size_t>(kv_dim) * td), cpu);
+    qwen_layers_->wv_layers_.push_back(wv);
+
+    auto wo = std::make_shared<op::MatmulLayer>(device_type_, td, q_dim);
+    wo->set_weight(0, {td, q_dim}, take(static_cast<size_t>(td) * q_dim), cpu);
+    qwen_layers_->wo_layers_.push_back(wo);
+
+    ffn_norm[i] = take(td);
+
+    auto w1 = std::make_shared<op::MatmulLayer>(device_type_, ti, td);
+    w1->set_weight(0, {ti, td}, take(static_cast<size_t>(ti) * td), cpu);
+    qwen_layers_->w1_layers_.push_back(w1);
+
+    auto w2 = std::make_shared<op::MatmulLayer>(device_type_, td, ti);
+    w2->set_weight(0, {td, ti}, take(static_cast<size_t>(td) * ti), cpu);
+    qwen_layers_->w2_layers_.push_back(w2);
+
+    auto w3 = std::make_shared<op::MatmulLayer>(device_type_, ti, td);
+    w3->set_weight(0, {ti, td}, take(static_cast<size_t>(ti) * td), cpu);
+    qwen_layers_->w3_layers_.push_back(w3);
+  }
+  const void* final_norm = take(td);
+
+  // rmsnorm 顺序：attn norm(L) + ffn norm(L) + final norm(1)
+  for (int32_t i = 0; i < config_->layer_num_; ++i) {
+    auto n = std::make_shared<op::RmsNormLayer>(device_type_, td);
+    n->set_weight(0, {td}, attn_norm[i], cpu);
+    qwen_layers_->rmsnorm_layers_.push_back(n);
+  }
+  for (int32_t i = 0; i < config_->layer_num_; ++i) {
+    auto n = std::make_shared<op::RmsNormLayer>(device_type_, td);
+    n->set_weight(0, {td}, ffn_norm[i], cpu);
+    qwen_layers_->rmsnorm_layers_.push_back(n);
+  }
+  {
+    auto n = std::make_shared<op::RmsNormLayer>(device_type_, td);
+    n->set_weight(0, {td}, final_norm, cpu);
+    qwen_layers_->rmsnorm_layers_.push_back(n);
+  }
+
+  auto cls = std::make_shared<op::MatmulLayer>(device_type_, vocab, td);
+  const void* cls_ptr = config_->is_shared_weight_
+                            ? raw_model_data_->weight(0)  // 共享 embedding（本模型为 false）
+                            : take(static_cast<size_t>(vocab) * td);
+  cls->set_weight(0, {vocab, td}, cls_ptr, cpu);
+  qwen_layers_->cls_layer_ = cls;
+
+  const size_t expect = cursor * sizeof(float) + raw_model_data_->header_size;
+  CHECK_EQ(raw_model_data_->file_size, expect)
+      << "PaddleOCR-VL权重文件大小与布局不符：期望 " << expect << " 实际 "
+      << raw_model_data_->file_size << "，请确认导出脚本与 create_param_layers 一致。";
 }
 
 void PaddleOCRVLModel::create_nonparam_layers() {
   CHECK(qwen_layers_ != nullptr);
-  if (!config_) {
-    LOG(WARNING) << "PaddleOCR-VL: TransformerConfig not loaded; skip non-param layer creation.";
-    return;
-  }
-
-  qwen_layers_->rope_layer_ = std::make_shared<op::RoPELayer>(
-      device_type_, config_->dim_, config_->kv_dim_, config_->head_size_);
-  qwen_layers_->mha_layer_ = std::make_shared<op::MultiHeadAttention>(
-      device_type_, 0, config_->kv_mul_, config_->kv_dim_, config_->seq_len_,
-      config_->head_num_, config_->head_size_);
   qwen_layers_->add_layer_ = std::make_shared<op::VecAddLayer>(device_type_);
   qwen_layers_->swiglu_layer_ =
-      std::make_shared<op::SwiGLULayer>(device_type_, config_->hidden_dim_);
+      std::make_shared<op::SwiGLULayer>(device_type_, config_->immediate_dim_);
+  qwen_layers_->mha_layer_ = std::make_shared<op::MultiHeadAttention>(
+      device_type_, 0, config_->kv_mul_, config_->kv_dim_, config_->seq_len_, config_->head_num_,
+      config_->head_size_);
+  // RoPE 不走通用层：3D-MRoPE需要逐 token 的 cos/sin，见 _build_mrope_cos_sin
 }
 
 void PaddleOCRVLModel::create_param_quant_layers() {
-  // PaddleOCR-VL 暂不支持量化分支
-  LOG(WARNING) << "PaddleOCR-VL: quant layers not implemented yet.";
+  LOG(FATAL) << "PaddleOCR-VL: 量化推理尚未实现。";
+}
+
+void PaddleOCRVLModel::init_mem() {
+  std::shared_ptr<base::DeviceAllocator> alloc;
+  if (device_type_ == base::DeviceType::kDeviceCUDA) {
+    alloc = base::CUDADeviceAllocatorFactory::get_instance();
+  } else {
+    alloc = base::CPUDeviceAllocatorFactory::get_instance();
+  }
+  const int32_t td = config_->dim_;
+
+  // 输入 token / pos 由主机侧写入，固定放CPU
+  auto cpu_alloc = base::CPUDeviceAllocatorFactory::get_instance();
+  tensor::Tensor input_tokens(base::DataType::kDataTypeInt32, 1, true, cpu_alloc);
+  tensor::Tensor input_embeddings(base::DataType::kDataTypeFp32, 1, td, true, alloc);
+  CHECK(insert_buffer(ModelBufferType::kInputTokens, input_tokens));
+  CHECK(insert_buffer(ModelBufferType::kInputEmbeddings, input_embeddings));
+
+  tensor::Tensor pos_tensor(base::DataType::kDataTypeInt32, 1, true, cpu_alloc);
+  CHECK(insert_buffer(ModelBufferType::kInputPos, pos_tensor));
+
+  tensor::Tensor rms_output(base::DataType::kDataTypeFp32, td, true, alloc);
+  CHECK(insert_buffer(ModelBufferType::kOutputRMSNorm, rms_output));
+  CHECK(insert_buffer(ModelBufferType::kW2Output, rms_output));
+  CHECK(insert_buffer(ModelBufferType::kFFNRMSNorm, rms_output));
+
+  tensor::Tensor out_mha(base::DataType::kDataTypeFp32, config_->q_dim_, true, alloc);
+  CHECK(insert_buffer(ModelBufferType::kOutputMHA, out_mha));
+  tensor::Tensor query(base::DataType::kDataTypeFp32, config_->q_dim_, true, alloc);
+  CHECK(insert_buffer(ModelBufferType::kQuery, query));
+  tensor::Tensor attn_output(base::DataType::kDataTypeFp32, td, true, alloc);
+  CHECK(insert_buffer(ModelBufferType::kAttnOutput, attn_output));
+  tensor::Tensor score(base::DataType::kDataTypeFp32, config_->head_num_, config_->seq_len_, true,
+                       alloc);
+  CHECK(insert_buffer(ModelBufferType::kScoreStorage, score));
+
+  tensor::Tensor w1_output(base::DataType::kDataTypeFp32, config_->immediate_dim_, true, alloc);
+  tensor::Tensor w3_output(base::DataType::kDataTypeFp32, config_->immediate_dim_, true, alloc);
+  CHECK(insert_buffer(ModelBufferType::kW1Output, w1_output));
+  CHECK(insert_buffer(ModelBufferType::kW3Output, w3_output));
+
+  tensor::Tensor key_cache(base::DataType::kDataTypeFp32, config_->layer_num_, config_->seq_len_,
+                           config_->kv_dim_, true, alloc);
+  tensor::Tensor val_cache(base::DataType::kDataTypeFp32, config_->layer_num_, config_->seq_len_,
+                           config_->kv_dim_, true, alloc);
+  CHECK(insert_buffer(ModelBufferType::kKeyCache, key_cache));
+  CHECK(insert_buffer(ModelBufferType::kValueCache, val_cache));
+
+  tensor::Tensor forward_output(base::DataType::kDataTypeFp32, config_->vocab_size_, true, alloc);
+  CHECK(insert_buffer(ModelBufferType::kForwardOutput, forward_output));
 }
 
 // =============================================================================
-//  init_mem
+//  视觉：patch embedding + 位置编码（bilinear 插值，align_corners=false）
 // =============================================================================
-void PaddleOCRVLModel::init_mem() {
-  std::shared_ptr<base::DeviceAllocator> alloc =
-      device_type_ == base::DeviceType::kDeviceCPU
-          ? std::static_pointer_cast<base::DeviceAllocator>(
-                base::CPUDeviceAllocatorFactory::get_instance())
-          : std::static_pointer_cast<base::DeviceAllocator>(
-                base::CUDADeviceAllocatorFactory::get_instance());
-  auto alloc_cpu = base::CPUDeviceAllocatorFactory::get_instance();
+void PaddleOCRVLModel::_vision_embeddings(const float* pixel_dev, const ImageGridTHW& grid,
+                                          float* out) const {
+  const auto& vc = vl_config_->vision;
+  const int32_t dim = vc.hidden_size_;
+  const int32_t patch_in = vc.num_channels_ * vc.patch_size_ * vc.patch_size_;
+  const int32_t num_patches = grid.num_patches();
+  void* stream = cuda_config_ ? cuda_config_->stream : nullptr;
 
-  if (device_type_ == base::DeviceType::kDeviceCUDA) {
-    CHECK_NE(cuda_config_, nullptr);
-    // 视觉权重一律放 CPU；只把 LLM 部分搬到 CUDA。
-    qwen_layers_->to_cuda(cuda_config_);
+  // patch embedding：输入每个 patch 内部是连续的 C*p*p，等价于对 588 维做 Linear
+  kernel::get_vision_gemm_nt_kernel(vision_device_)(
+      pixel_dev, siglip_->patch_w.ptr<float>(), siglip_->patch_b.ptr<float>(), num_patches,
+      patch_in, dim, out, stream);
+  _dump("patch_embed", out, static_cast<size_t>(num_patches) * dim);
+
+  // 位置编码：[27,27] 插值到 (h, w) 后按 t 逐帧累加
+  kernel::get_vision_pos_embed_kernel(vision_device_)(siglip_->pos_embed.ptr<float>(),
+                                                      vc.pos_grid_, grid.h, grid.w, dim, grid.t,
+                                                      out, stream);
+  _dump("vis_embed", out, static_cast<size_t>(num_patches) * dim);
+}
+
+// =============================================================================
+//  视觉 2D RoPE：head_dim=72 -> 36 对，布局 [h(18) | w(18)]，配对偏移 36
+// =============================================================================
+void PaddleOCRVLModel::_build_vision_rope(const ImageGridTHW& grid, tensor::Tensor& cos_tab,
+                                tensor::Tensor& sin_tab) const {
+  const auto& vc = vl_config_->vision;
+  const int32_t head_dim = vc.head_dim();  // 72
+  const int32_t half = head_dim / 2;       // 36
+  const int32_t nfreq = half / 2;          // 18
+  const int32_t n = grid.num_patches();
+
+  std::vector<float> inv_freq(nfreq);
+  for (int32_t k = 0; k < nfreq; ++k) {
+    inv_freq[k] = 1.f / std::pow(vc.rope_theta_,
+                                 static_cast<float>(2 * k) / static_cast<float>(half));
   }
 
-  // ---------------- LLM 文本侧 hidden 维 ----------------
-  // 必须与 Qwen3 embedding/cls layer 输出维度一致；优先取 config_->dim_。
-  const int32_t text_hidden =
-      (config_ && config_->dim_ > 0) ? config_->dim_ : vl_config_->text_hidden_size_;
+  auto cpu_alloc = base::CPUDeviceAllocatorFactory::get_instance();
+  cos_tab = tensor::Tensor(base::DataType::kDataTypeFp32, n, half, true, cpu_alloc);
+  sin_tab = tensor::Tensor(base::DataType::kDataTypeFp32, n, half, true, cpu_alloc);
+  float* cos_p = cos_tab.ptr<float>();
+  float* sin_p = sin_tab.ptr<float>();
 
-  // ---------------- Vision intermediate buffers (CPU) ----------------
-  // 视觉算子只有 CPU 实现 → 中间张量统一 CPU 分配。
-  const auto& vc = vl_config_->vision;
-  const int32_t max_patches =
-      vl_config_->vision_max_tokens_ * vc.spatial_merge_size_ * vc.spatial_merge_size_;
-
-  tensor::Tensor vision_hidden(base::DataType::kDataTypeFp32,
-                               max_patches, vc.hidden_size_, true, alloc_cpu);
-  tensor::Tensor projector_out(base::DataType::kDataTypeFp32,
-                               vl_config_->vision_max_tokens_, text_hidden,
-                               true, alloc_cpu);
-  CHECK(insert_buffer(model::ModelBufferType::kVisionHidden,    vision_hidden));
-  CHECK(insert_buffer(model::ModelBufferType::kProjectorOutput, projector_out));
-
-  // ---------------- MRoPE positions (CPU, int32, [3, seq_len]) ----------------
-  const int32_t seq_len = config_ ? config_->seq_len_ : 4096;
-  tensor::Tensor mrope_pos(base::DataType::kDataTypeInt32, 3, seq_len, true, alloc_cpu);
-  CHECK(insert_buffer(model::ModelBufferType::kMRoPEPositions, mrope_pos));
-
-  // ---------------- 文本侧 token / embedding ----------------
-  tensor::Tensor input_tokens(base::DataType::kDataTypeInt32, 1, true, alloc_cpu);
-  tensor::Tensor input_embeddings(base::DataType::kDataTypeFp32, 1, text_hidden, true, alloc);
-  CHECK(insert_buffer(model::ModelBufferType::kInputTokens,     input_tokens));
-  CHECK(insert_buffer(model::ModelBufferType::kInputEmbeddings, input_embeddings));
-
-  // 1D pos 张量（与 Qwen3Model::init_mem 行为一致），用作 KV cache 索引
-  tensor::Tensor pos_tensor(base::DataType::kDataTypeInt32, 1, true, alloc_cpu);
-  CHECK(insert_buffer(model::ModelBufferType::kInputPos, pos_tensor));
-
-  if (config_) {
-    tensor::Tensor sin_cache(base::DataType::kDataTypeFp32,
-                             config_->head_size_ * config_->seq_len_, true, alloc);
-    tensor::Tensor cos_cache(base::DataType::kDataTypeFp32,
-                             config_->head_size_ * config_->seq_len_, true, alloc);
-    CHECK(insert_buffer(model::ModelBufferType::kSinCache, sin_cache));
-    CHECK(insert_buffer(model::ModelBufferType::kCosCache, cos_cache));
-
-    tensor::Tensor key_cache(base::DataType::kDataTypeFp32, config_->layer_num_,
-                             config_->seq_len_, config_->kv_dim_, true, alloc);
-    tensor::Tensor val_cache(base::DataType::kDataTypeFp32, config_->layer_num_,
-                             config_->seq_len_, config_->kv_dim_, true, alloc);
-    CHECK(insert_buffer(model::ModelBufferType::kKeyCache,   key_cache));
-    CHECK(insert_buffer(model::ModelBufferType::kValueCache, val_cache));
-
-    tensor::Tensor forward_output(base::DataType::kDataTypeFp32,
-                                  config_->vocab_size_, true, alloc);
-    CHECK(insert_buffer(model::ModelBufferType::kForwardOutput, forward_output));
-    if (device_type_ == base::DeviceType::kDeviceCUDA) {
-      tensor::Tensor forward_output_cpu(base::DataType::kDataTypeFp32,
-                                        config_->vocab_size_, true, alloc_cpu);
-      CHECK(insert_buffer(model::ModelBufferType::kForwardOutputCPU, forward_output_cpu));
+  for (int32_t p = 0; p < n; ++p) {
+    const int32_t pid = p % (grid.h * grid.w);  // 每帧独立从 0 开始
+    const int32_t h_id = pid / grid.w;
+    const int32_t w_id = pid % grid.w;
+    float* c = cos_p + static_cast<size_t>(p) * half;
+    float* s = sin_p + static_cast<size_t>(p) * half;
+    for (int32_t k = 0; k < nfreq; ++k) {
+      const float ah = static_cast<float>(h_id) * inv_freq[k];
+      const float aw = static_cast<float>(w_id) * inv_freq[k];
+      c[k] = std::cos(ah);
+      s[k] = std::sin(ah);
+      c[nfreq + k] = std::cos(aw);
+      s[nfreq + k] = std::sin(aw);
     }
   }
+
+  if (vision_device_ == base::DeviceType::kDeviceCUDA) {
+    cos_tab.to_cuda(cuda_config_->stream);
+    sin_tab.to_cuda(cuda_config_->stream);
+    cudaStreamSynchronize(cuda_config_->stream);
+  }
 }
 
 // =============================================================================
-//  predict_multimodal: 多模态推理入口
-//
-//  Bug 修复要点：
-//   - 不再用基类 fill_input(pos_tensor, ...) —— 它要求 pos_tensor 为 1D，而
-//     mrope.positions 是 [3, L]，语义不符。
-//   - 显式维护跨 step 的 decode 位置 mm_decode_step_，保证 KV-cache 索引连续。
-//   - 视觉特征已在 embedding_multimodal 内通过 device-aware memcpy 注入；
-//     这里直接把 input_embeddings 当成 LLM 的 token-level 输入即可。
+//  单层 vision encoder
 // =============================================================================
-base::Status PaddleOCRVLModel::predict_multimodal(const std::vector<int>& tokens,
-                                                  const std::vector<ProcessedImage>& images,
-                                                  bool is_prompt,
-                                                  int& next_token) const {
-  if (tokens.empty()) {
-    return base::error::InvalidArgument("PaddleOCR-VL: tokens is empty.");
+void PaddleOCRVLModel::_vision_encoder_layer(int32_t layer_i, int32_t n, const float* cos_tab,
+                                             const float* sin_tab, float* hidden,
+                                             VisionWorkspace& ws) const {
+  const auto& vc = vl_config_->vision;
+  const int32_t dim = vc.hidden_size_;
+  const int32_t inter = vc.intermediate_size_;
+  const int32_t heads = vc.num_attention_heads_;
+  const int32_t hd = vc.head_dim();  // 72
+  const auto& L = siglip_->layers[layer_i];
+  const size_t total = static_cast<size_t>(n) * dim;
+  void* stream = cuda_config_ ? cuda_config_->stream : nullptr;
+
+  auto gemm = kernel::get_vision_gemm_nt_kernel(vision_device_);
+  auto layernorm = kernel::get_vision_layernorm_kernel(vision_device_);
+  auto residual = kernel::get_vision_residual_kernel(vision_device_);
+
+  float* normed = ws.normed.ptr<float>();
+  float* q = ws.q.ptr<float>();
+  float* k = ws.k.ptr<float>();
+  float* v = ws.v.ptr<float>();
+  float* attn = ws.attn.ptr<float>();
+
+  // ---- pre-norm + QKV(+bias) ----
+  layernorm(hidden, n, dim, L.ln1_w.ptr<float>(), L.ln1_b.ptr<float>(), vc.layer_norm_eps_, normed,
+            stream);
+  gemm(normed, L.q_w.ptr<float>(), L.q_b.ptr<float>(), n, dim, dim, q, stream);
+  gemm(normed, L.k_w.ptr<float>(), L.k_b.ptr<float>(), n, dim, dim, k, stream);
+  gemm(normed, L.v_w.ptr<float>(), L.v_b.ptr<float>(), n, dim, dim, v, stream);
+
+  // ---- 2D RoPE：半分割配对 (d, d+36)，q/k 同时旋转 ----
+  kernel::get_vision_rope2d_kernel(vision_device_)(q, k, cos_tab, sin_tab, n, dim, heads, hd,
+                                                   stream);
+
+  // ---- 全可见双向注意力（单图无 mask、非因果）----
+  kernel::get_vision_attention_kernel(vision_device_)(q, k, v, n, dim, heads, hd, attn,
+                                                      ws.score.ptr<float>(),
+                                                      ws.score.get_dim(0), stream);
+
+  // ---- out_proj(+bias) + 残差 ----
+  gemm(attn, L.o_w.ptr<float>(), L.o_b.ptr<float>(), n, dim, dim, normed, stream);
+  residual(hidden, normed, total, stream);
+
+  // ---- pre-norm + MLP(tanh GELU) + 残差 ----
+  layernorm(hidden, n, dim, L.ln2_w.ptr<float>(), L.ln2_b.ptr<float>(), vc.layer_norm_eps_, normed,
+            stream);
+  float* ff = ws.ff.ptr<float>();
+  gemm(normed, L.fc1_w.ptr<float>(), L.fc1_b.ptr<float>(), n, dim, inter, ff, stream);
+  kernel::get_vision_gelu_kernel(vision_device_)(ff, static_cast<size_t>(n) * inter,
+                                                 kernel::GeluKind::kTanh, stream);
+  gemm(ff, L.fc2_w.ptr<float>(), L.fc2_b.ptr<float>(), n, inter, dim, normed, stream);
+  residual(hidden, normed, total, stream);
+}
+
+// =============================================================================
+//  Projector：pre_norm -> 2x2 merge -> linear_1 -> erf GELU -> linear_2
+// =============================================================================
+tensor::Tensor PaddleOCRVLModel::_project(const float* vision_hidden,
+                                          const ImageGridTHW& grid) const {
+  const auto& vc = vl_config_->vision;
+  const int32_t dim = vc.hidden_size_;
+  const int32_t m = vc.spatial_merge_size_;
+  const int32_t merged = vc.merged_hidden();
+  const int32_t td = config_->dim_;
+  const int32_t n = grid.num_patches();
+  const int32_t n_tok = grid.t * (grid.h / m) * (grid.w / m);
+  void* stream = cuda_config_ ? cuda_config_->stream : nullptr;
+
+  auto gemm = kernel::get_vision_gemm_nt_kernel(vision_device_);
+
+  // pre_norm 作用在 merge 之前，eps=1e-5（与 vision 的 1e-6 不同）
+  tensor::Tensor normed = _vision_alloc(n, dim);
+  kernel::get_vision_layernorm_kernel(vision_device_)(
+      vision_hidden, n, dim, projector_->pre_norm_w.ptr<float>(),
+      projector_->pre_norm_b.ptr<float>(), vl_config_->projector_norm_eps_, normed.ptr<float>(),
+      stream);
+
+  // 2x2 merge：拼接顺序 (p1, p2, d)，每个 patch 的 dim 维整块连续
+  tensor::Tensor merged_buf = _vision_alloc(n_tok, merged);
+  kernel::get_vision_spatial_merge_kernel(vision_device_)(
+      normed.ptr<float>(), grid.t, grid.h, grid.w, dim, m, merged_buf.ptr<float>(), stream);
+
+  tensor::Tensor h1 = _vision_alloc(n_tok, merged);
+  gemm(merged_buf.ptr<float>(), projector_->linear1_w.ptr<float>(),
+       projector_->linear1_b.ptr<float>(), n_tok, merged, merged, h1.ptr<float>(), stream);
+  // Projector 用精确 erf GELU，与视觉 MLP 的 tanh 近似不同
+  kernel::get_vision_gelu_kernel(vision_device_)(
+      h1.ptr<float>(), static_cast<size_t>(n_tok) * merged, kernel::GeluKind::kErf, stream);
+
+  tensor::Tensor out = _vision_alloc(n_tok, td);
+  gemm(h1.ptr<float>(), projector_->linear2_w.ptr<float>(), projector_->linear2_b.ptr<float>(),
+       n_tok, merged, td, out.ptr<float>(), stream);
+  _vision_sync();
+  // 视觉特征留在原设备上，由 embedding_multimodal 直接 scatter（同设备拷贝）
+  _dump("projector", out.ptr<float>(), static_cast<size_t>(n_tok) * td);
+  return out;
+}
+
+// =============================================================================
+//  图像编码入口
+// =============================================================================
+tensor::Tensor PaddleOCRVLModel::encode_image(const tensor::Tensor& pixel_values,
+                                              const ImageGridTHW& grid_thw) const {
+  CHECK(siglip_ != nullptr && projector_ != nullptr);
+  const auto& vc = vl_config_->vision;
+  const int32_t n = grid_thw.num_patches();
+  CHECK_GT(n, 0);
+  CHECK_EQ(grid_thw.h % vc.spatial_merge_size_, 0);
+  CHECK_EQ(grid_thw.w % vc.spatial_merge_size_, 0);
+
+  const int32_t dim = vc.hidden_size_;
+  const int32_t heads = vc.num_attention_heads_;
+  void* stream = cuda_config_ ? cuda_config_->stream : nullptr;
+  const auto t_begin = std::chrono::steady_clock::now();
+
+  // 输入像素按需上传显存
+  tensor::Tensor pixel = pixel_values;
+  if (vision_device_ == base::DeviceType::kDeviceCUDA) {
+    pixel = pixel_values.clone();
+    pixel.to_cuda(cuda_config_->stream);
+    cudaStreamSynchronize(cuda_config_->stream);
   }
-  if (!config_) {
-    return base::error::InternalError("PaddleOCR-VL: text config not loaded.");
+
+  tensor::Tensor hidden = _vision_alloc(n, dim);
+  _vision_embeddings(pixel.ptr<float>(), grid_thw, hidden.ptr<float>());
+
+  tensor::Tensor cos_tab, sin_tab;
+  _build_vision_rope(grid_thw, cos_tab, sin_tab);
+
+  // 27 层复用同一份中间缓冲。CPU 版注意力逐行复用 score，只需 heads 行；
+  // CUDA 版用 batched GEMM 一次算出全部 [heads, n, n]。
+  VisionWorkspace ws;
+  ws.normed = _vision_alloc(n, dim);
+  ws.q = _vision_alloc(n, dim);
+  ws.k = _vision_alloc(n, dim);
+  ws.v = _vision_alloc(n, dim);
+  ws.attn = _vision_alloc(n, dim);
+  ws.ff = _vision_alloc(n, vc.intermediate_size_);
+  // score 行数由kernel 决定：CPU 逐行复用只需 heads 行；CUDA 一次算整块，
+  // 大图上会按 head 分块（否则 heads*n*n 超过 int32 上限）
+  ws.score = _vision_alloc(kernel::vision_attention_score_rows(vision_device_, n, heads), n);
+
+  for (int32_t i = 0; i < vc.num_hidden_layers_; ++i) {
+    _vision_encoder_layer(i, n, cos_tab.ptr<float>(), sin_tab.ptr<float>(), hidden.ptr<float>(),
+                          ws);
+    if (i == 0 || i == 1 || i == vc.num_hidden_layers_ - 1) {
+      const std::string tag = (i == vc.num_hidden_layers_ - 1) ? "vis_layer_last"
+                                                               : "vis_layer" + std::to_string(i);
+      _dump(tag, hidden.ptr<float>(), static_cast<size_t>(n) * dim);
+    }
   }
 
-  // 1) 文本 + 图像融合后的 embedding (input_embeddings buffer 已被原地填充)
-  auto embed_out = embedding_multimodal(tokens, images);
+  // post_layernorm
+  tensor::Tensor post = _vision_alloc(n, dim);
+  kernel::get_vision_layernorm_kernel(vision_device_)(
+      hidden.ptr<float>(), n, dim, siglip_->post_ln_w.ptr<float>(),
+      siglip_->post_ln_b.ptr<float>(), vc.layer_norm_eps_, post.ptr<float>(), stream);
+  _dump("vis_post_ln", post.ptr<float>(), static_cast<size_t>(n) * dim);
 
-  // 2) 计算 3D-MRoPE 位置 (写到 kMRoPEPositions buffer)
-  MRoPEPositions mrope = compute_mrope_positions(tokens, images);
+  auto out = _project(post.ptr<float>(), grid_thw);
+  _vision_sync();
+  last_vision_ms_ = std::chrono::duration<double, std::milli>(
+                        std::chrono::steady_clock::now() - t_begin)
+                        .count();
+  LOG(INFO) << "PaddleOCR-VL: vision encode 耗时 " << last_vision_ms_ << " ms（" << n
+            << " patches, "
+            << (vision_device_ == base::DeviceType::kDeviceCUDA ? "CUDA" : "CPU") << "）";
+  return out;
+}
 
-  // 3) 构造 KV-cache 用的 1D pos_tensor
-  //    - prompt 阶段 pos = 0；这里对 forward 提供起始位置；
-  //    - decode 阶段 pos = mm_decode_step_（由历史步数累加而来）
-  auto pos_tensor = get_buffer(model::ModelBufferType::kInputPos);
-  if (is_prompt) {
-    mm_decode_step_ = static_cast<int32_t>(tokens.size());
-    pos_tensor.index<int32_t>(0) = 0;
-  } else {
-    pos_tensor.index<int32_t>(0) = mm_decode_step_;
-    ++mm_decode_step_;
+void PaddleOCRVLModel::_dump(const std::string& name, const float* data, size_t count) const {
+  if (dump_dir_.empty()) {
+    return;
+  }
+  // 只保留第一次（prefill）的结果，decode 阶段的同名张量不覆盖
+  if (std::find(dumped_.begin(), dumped_.end(), name) != dumped_.end()) {
+    return;
+  }
+  dumped_.push_back(name);
+
+  // 视觉路径的中间结果可能在显存里，需要先同步并拷回主机
+  const float* host = data;
+  std::vector<float> staging;
+  cudaPointerAttributes attr{};
+  if (cudaPointerGetAttributes(&attr, data) == cudaSuccess &&
+      attr.type == cudaMemoryTypeDevice) {
+    _vision_sync();
+    staging.resize(count);
+    cudaMemcpy(staging.data(), data, sizeof(float) * count, cudaMemcpyDeviceToHost);
+    host = staging.data();
+  }
+  cudaGetLastError();  // 清掉指针属性查询可能留下的错误状态
+
+  const std::string path = dump_dir_ + "/klite_" + name + ".bin";
+  std::ofstream f(path, std::ios::binary);
+  if (!f) {
+    LOG(WARNING) << "dump 失败: " << path;
+    return;
+  }
+  f.write(reinterpret_cast<const char*>(host), sizeof(float) * count);
+}
+
+// =============================================================================
+//  3D-MRoPE
+//
+//  inv_freq[j] = theta^(-j/64)，j = 0..63
+//  频率轴划分：j < 16 -> t，16 <= j < 40 -> h，j >= 40 -> w
+//  旋转为半分割配对 (j, j + 64)
+// =============================================================================
+void PaddleOCRVLModel::_build_mrope_cos_sin(int32_t pos_t, int32_t pos_h, int32_t pos_w,
+                                float* cos_out, float* sin_out) const {
+  const int32_t half = config_->head_size_ / 2;  // 64
+  const int32_t sec_t = vl_config_->mrope_section_t_;
+  const int32_t sec_h = vl_config_->mrope_section_h_;
+  for (int32_t j = 0; j < half; ++j) {
+    const float inv_freq = std::pow(vl_config_->text_rope_theta_,
+                                    -static_cast<float>(j) / static_cast<float>(half));
+    int32_t pos = pos_w;
+    if (j < sec_t) {
+      pos = pos_t;
+    } else if (j < sec_t + sec_h) {
+      pos = pos_h;
+    }
+    const float angle = static_cast<float>(pos) * inv_freq;
+    cos_out[j] = std::cos(angle);
+    sin_out[j] = std::sin(angle);
+  }
+}
+
+MRoPEPositions PaddleOCRVLModel::compute_mrope_positions(
+    const std::vector<int>& tokens, const std::vector<ProcessedImage>& images) const {
+  const int32_t merge = vl_config_->vision.spatial_merge_size_;
+  const int32_t image_token = vl_config_->image_token_id_;
+
+  std::vector<int32_t> pt, ph, pw;
+  pt.reserve(tokens.size());
+  ph.reserve(tokens.size());
+  pw.reserve(tokens.size());
+
+  int32_t next_pos = 0;
+  size_t i = 0;
+  size_t img_idx = 0;
+  while (i < tokens.size()) {
+    if (tokens[i] == image_token && img_idx < images.size()) {
+      const auto& g = images[img_idx].grid_thw;
+      const int32_t hb = g.h / merge;
+      const int32_t wb = g.w / merge;
+      const int32_t count = g.t * hb * wb;
+      const int32_t base = next_pos;
+      for (int32_t t = 0; t < g.t; ++t) {
+        for (int32_t a = 0; a < hb; ++a) {
+          for (int32_t b = 0; b < wb; ++b) {
+            // 图片的 second_per_grid_t = 0，故 t轴恒为 base
+            pt.push_back(base);
+            ph.push_back(base + a);
+            pw.push_back(base + b);
+          }
+        }
+      }
+      i += static_cast<size_t>(count);
+      // 下一段文本从上一段最大值 + 1 续接
+      next_pos = base + std::max(hb, wb);
+      ++img_idx;
+    } else {
+      pt.push_back(next_pos);
+      ph.push_back(next_pos);
+      pw.push_back(next_pos);
+      ++next_pos;
+      ++i;
+    }
   }
 
-  // 4) 喂入文本 LLM 主体
-  int next = -1;
-  STATUS_CHECK(forward(embed_out.input_embeddings, pos_tensor, next));
+  const int32_t len = static_cast<int32_t>(pt.size());
+  auto alloc = base::CPUDeviceAllocatorFactory::get_instance();
+  tensor::Tensor positions(base::DataType::kDataTypeInt32, 3, len, true, alloc);
+  int32_t* p = positions.ptr<int32_t>();
+  std::memcpy(p, pt.data(), sizeof(int32_t) * len);
+  std::memcpy(p + len, ph.data(), sizeof(int32_t) * len);
+  std::memcpy(p + 2 * len, pw.data(), sizeof(int32_t) * len);
 
-  // 5) prompt 阶段不出 token；decode 阶段从 logits 采样
-  next_token = post_processing(pos_tensor, is_prompt);
+  MRoPEPositions out;
+  out.positions = positions;
+  // 参考实现的 rope_delta：位置数远少于 token 数
+  out.mrope_position_delta = next_pos - static_cast<int32_t>(tokens.size());
+  return out;
+}
+
+// =============================================================================
+//  文本 decoder：逐 token 前向（GQA + MRoPE + KV-Cache）
+// =============================================================================
+void PaddleOCRVLModel::attention_rms(int32_t layer_idx, const tensor::Tensor& input) const {
+  tensor::Tensor rms_out = get_buffer(ModelBufferType::kOutputRMSNorm);
+  const auto& norm = qwen_layers_->rmsnorm_layers_.at(layer_idx);
+  STATUS_CHECK(norm->forward(input, rms_out));
+}
+
+void PaddleOCRVLModel::attention_qkv(int32_t layer_idx, int32_t token_pos,
+                                     const tensor::Tensor& mrope_cos,
+                                     const tensor::Tensor& mrope_sin) const {
+  tensor::Tensor rms_out = get_buffer(ModelBufferType::kOutputRMSNorm);
+  tensor::Tensor query = get_buffer(ModelBufferType::kQuery);
+  auto [key, val] = slice_kv_cache(layer_idx, token_pos);
+
+  STATUS_CHECK(qwen_layers_->wq_layers_.at(layer_idx)->forward(rms_out, query));
+  STATUS_CHECK(qwen_layers_->wk_layers_.at(layer_idx)->forward(rms_out, key));
+  STATUS_CHECK(qwen_layers_->wv_layers_.at(layer_idx)->forward(rms_out, val));
+
+  // MRoPE：逐 head 半分割配对 (j, j + 64)
+  const int32_t hs = config_->head_size_;
+  auto rope = kernel::get_rope_half_split_kernel(device_type_);
+  void* stream = cuda_config_ ? cuda_config_->stream : nullptr;
+  rope(query.ptr<float>(), config_->head_num_, hs, mrope_cos.ptr<float>(), mrope_sin.ptr<float>(),
+       stream);
+  rope(key.ptr<float>(), config_->kv_head_num_, hs, mrope_cos.ptr<float>(),
+       mrope_sin.ptr<float>(), stream);
+}
+
+void PaddleOCRVLModel::attention_mha(int32_t layer_idx, int32_t token_pos) const {
+  tensor::Tensor key_cache = get_buffer(ModelBufferType::kKeyCache);
+  tensor::Tensor val_cache = get_buffer(ModelBufferType::kValueCache);
+  tensor::Tensor mha_out = get_buffer(ModelBufferType::kOutputMHA);
+  tensor::Tensor score = get_buffer(ModelBufferType::kScoreStorage);
+  tensor::Tensor query = get_buffer(ModelBufferType::kQuery);
+
+  const auto& mha = qwen_layers_->mha_layer_;
+  std::dynamic_pointer_cast<op::MultiHeadAttention>(mha)->set_pos(token_pos);
+  std::dynamic_pointer_cast<op::MultiHeadAttention>(mha)->set_layer_idx(layer_idx);
+  STATUS_CHECK(mha->forward(query, score, key_cache, val_cache, mha_out));
+
+  tensor::Tensor attn_out = get_buffer(ModelBufferType::kAttnOutput);
+  STATUS_CHECK(qwen_layers_->wo_layers_.at(layer_idx)->forward(mha_out, attn_out));
+}
+
+void PaddleOCRVLModel::feed_forward(int32_t layer_idx, const tensor::Tensor& input) const {
+  STATUS_CHECK(qwen_layers_->add_layer_->forward(
+      input, get_buffer(ModelBufferType::kAttnOutput), input));
+
+  tensor::Tensor ffn_norm_out = get_buffer(ModelBufferType::kFFNRMSNorm);
+  const auto& ffn_norm = qwen_layers_->rmsnorm_layers_.at(layer_idx + config_->layer_num_);
+  STATUS_CHECK(ffn_norm->forward(input, ffn_norm_out));
+
+  tensor::Tensor w1_out = get_buffer(ModelBufferType::kW1Output);
+  tensor::Tensor w3_out = get_buffer(ModelBufferType::kW3Output);
+  STATUS_CHECK(qwen_layers_->w1_layers_.at(layer_idx)->forward(ffn_norm_out, w1_out));
+  STATUS_CHECK(qwen_layers_->w3_layers_.at(layer_idx)->forward(ffn_norm_out, w3_out));
+  STATUS_CHECK(qwen_layers_->swiglu_layer_->forward(w1_out, w3_out, w1_out));
+
+  tensor::Tensor w2_out = get_buffer(ModelBufferType::kW2Output);
+  STATUS_CHECK(qwen_layers_->w2_layers_.at(layer_idx)->forward(w1_out, w2_out));
+  STATUS_CHECK(qwen_layers_->add_layer_->forward(input, w2_out, input));
+}
+
+void PaddleOCRVLModel::cls_logits(const tensor::Tensor& input) const {
+  const auto& norm = qwen_layers_->rmsnorm_layers_.at(2 * config_->layer_num_);
+  STATUS_CHECK(norm->forward(input, input));
+  tensor::Tensor logits = get_buffer(ModelBufferType::kForwardOutput);
+  STATUS_CHECK(qwen_layers_->cls_layer_->forward(input, logits));
+}
+
+base::Status PaddleOCRVLModel::_llm_forward_token(int32_t token_pos,
+                                                 const tensor::Tensor& mrope_cos,
+                                                 const tensor::Tensor& mrope_sin,
+                                                 const tensor::Tensor& input) const {
+  if (token_pos >= config_->seq_len_) {
+    return base::error::InternalError("PaddleOCR-VL: token position exceeds seq_len.");
+  }
+  for (int32_t l = 0; l < config_->layer_num_; ++l) {
+    attention_rms(l, input);
+    attention_qkv(l, token_pos, mrope_cos, mrope_sin);
+    attention_mha(l, token_pos);
+    feed_forward(l, input);
+  }
+  cls_logits(input);
   return base::error::Success();
 }
 
 // =============================================================================
-//  embedding / embedding_multimodal
+//  embedding：文本查表 + 视觉特征按image_token 占位符注入
 // =============================================================================
 op::EmbeddingOutput PaddleOCRVLModel::embedding(const std::vector<int>& tokens) const {
-  CHECK(qwen_layers_ != nullptr);
-
-  const int32_t text_hidden =
-      (config_ && config_->dim_ > 0) ? config_->dim_ : vl_config_->text_hidden_size_;
-
-  auto input_tokens     = get_buffer(model::ModelBufferType::kInputTokens);
-  auto input_embeddings = get_buffer(model::ModelBufferType::kInputEmbeddings);
-  if (input_tokens.size() != tokens.size()) {
-    input_tokens.reshape({static_cast<int32_t>(tokens.size())});
-    input_embeddings.reshape({static_cast<int32_t>(tokens.size()), text_hidden});
-  }
-  for (size_t i = 0; i < tokens.size(); ++i) {
-    input_tokens.index<int32_t>(static_cast<int64_t>(i)) = tokens[i];
-  }
-  auto input_token_num =
-      tensor::Tensor(base::DataType::kDataTypeInt32, static_cast<int32_t>(tokens.size()));
-
-  if (qwen_layers_->embedding_layer_) {
-    STATUS_CHECK(qwen_layers_->embedding_layer_->forward(input_tokens, input_token_num,
-                                                         input_embeddings));
-  } else {
-    LOG_FIRST_N(WARNING, 1)
-        << "PaddleOCR-VL: embedding layer not loaded; input_embeddings left zero-filled.";
-    if (auto buf = input_embeddings.get_buffer()) {
-      auto* a = buf->allocator().get();
-      if (a) a->memset_zero(buf->ptr(), input_embeddings.byte_size(), nullptr, true);
-    }
-  }
-  return op::EmbeddingOutput(input_tokens, input_embeddings, input_token_num);
+  return embedding_multimodal(tokens, {});
 }
 
 op::EmbeddingOutput PaddleOCRVLModel::embedding_multimodal(
     const std::vector<int>& tokens, const std::vector<ProcessedImage>& images) const {
-  // 先按文本走一遍 embedding，得到完整序列的 embedding tensor
-  auto out = embedding(tokens);
-  if (images.empty()) return out;
+  const int32_t dim = config_->dim_;
+  const int32_t len = static_cast<int32_t>(tokens.size());
+  const bool on_cuda = device_type_ == base::DeviceType::kDeviceCUDA;
+  auto cpu_alloc = base::CPUDeviceAllocatorFactory::get_instance();
+  std::shared_ptr<base::DeviceAllocator> alloc =
+      on_cuda ? std::static_pointer_cast<base::DeviceAllocator>(
+                    base::CUDADeviceAllocatorFactory::get_instance())
+              : std::static_pointer_cast<base::DeviceAllocator>(cpu_alloc);
+  cudaStream_t stream = cuda_config_ ? cuda_config_->stream : nullptr;
 
-  const int32_t img_id = vl_config_->image_token_id_;
-  const int32_t merge  = vl_config_->vision.spatial_merge_size_;
-  const int32_t hidden =
-      (config_ && config_->dim_ > 0) ? config_->dim_ : vl_config_->text_hidden_size_;
+  tensor::Tensor input_tokens(base::DataType::kDataTypeInt32, len, true, cpu_alloc);
+  tensor::Tensor embeddings(base::DataType::kDataTypeFp32, len, dim, true, alloc);
 
-  // 找到所有 image_token_id 占位符的位置
-  std::vector<int32_t> img_pos;
-  img_pos.reserve(images.size() * 64);
-  for (size_t i = 0; i < tokens.size(); ++i) {
-    if (tokens[i] == img_id) img_pos.push_back(static_cast<int32_t>(i));
-  }
-  if (img_pos.empty()) {
-    LOG(WARNING) << "PaddleOCR-VL: tokens 中未发现 image_token_id="
-                 << img_id << "，跳过图像注入。";
-    return out;
-  }
+  auto emb_param = std::dynamic_pointer_cast<op::LayerParam>(qwen_layers_->embedding_layer_);
+  CHECK(emb_param != nullptr);
+  const float* table = emb_param->get_weight(0).ptr<float>();
+  float* out = embeddings.ptr<float>();
 
-  // device-aware memcpy：input_embeddings 可能在 CUDA 上，
-  // 而 vision feature 始终位于 CPU。
-  auto dst_buf = out.input_embeddings.get_buffer();
-  CHECK(dst_buf != nullptr);
-  auto dst_alloc = dst_buf->allocator();
-  CHECK(dst_alloc != nullptr);
-  const bool dst_on_cuda = (out.input_embeddings.device_type() == base::DeviceType::kDeviceCUDA);
-  const auto memcpy_kind = dst_on_cuda ? base::MemcpyKind::kMemcpyCPU2CUDA
-                                       : base::MemcpyKind::kMemcpyCPU2CPU;
-  void* stream = (dst_on_cuda && cuda_config_) ? (void*)cuda_config_->stream : nullptr;
-
-  size_t img_token_idx = 0;
-  for (const auto& img : images) {
-    tensor::Tensor feat = encode_image(img.pixel_values, img.grid_thw);  // CPU, [n_img_tok, hidden]
-    const int32_t n_img_tok = img.grid_thw.num_img_tokens(merge);
-    CHECK_EQ(static_cast<int32_t>(feat.size()), n_img_tok * hidden)
-        << "vision feature size mismatch with grid_thw";
-
-    for (int32_t k = 0; k < n_img_tok && img_token_idx < img_pos.size();
-         ++k, ++img_token_idx) {
-      const int32_t dst_row = img_pos[img_token_idx];
-      void* dst = static_cast<float*>(dst_buf->ptr()) + dst_row * hidden;
-      const void* src = feat.ptr<float>() + k * hidden;
-      dst_alloc->memcpy(src, dst, sizeof(float) * hidden, memcpy_kind, stream,
-                        /*need_sync=*/!dst_on_cuda);
-    }
-  }
-  if (dst_on_cuda && cuda_config_) {
-    cudaStreamSynchronize(cuda_config_->stream);
-  }
-
-  return out;
-}
-
-// =============================================================================
-//  encode_image: pixel_values -> projector_output (text_hidden 维度，CPU)
-// =============================================================================
-tensor::Tensor PaddleOCRVLModel::encode_image(const tensor::Tensor& pixel_values,
-                                              const ImageGridTHW& grid_thw) const {
-  const auto& vc = vl_config_->vision;
-  auto alloc_cpu = base::CPUDeviceAllocatorFactory::get_instance();
-  const int32_t num_patches = grid_thw.num_patches();
-  CHECK_GT(num_patches, 0) << "encode_image: grid_thw 必须为正，得到 t=" << grid_thw.t
-                           << " h=" << grid_thw.h << " w=" << grid_thw.w;
-
-  // 0) 像素 unfold: [T, C, H_pix, W_pix] → [num_patches, C*p*p]
-  tensor::Tensor unfolded = _unfold_pixels(pixel_values, grid_thw);
-
-  // 1) Patch embed → [num_patches, hidden_size]
-  tensor::Tensor hidden(base::DataType::kDataTypeFp32, num_patches, vc.hidden_size_,
-                        /*need_alloc=*/true, alloc_cpu);
-  STATUS_CHECK(siglip_layers_->patch_embedding->forward(unfolded, hidden));
-
-  // 2) Vision RoPE 预计算 (cos / sin)
-  tensor::Tensor rot_cos, rot_sin;
-  _build_vision_rope(grid_thw, rot_cos, rot_sin);
-
-  // 3) N 层 encoder
-  for (int32_t i = 0; i < vc.num_hidden_layers_; ++i) {
-    _encoder_layer(i, rot_cos, rot_sin, hidden);
-  }
-
-  // 4) post layernorm
-  tensor::Tensor post(base::DataType::kDataTypeFp32, num_patches, vc.hidden_size_,
-                      true, alloc_cpu);
-  STATUS_CHECK(siglip_layers_->post_layernorm->forward(hidden, post));
-
-  // 5) projector + 2x2 spatial merge
-  tensor::Tensor merged = _spatial_merge(post, grid_thw);   // [num_img_tok, merged_hidden]
-  return _project(merged, grid_thw);                        // [num_img_tok, text_hidden]
-}
-
-// =============================================================================
-//  _unfold_pixels:
-//    输入  pixel_values shape = [T, C, H_pix, W_pix] (CPU, fp32)
-//    输出  shape          = [T*Hg*Wg, C*p*p]
-//
-//  Conv2d(kernel=p, stride=p, padding=0) 等价：每个 patch 取 [c, dh, dw]
-//  扁平为 c*p*p 维向量。
-// =============================================================================
-tensor::Tensor PaddleOCRVLModel::_unfold_pixels(const tensor::Tensor& pixel_values,
-                                                const ImageGridTHW& grid_thw) const {
-  const auto& vc = vl_config_->vision;
-  const int32_t Tg = grid_thw.t;
-  const int32_t Hg = grid_thw.h;
-  const int32_t Wg = grid_thw.w;
-  const int32_t p  = vc.patch_size_;
-  const int32_t C  = vc.num_channels_;
-  const int32_t H_pix = Hg * p;
-  const int32_t W_pix = Wg * p;
-  const int32_t patch_dim = C * p * p;
-
-  CHECK_EQ(pixel_values.size(),
-           static_cast<size_t>(Tg) * C * H_pix * W_pix)
-      << "_unfold_pixels: pixel_values size 与 grid_thw 不一致";
-
-  auto alloc_cpu = base::CPUDeviceAllocatorFactory::get_instance();
-  tensor::Tensor out(base::DataType::kDataTypeFp32,
-                     Tg * Hg * Wg, patch_dim, true, alloc_cpu);
-
-  const float* src = pixel_values.ptr<float>();
-  float*       dst = out.ptr<float>();
-
-  // src layout: [T, C, H_pix, W_pix]
-  // 每帧大小 = C * H_pix * W_pix
-  const size_t per_frame = static_cast<size_t>(C) * H_pix * W_pix;
-  const size_t per_chan  = static_cast<size_t>(H_pix) * W_pix;
-
-  for (int32_t ti = 0; ti < Tg; ++ti) {
-    const float* frame = src + ti * per_frame;
-    for (int32_t hi = 0; hi < Hg; ++hi) {
-      for (int32_t wi = 0; wi < Wg; ++wi) {
-        float* d = dst + ((ti * Hg + hi) * Wg + wi) * patch_dim;
-        // 输出顺序：channel-major（与一般权重 [hidden, C*p*p] 约定一致）
-        for (int32_t c = 0; c < C; ++c) {
-          for (int32_t dh = 0; dh < p; ++dh) {
-            const float* srow =
-                frame + c * per_chan + (hi * p + dh) * W_pix + wi * p;
-            std::memcpy(d + c * p * p + dh * p, srow, sizeof(float) * p);
-          }
-        }
-      }
-    }
-  }
-  return out;
-}
-
-// =============================================================================
-//  _build_vision_rope
-//   生成 [num_patches, head_dim/2] 的 cos / sin 表
-// =============================================================================
-void PaddleOCRVLModel::_build_vision_rope(const ImageGridTHW& grid_thw,
-                                          tensor::Tensor& rot_cos,
-                                          tensor::Tensor& rot_sin) const {
-  const auto& vc = vl_config_->vision;
-  const int32_t hd_half = vc.head_dim() / 2;
-  const int32_t N = grid_thw.t * grid_thw.h * grid_thw.w;
-
-  auto alloc_cpu = base::CPUDeviceAllocatorFactory::get_instance();
-  rot_cos = tensor::Tensor(base::DataType::kDataTypeFp32, N, hd_half, true, alloc_cpu);
-  rot_sin = tensor::Tensor(base::DataType::kDataTypeFp32, N, hd_half, true, alloc_cpu);
-
-  float* c = rot_cos.ptr<float>();
-  float* s = rot_sin.ptr<float>();
-
-  const float base_freq = 10000.0f;
-  for (int32_t idx = 0; idx < N; ++idx) {
-    const int32_t hw = grid_thw.h * grid_thw.w;
-    const int32_t ti = idx / hw;
-    const int32_t hi = (idx % hw) / grid_thw.w;
-    const int32_t wi = idx % grid_thw.w;
-    // 简化策略：以 (h_idx + w_idx + t_idx*max_hw) 为 1D 等价位置；
-    // 完整 2D-RoPE 在精度对齐阶段再补。
-    const int32_t pos = ti * hw + hi * grid_thw.w + wi;
-    for (int32_t k = 0; k < hd_half; ++k) {
-      const float inv_freq = 1.0f / std::pow(base_freq,
-                                             static_cast<float>(2 * k) /
-                                                 static_cast<float>(vc.head_dim()));
-      const float angle = pos * inv_freq;
-      c[idx * hd_half + k] = std::cos(angle);
-      s[idx * hd_half + k] = std::sin(angle);
-    }
-  }
-}
-
-// =============================================================================
-//  _encoder_layer: 单层 ViT (Pre-LN, qkv 融合)
-//
-//  Bug 修复要点：
-//   - 旧版按 [3, T, hidden] 切片是错的；fused QKV matmul 输出 layout 实际是
-//     [T, 3*hidden]，每行内是 [q | k | v] 三段拼接。
-//   - 应用 RoPE 到 q/k 的偶/奇维度。
-//   - 不再借用 projector_layers_->act 做 GELU（避免与 _project 共享 IO 状态）。
-// =============================================================================
-void PaddleOCRVLModel::_encoder_layer(int32_t layer_i,
-                                      const tensor::Tensor& rot_cos,
-                                      const tensor::Tensor& rot_sin,
-                                      tensor::Tensor& hidden) const {
-  const auto& vc = vl_config_->vision;
-  auto& attn_norm = siglip_layers_->attn_norm[layer_i];
-  auto& qkv_proj  = siglip_layers_->qkv_proj[layer_i];
-  auto& out_proj  = siglip_layers_->out_proj[layer_i];
-  auto& ffn_norm  = siglip_layers_->ffn_norm[layer_i];
-  auto& fc1       = siglip_layers_->fc1[layer_i];
-  auto& fc2       = siglip_layers_->fc2[layer_i];
-
-  const int32_t T  = static_cast<int32_t>(hidden.size()) / vc.hidden_size_;
-  const int32_t H  = vc.num_attention_heads_;
-  const int32_t HD = vc.head_dim();
-  const int32_t HD_half = HD / 2;
-  auto alloc_cpu = base::CPUDeviceAllocatorFactory::get_instance();
-
-  // --- Self-Attention 子块 ---
-  tensor::Tensor normed(base::DataType::kDataTypeFp32, T, vc.hidden_size_, true, alloc_cpu);
-  STATUS_CHECK(attn_norm->forward(hidden, normed));
-
-  tensor::Tensor qkv(base::DataType::kDataTypeFp32, T, 3 * vc.hidden_size_, true, alloc_cpu);
-  STATUS_CHECK(qkv_proj->forward(normed, qkv));
-
-  // 应用 RoPE 到 q / k 的 (偶, 偶+1) 维度对（GPT-NeoX/SigLIP 风格的成对旋转）
-  // 注：rot_cos/rot_sin 的有效行数应 ≥ T；当上游 grid 与 token 数不一致时跳过。
-  float* qkv_data = qkv.ptr<float>();
-  const float* cos_p = rot_cos.ptr<float>();
-  const float* sin_p = rot_sin.ptr<float>();
-  const int32_t rope_rows = static_cast<int32_t>(rot_cos.size()) / std::max(HD_half, 1);
-  if (rope_rows >= T && HD_half > 0) {
-    auto apply_rope = [&](float* base) {
-      for (int32_t i = 0; i < T; ++i) {
-        for (int32_t h = 0; h < H; ++h) {
-          float* x = base + i * 3 * vc.hidden_size_ + h * HD;
-          const float* c = cos_p + i * HD_half;
-          const float* s = sin_p + i * HD_half;
-          for (int32_t k = 0; k < HD_half; ++k) {
-            const float a = x[2 * k], b = x[2 * k + 1];
-            x[2 * k]     = a * c[k] - b * s[k];
-            x[2 * k + 1] = a * s[k] + b * c[k];
-          }
-        }
-      }
-    };
-    // q 起始偏移 0，k 起始偏移 hidden
-    apply_rope(qkv_data + 0);
-    apply_rope(qkv_data + vc.hidden_size_);
-  }
-
-  // 朴素 multi-head self-attention (CPU 路径)
-  // QKV layout: 每行 [q (hidden) | k (hidden) | v (hidden)]
-  tensor::Tensor attn_out(base::DataType::kDataTypeFp32, T, vc.hidden_size_, true, alloc_cpu);
-  {
-    const float scale = 1.0f / std::sqrt(static_cast<float>(HD));
-    float* o = attn_out.ptr<float>();
-    std::memset(o, 0, sizeof(float) * T * vc.hidden_size_);
-    auto Qptr = [&](int32_t i, int32_t h) {
-      return qkv_data + i * 3 * vc.hidden_size_ + 0 * vc.hidden_size_ + h * HD;
-    };
-    auto Kptr = [&](int32_t j, int32_t h) {
-      return qkv_data + j * 3 * vc.hidden_size_ + 1 * vc.hidden_size_ + h * HD;
-    };
-    auto Vptr = [&](int32_t j, int32_t h) {
-      return qkv_data + j * 3 * vc.hidden_size_ + 2 * vc.hidden_size_ + h * HD;
-    };
-    std::vector<float> scores(T);
-    for (int32_t h = 0; h < H; ++h) {
-      for (int32_t i = 0; i < T; ++i) {
-        const float* qi = Qptr(i, h);
-        for (int32_t j = 0; j < T; ++j) {
-          const float* kj = Kptr(j, h);
-          float ss = 0.f;
-          for (int32_t d = 0; d < HD; ++d) ss += qi[d] * kj[d];
-          scores[j] = ss * scale;
-        }
-        // softmax
-        float m = scores[0];
-        for (int32_t j = 1; j < T; ++j) m = std::max(m, scores[j]);
-        float sum = 0.f;
-        for (int32_t j = 0; j < T; ++j) {
-          scores[j] = std::exp(scores[j] - m);
-          sum += scores[j];
-        }
-        const float inv_sum = 1.f / sum;
-        for (int32_t j = 0; j < T; ++j) scores[j] *= inv_sum;
-        // out_i += sum_j scores[j] * v_j
-        float* oi = o + i * vc.hidden_size_ + h * HD;
-        for (int32_t j = 0; j < T; ++j) {
-          const float* vj = Vptr(j, h);
-          for (int32_t d = 0; d < HD; ++d) oi[d] += scores[j] * vj[d];
-        }
-      }
-    }
-  }
-
-  tensor::Tensor proj_out(base::DataType::kDataTypeFp32, T, vc.hidden_size_, true, alloc_cpu);
-  STATUS_CHECK(out_proj->forward(attn_out, proj_out));
-
-  // residual: hidden = hidden + proj_out （视觉路径全在 CPU，可直接用 add）
-  CHECK(qwen_layers_->add_layer_ != nullptr) << "VecAddLayer 未创建（config_ 是否已加载？）";
-  STATUS_CHECK(qwen_layers_->add_layer_->forward(hidden, proj_out, hidden));
-
-  // --- FFN 子块 ---
-  STATUS_CHECK(ffn_norm->forward(hidden, normed));
-
-  tensor::Tensor h1(base::DataType::kDataTypeFp32, T, vc.intermediate_size_, true, alloc_cpu);
-  STATUS_CHECK(fc1->forward(normed, h1));
-
-  // GELU 原地激活（直接计算，避免与 projector 共用 layer 实例）
-  {
-    constexpr float kAlpha = 0.7978845608028654f;  // sqrt(2/pi)
-    constexpr float kBeta  = 0.044715f;
-    float* x = h1.ptr<float>();
-    const size_t n = h1.size();
-    for (size_t i = 0; i < n; ++i) {
-      float v = x[i];
-      x[i] = 0.5f * v * (1.0f + std::tanh(kAlpha * (v + kBeta * v * v * v)));
-    }
-  }
-
-  tensor::Tensor h2(base::DataType::kDataTypeFp32, T, vc.hidden_size_, true, alloc_cpu);
-  STATUS_CHECK(fc2->forward(h1, h2));
-
-  // residual
-  STATUS_CHECK(qwen_layers_->add_layer_->forward(hidden, h2, hidden));
-}
-
-// =============================================================================
-//  _spatial_merge: 2x2 patch merge -> [Tg * Hm * Wm, hidden * merge^2]
-// =============================================================================
-tensor::Tensor PaddleOCRVLModel::_spatial_merge(const tensor::Tensor& hidden,
-                                                const ImageGridTHW& grid_thw) const {
-  const auto& vc = vl_config_->vision;
-  const int32_t merge = vc.spatial_merge_size_;
-  const int32_t Tg = grid_thw.t;
-  const int32_t H  = grid_thw.h;
-  const int32_t W  = grid_thw.w;
-  CHECK_EQ(H % merge, 0) << "_spatial_merge: grid h 必须能被 merge 整除";
-  CHECK_EQ(W % merge, 0) << "_spatial_merge: grid w 必须能被 merge 整除";
-
-  const int32_t Hm = H / merge;
-  const int32_t Wm = W / merge;
-  const int32_t hidden_size = vc.hidden_size_;
-  const int32_t merged_dim  = hidden_size * merge * merge;
-  const int32_t num_img_tok = Tg * Hm * Wm;
-
-  // 视觉路径全在 CPU，hidden tensor 也是 CPU 分配 → memcpy 安全
-  auto alloc_cpu = base::CPUDeviceAllocatorFactory::get_instance();
-  tensor::Tensor out(base::DataType::kDataTypeFp32, num_img_tok, merged_dim, true, alloc_cpu);
-  const float* src = hidden.ptr<float>();
-  float*       dst = out.ptr<float>();
-
-  for (int32_t t = 0; t < Tg; ++t) {
-    const float* src_t = src + t * (H * W) * hidden_size;
-    float*       dst_t = dst + t * (Hm * Wm) * merged_dim;
-    for (int32_t hm = 0; hm < Hm; ++hm) {
-      for (int32_t wm = 0; wm < Wm; ++wm) {
-        float* d = dst_t + (hm * Wm + wm) * merged_dim;
-        int32_t off = 0;
-        for (int32_t dh = 0; dh < merge; ++dh) {
-          for (int32_t dw = 0; dw < merge; ++dw) {
-            const int32_t r = (hm * merge + dh) * W + (wm * merge + dw);
-            std::memcpy(d + off, src_t + r * hidden_size, sizeof(float) * hidden_size);
-            off += hidden_size;
-          }
-        }
-      }
-    }
-  }
-  return out;
-}
-
-// =============================================================================
-//  _project: linear_1 -> GELU -> linear_2 (输入已 spatial-merge)
-// =============================================================================
-tensor::Tensor PaddleOCRVLModel::_project(const tensor::Tensor& vision_hidden,
-                                          const ImageGridTHW& /*grid_thw*/) const {
-  const auto& vc   = vl_config_->vision;
-  const int32_t merged = vc.merged_hidden();
-  CHECK_EQ(vision_hidden.size() % merged, 0u)
-      << "_project: vision_hidden 与 merged_hidden 不对齐";
-  const int32_t N  = static_cast<int32_t>(vision_hidden.size()) / merged;
-
-  const int32_t text_hidden =
-      (config_ && config_->dim_ > 0) ? config_->dim_ : vl_config_->text_hidden_size_;
-  auto alloc_cpu = base::CPUDeviceAllocatorFactory::get_instance();
-
-  tensor::Tensor h1(base::DataType::kDataTypeFp32, N, merged, true, alloc_cpu);
-  STATUS_CHECK(projector_layers_->linear_1->forward(vision_hidden, h1));
-  STATUS_CHECK(projector_layers_->act->forward(h1, h1));
-
-  tensor::Tensor out(base::DataType::kDataTypeFp32, N, text_hidden, true, alloc_cpu);
-  STATUS_CHECK(projector_layers_->linear_2->forward(h1, out));
-  return out;
-}
-
-// =============================================================================
-//  _patch_embed: 单独暴露，用于权重检查 / 单测
-// =============================================================================
-tensor::Tensor PaddleOCRVLModel::_patch_embed(const tensor::Tensor& pixel_values) const {
-  const auto& vc = vl_config_->vision;
-  const int32_t num_patches = static_cast<int32_t>(pixel_values.size()) /
-                              (vc.num_channels_ * vc.patch_size_ * vc.patch_size_);
-  auto alloc = base::CPUDeviceAllocatorFactory::get_instance();
-  tensor::Tensor out(base::DataType::kDataTypeFp32, num_patches, vc.hidden_size_, true, alloc);
-  STATUS_CHECK(siglip_layers_->patch_embedding->forward(pixel_values, out));
-  return out;
-}
-
-// =============================================================================
-//  compute_mrope_positions: 3D-MRoPE 位置编码 (t, h, w)
-//
-//  规则（简化自 Qwen2-VL / PaddleOCR-VL）：
-//    - 文本 token：(p, p, p)，p 单调递增
-//    - 图像 token：以 vision_start_token_id 之后插入图像；按 (t, h, w) 三个维度
-//                  分别给予该 patch 的 (t_idx, h_idx, w_idx) + 起始 p
-//    - 图像段长度 = grid.t * grid.h/merge * grid.w/merge
-//    - 离开图像段后，p 重新回到「最大 (t,h,w)」 + 1 继续往后递增
-//
-//  Bug 修复：
-//    - 复用 kMRoPEPositions 预分配 buffer，避免每步重新分配
-//    - 当 token 序列中 image_token_id 数量不足 span 时，img_idx 不再误推进
-// =============================================================================
-MRoPEPositions PaddleOCRVLModel::compute_mrope_positions(
-    const std::vector<int>& tokens, const std::vector<ProcessedImage>& images) const {
-  MRoPEPositions ret;
-  const int32_t L     = static_cast<int32_t>(tokens.size());
-  const int32_t merge = vl_config_->vision.spatial_merge_size_;
-
-  // 优先复用 buffer；如果 buffer 容量不够（极少数情况），再回落分配
-  tensor::Tensor buf = get_buffer(model::ModelBufferType::kMRoPEPositions);
-  const int32_t cap  = static_cast<int32_t>(buf.size()) / 3;
-  if (cap >= L && L > 0) {
-    buf.reshape({3, L});
-    ret.positions = buf;
-  } else {
-    auto alloc_cpu = base::CPUDeviceAllocatorFactory::get_instance();
-    ret.positions = tensor::Tensor(base::DataType::kDataTypeInt32, 3, L, true, alloc_cpu);
-  }
-
-  int32_t* pos_t = ret.positions.ptr<int32_t>(0);
-  int32_t* pos_h = pos_t + L;
-  int32_t* pos_w = pos_h + L;
-
-  int32_t p = 0;
-  size_t img_idx = 0;
-  for (int32_t i = 0; i < L; ++i) {
-    const bool is_image_token = (tokens[i] == vl_config_->image_token_id_);
-
-    if (is_image_token && img_idx < images.size()) {
-      const auto& g = images[img_idx].grid_thw;
-      const int32_t Tg = g.t;
-      const int32_t Hg = g.h / merge;
-      const int32_t Wg = g.w / merge;
-      const int32_t span = Tg * Hg * Wg;
-      const int32_t end  = std::min(L, i + span);
-      const int32_t actual = end - i;
-
-      for (int32_t k = 0; k < actual; ++k) {
-        const int32_t ti = (k / (Hg * Wg));
-        const int32_t hi = (k / Wg) % Hg;
-        const int32_t wi = k % Wg;
-        pos_t[i + k] = p + ti;
-        pos_h[i + k] = p + hi;
-        pos_w[i + k] = p + wi;
-      }
-      const int32_t max_off = std::max({Tg, Hg, Wg});
-      p += max_off;
-      i = end - 1;          // for 循环还会 ++i
-
-      // 仅当整个 span 都在序列内时才推进 img_idx；
-      // 否则保留给下一次（流式扩展场景）
-      if (actual == span) ++img_idx;
+  // 按 token 从 embedding 表取行；CUDA 下 table 与 out 同在显存，走 D2D 拷贝
+  const size_t row_bytes = sizeof(float) * dim;
+  auto copy_row = [&](float* dst, const float* src) {
+    if (on_cuda) {
+      cudaMemcpyAsync(dst, src, row_bytes, cudaMemcpyDeviceToDevice, stream);
     } else {
-      pos_t[i] = p;
-      pos_h[i] = p;
-      pos_w[i] = p;
-      ++p;
+      std::memcpy(dst, src, row_bytes);
     }
+  };
+
+  for (int32_t i = 0; i < len; ++i) {
+    const int32_t tok = tokens[i];
+    CHECK_GE(tok, 0);
+    CHECK_LT(tok, config_->vocab_size_);
+    input_tokens.index<int32_t>(i) = tok;
+    copy_row(out + static_cast<size_t>(i) * dim, table + static_cast<size_t>(tok) * dim);
   }
 
-  ret.mrope_position_delta = p - L;
-  return ret;
+  // 视觉特征注入：按出现顺序填入 image_token 占位行
+  if (!images.empty()) {
+    const int32_t image_token = vl_config_->image_token_id_;
+    int32_t filled = 0;
+    for (const auto& img : images) {
+      tensor::Tensor feat = encode_image(img.pixel_values, img.grid_thw);
+      const int32_t n_tok = feat.get_dim(0);
+      const float* src = feat.ptr<float>();
+      int32_t used = 0;
+      for (int32_t i = filled; i < len && used < n_tok; ++i) {
+        if (tokens[i] != image_token) {
+          continue;
+        }
+        copy_row(out + static_cast<size_t>(i) * dim, src + static_cast<size_t>(used) * dim);
+        ++used;
+        filled = i + 1;
+      }
+      CHECK_EQ(used, n_tok) << "PaddleOCR-VL: image token 占位符数量(" << used
+                            << ") 与视觉特征数(" << n_tok << ") 不一致。";
+      if (on_cuda) {
+        // feat 在本轮结束后释放，拷贝必须先落地
+        cudaStreamSynchronize(stream);
+      }
+    }
+  }
+  if (on_cuda) {
+    cudaStreamSynchronize(stream);
+  }
+
+  tensor::Tensor token_num(base::DataType::kDataTypeInt32, len);
+  _dump("inputs_embeds", out, static_cast<size_t>(len) * dim);
+  return op::EmbeddingOutput(input_tokens, embeddings, token_num);
 }
 
 // =============================================================================
-//  predict / forward / post_processing
+//  多模态推理入口
 // =============================================================================
-base::Status PaddleOCRVLModel::predict(const tensor::Tensor& input,
-                                       const tensor::Tensor& pos_tensor,
-                                       bool is_prompt, int& next) const {
-  STATUS_CHECK(forward(input, pos_tensor, next));
-  next = post_processing(pos_tensor, is_prompt);
+base::Status PaddleOCRVLModel::predict_multimodal(const std::vector<int>& tokens,
+                                                  const std::vector<ProcessedImage>& images,
+                                                  bool is_prompt, int& next_token) const {
+  if (tokens.empty()) {
+    return base::error::InvalidArgument("PaddleOCR-VL: tokens is empty.");
+  }
+  CHECK(config_ != nullptr && vl_config_ != nullptr);
+
+  const int32_t dim = config_->dim_;
+  const int32_t half = config_->head_size_ / 2;
+  const bool on_cuda = device_type_ == base::DeviceType::kDeviceCUDA;
+  cudaStream_t stream = cuda_config_ ? cuda_config_->stream : nullptr;
+  std::shared_ptr<base::DeviceAllocator> alloc;
+  if (on_cuda) {
+    alloc = base::CUDADeviceAllocatorFactory::get_instance();
+  } else {
+    alloc = base::CPUDeviceAllocatorFactory::get_instance();
+  }
+  tensor::Tensor mrope_cos(base::DataType::kDataTypeFp32, half, true, alloc);
+  tensor::Tensor mrope_sin(base::DataType::kDataTypeFp32, half, true, alloc);
+  // MRoPE 的频率按 (t,h,w) 分段取值，只能在主机侧逐 token 算好再送上去
+  std::vector<float> cos_host(half), sin_host(half);
+
+  auto emb = embedding_multimodal(tokens, images);
+  float* emb_ptr = emb.input_embeddings.ptr<float>();
+  const int32_t len = static_cast<int32_t>(tokens.size());
+
+  if (is_prompt) {
+    mm_decode_step_ = 0;
+    mm_rope_pos_ = 0;
+  }
+
+  MRoPEPositions mrope;
+  const int32_t* pos_data = nullptr;
+  if (is_prompt) {
+    mrope = compute_mrope_positions(tokens, images);
+    pos_data = mrope.positions.ptr<int32_t>();
+  }
+
+  for (int32_t i = 0; i < len; ++i) {
+    int32_t pt = 0, ph = 0, pw = 0;
+    if (is_prompt) {
+      pt = pos_data[i];
+      ph = pos_data[len + i];
+      pw = pos_data[2 * len + i];
+    } else {
+      // decode 阶段三轴同值，从prompt 结束处续算
+      pt = ph = pw = mm_rope_pos_;
+    }
+    _build_mrope_cos_sin(pt, ph, pw, cos_host.data(), sin_host.data());
+    const size_t half_bytes = sizeof(float) * half;
+    if (on_cuda) {
+      cudaMemcpyAsync(mrope_cos.ptr<float>(), cos_host.data(), half_bytes, cudaMemcpyHostToDevice,
+                      stream);
+      cudaMemcpyAsync(mrope_sin.ptr<float>(), sin_host.data(), half_bytes, cudaMemcpyHostToDevice,
+                      stream);
+    } else {
+      std::memcpy(mrope_cos.ptr<float>(), cos_host.data(), half_bytes);
+      std::memcpy(mrope_sin.ptr<float>(), sin_host.data(), half_bytes);
+    }
+
+    // 该token 的 hidden 行视图，残差在其上原地累加
+    tensor::Tensor input(base::DataType::kDataTypeFp32, dim, false, nullptr,
+                         emb_ptr + static_cast<size_t>(i) * dim);
+    input.set_device_type(device_type_);
+
+    auto status = _llm_forward_token(mm_decode_step_, mrope_cos, mrope_sin, input);
+    if (!status) {
+      return status;
+    }
+    ++mm_decode_step_;
+    if (is_prompt) {
+      // prompt 阶段位置由 mrope 给出，结束后从最大值 + 1 续接
+      mm_rope_pos_ = std::max(mm_rope_pos_, std::max(pt, std::max(ph, pw)) + 1);
+    } else {
+      ++mm_rope_pos_;
+    }
+  }
+
+  next_token = post_processing(get_buffer(ModelBufferType::kInputPos), false);
   return base::error::Success();
+}
+
+base::Status PaddleOCRVLModel::predict(const tensor::Tensor& input,
+                                       const tensor::Tensor& pos_tensor, bool is_prompt,
+                                       int& next) const {
+  UNUSED(input);
+  UNUSED(pos_tensor);
+  UNUSED(is_prompt);
+  UNUSED(next);
+  return base::error::FunctionNotImplement(
+      "PaddleOCR-VL 请使用 predict_multimodal 作为推理入口。");
 }
 
 base::Status PaddleOCRVLModel::forward(const tensor::Tensor& input,
-                                       const tensor::Tensor& pos_tensor,
-                                       int& /*next*/) const {
-  if (input.is_empty()) {
-    return base::error::InvalidArgument("PaddleOCR-VL: input is empty.");
-  }
-  if (!config_) {
-    return base::error::InternalError("PaddleOCR-VL: text config not loaded.");
-  }
-  // LLM 主体复用 Qwen3 的 transformer block；当 wq/wk/wv/wo/w1/w2/w3 等权重
-  // 尚未加载时（典型于权重文件适配未完成阶段），不能继续往下走，避免读取
-  // 未初始化的 forward_output buffer 误导上层采样。
-  CHECK(qwen_layers_ != nullptr);
-  const bool llm_loaded = qwen_layers_->wq_layers_.size() ==
-                              static_cast<size_t>(config_->layer_num_) &&
-                          qwen_layers_->wk_layers_.size() ==
-                              static_cast<size_t>(config_->layer_num_) &&
-                          qwen_layers_->cls_layer_ != nullptr;
-  if (!llm_loaded) {
-    LOG_FIRST_N(WARNING, 1)
-        << "PaddleOCR-VL forward: LLM 权重尚未挂载到 qwen_layers_，"
-        << "请先在 gen_model_from_file 中适配 PaddleOCR-VL 权重映射。";
-    return base::error::NotImplemented(
-        "PaddleOCR-VL LLM forward not yet wired with weights.");
-  }
-
-  // TODO: 调用 attention_rms / attention_qkv / attention_mha / feed_forward / cls_logits
-  //       —— 建议把 Qwen3Model 内部对应函数抽成可复用的工具函数后在此调用。
-  (void)input;
-  (void)pos_tensor;
-  return base::error::Success();
+                                       const tensor::Tensor& pos_tensor, int& next) const {
+  UNUSED(input);
+  UNUSED(pos_tensor);
+  UNUSED(next);
+  return base::error::FunctionNotImplement(
+      "PaddleOCR-VL 请使用 predict_multimodal 作为推理入口。");
 }
 
-int32_t PaddleOCRVLModel::post_processing(const tensor::Tensor& /*pos*/, bool is_prompt) const {
-  if (is_prompt || !sampler_) return -1;
-  // 仅当 forward 真正写入了 logits（即 LLM 已挂载并跑过）才采样。
-  if (!qwen_layers_ || !qwen_layers_->cls_layer_) {
+int32_t PaddleOCRVLModel::post_processing(const tensor::Tensor& pos, bool is_prompt) const {
+  UNUSED(pos);
+  if (is_prompt) {
     return -1;
   }
-  const tensor::Tensor& fwd = get_buffer(model::ModelBufferType::kForwardOutput);
-  return static_cast<int32_t>(
-      sampler_->sample(fwd.ptr<float>(), fwd.size(),
-                       cuda_config_ ? cuda_config_->stream : nullptr));
+  tensor::Tensor logits = get_buffer(ModelBufferType::kForwardOutput);
+  return static_cast<int32_t>(sampler_->sample(logits.ptr<float>(), logits.size(),
+                                               cuda_config_ ? cuda_config_->stream : nullptr));
 }
 
 }  // namespace model

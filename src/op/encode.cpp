@@ -1,16 +1,90 @@
 #include "op/encode.h"
 #include <glog/logging.h>
+#include <fstream>
 #include "base/unicode.h"
+#include "nlohmann/json.hpp"
 namespace op {
+namespace {
+/// 取路径所在目录，用于在 tokenizer.model 旁边找配套的 json
+std::string dir_of(const std::string& path) {
+  const auto pos = path.find_last_of('/');
+  return pos == std::string::npos ? std::string(".") : path.substr(0, pos);
+}
+}  // namespace
+
 std::string SpeEncodeLayer::decode(int32_t token_id) const {
-  CHECK(spe != nullptr);
-  std::vector<int32_t> token_ids{token_id};
-  return this->spe->DecodeIds(token_ids);
+  return decode(std::vector<int32_t>{token_id});
 }
 
 std::string SpeEncodeLayer::decode(const std::vector<int32_t>& token_ids) const {
   CHECK(spe != nullptr);
-  return this->spe->DecodeIds(token_ids);
+  if (added_tokens_.empty() && skip_tokens_.empty()) {
+    return this->spe->DecodeIds(token_ids);
+  }
+  // 扩展 token 的 id 超出 sentencepiece 词表，必须挑出来单独还原，
+  // 其余连续片段仍交给 sentencepiece（否则会丢失 subword 的拼接规则）
+  std::string out;
+  std::vector<int32_t> chunk;
+  auto flush = [&]() {
+    if (!chunk.empty()) {
+      out += this->spe->DecodeIds(chunk);
+      chunk.clear();
+    }
+  };
+  for (const int32_t id : token_ids) {
+    if (skip_tokens_.count(id) != 0) {
+      flush();
+      continue;
+    }
+    const auto it = added_tokens_.find(id);
+    if (it != added_tokens_.end()) {
+      flush();
+      out += it->second;
+    } else {
+      chunk.push_back(id);
+    }
+  }
+  flush();
+  return out;
+}
+
+void SpeEncodeLayer::load_added_tokens() {
+  const std::string cfg_path = dir_of(token_model_path_) + "/tokenizer_config.json";
+  std::ifstream f(cfg_path);
+  if (!f.is_open()) {
+    return;  // llama2.c 系只有 tokenizer.model，保持原行为
+  }
+  nlohmann::json cfg;
+  try {
+    cfg = nlohmann::json::parse(f);
+  } catch (const nlohmann::json::parse_error&) {
+    LOG(WARNING) << "无法解析 " << cfg_path << "，扩展 token 将无法还原。";
+    return;
+  }
+  const auto it = cfg.find("added_tokens_decoder");
+  if (it == cfg.end() || !it->is_object()) {
+    return;
+  }
+
+  const int32_t spe_size = spe->GetPieceSize();
+  for (const auto& [key, value] : it->items()) {
+    const int32_t id = std::stoi(key);
+    if (id < spe_size) {
+      continue;  // sentencepiece 自己能解码
+    }
+    const bool special = value.value("special", false);
+    if (special) {
+      skip_tokens_.insert(id);
+    } else {
+      added_tokens_.emplace(id, value.value("content", std::string()));
+    }
+  }
+  if (!added_tokens_.empty() || !skip_tokens_.empty()) {
+    // 有明确 eos 的现代 tokenizer，BOS 不再兼作结束符
+    bos_as_ending_ = false;
+    LOG(INFO) << "扩展词表: " << added_tokens_.size() << " 个可见token, "
+              << skip_tokens_.size() << " 个特殊 token（解码时跳过）";
+  }
 }
 
 SpeEncodeLayer::SpeEncodeLayer(std::string token_model_path, bool has_bos, bool has_eos)
@@ -18,10 +92,11 @@ SpeEncodeLayer::SpeEncodeLayer(std::string token_model_path, bool has_bos, bool 
   using namespace sentencepiece::util;
   spe = std::make_unique<sentencepiece::SentencePieceProcessor>();
   auto rc = spe->Load(token_model_path_);
-  if (rc.code() != StatusCode::kOk) {
+  if (!rc.ok()) {
     LOG(FATAL)
         << "The token model path is not valid, please check the path and type of token model.";
   }
+  load_added_tokens();
 }
 
 std::vector<int32_t> SpeEncodeLayer::encode(const std::string& sentence) const {
@@ -39,7 +114,12 @@ std::vector<int32_t> SpeEncodeLayer::encode(const std::string& sentence) const {
 
 bool SpeEncodeLayer::is_sentence_ending(int32_t token_id) const {
   CHECK(this->spe != nullptr);
-  return token_id == this->spe->eos_id();
+  if (token_id == this->spe->eos_id()) {
+    return true;
+  }
+  // llama2.c / stories 系用 BOS 标记一段故事的结束；有扩展词表的模型有明确 eos，
+  // 若也把 BOS 当结束会提前截断输出
+  return bos_as_ending_ && token_id == this->spe->bos_id();
 }
 
 int32_t SpeEncodeLayer::vocab_size() const {

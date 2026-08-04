@@ -10,7 +10,10 @@ static size_t reduce_dimension(T begin, T end, Tp init) {
   if (begin >= end) {
     return 0;
   }
-  size_t size = std::accumulate(begin, end, init, std::multiplies<>());
+  //累加器显式用 size_t：调用方传的 init 是 int 字面量，若沿用其类型，
+  // 维度乘积在 int32 域内会溢出（如 [211200, 13200]）
+  size_t size = std::accumulate(begin, end, static_cast<size_t>(init),
+                                std::multiplies<size_t>());
   return size;
 }
 
@@ -53,7 +56,8 @@ Tensor::Tensor(base::DataType data_type, int32_t dim0, int32_t dim1, bool need_a
     : data_type_(data_type) {
   dims_.push_back(dim0);
   dims_.push_back(dim1);
-  size_ = dim0 * dim1;
+  // 逐维提升为 size_t 再相乘：int32 域内相乘会溢出（如 211200 * 13200）
+  size_ = static_cast<size_t>(dim0) * static_cast<size_t>(dim1);
   if (need_alloc && alloc) {
     allocate(alloc);
   } else {
@@ -67,7 +71,7 @@ Tensor::Tensor(base::DataType data_type, int32_t dim0, int32_t dim1, int32_t dim
   dims_.push_back(dim0);
   dims_.push_back(dim1);
   dims_.push_back(dim2);
-  size_ = dim0 * dim1 * dim2;
+  size_ = static_cast<size_t>(dim0) * static_cast<size_t>(dim1) * static_cast<size_t>(dim2);
   if (need_alloc && alloc) {
     allocate(alloc);
   } else {
@@ -82,7 +86,8 @@ Tensor::Tensor(base::DataType data_type, int32_t dim0, int32_t dim1, int32_t dim
   dims_.push_back(dim1);
   dims_.push_back(dim2);
   dims_.push_back(dim3);
-  size_ = dim0 * dim1 * dim2 * dim3;
+  size_ = static_cast<size_t>(dim0) * static_cast<size_t>(dim1) *
+          static_cast<size_t>(dim2) * static_cast<size_t>(dim3);
   if (need_alloc && alloc) {
     allocate(alloc);
   } else {

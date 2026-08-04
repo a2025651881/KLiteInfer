@@ -32,6 +32,12 @@ class Model {
 
   const std::string& model_path() const;
 
+  /// 模型支持的最大序列长度（KV-Cache 容量），生成步数不得超过它
+  int32_t seq_len() const;
+
+  /// 替换解码采样策略（需在 init 之后调用，init 内会装配默认的 argmax）
+  void set_sampler(std::unique_ptr<sampler::Sampler> sampler);
+
   virtual tensor::Tensor& get_buffer(ModelBufferType buffer_idx);
 
   virtual const tensor::Tensor& get_buffer(ModelBufferType buffer_idx) const;

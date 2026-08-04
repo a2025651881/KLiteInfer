@@ -7,6 +7,17 @@
 #include "op/rope.h"
 #include "op/swiglu.h"
 namespace model {
+
+/**
+ * @brief 权重区布局。两者前半部分一致，差异在final rmsnorm 之后：
+ *   kQwen3   : ... final_norm, q_norm(L), k_norm(L), [lm_head]
+ *   kLlama2C : ... final_norm, freq_cis_real/imag(需跳过), [lm_head]
+ */
+enum class WeightLayout : uint8_t {
+  kQwen3 = 0,
+  kLlama2C = 1,
+};
+
 struct QWen3TransformerConfig {
   int32_t kv_dim_ = 0;
   int32_t kv_mul_ = 0;
@@ -48,7 +59,8 @@ struct Qwen3Layers {
 class Qwen3Model : public Model {
  public:
   explicit Qwen3Model(base::TokenizerType tokenizer_type, std::string token_path,
-                      std::string model_path, bool is_quant_model);
+                      std::string model_path, bool is_quant_model,
+                      WeightLayout weight_layout = WeightLayout::kQwen3);
 
   base::Status init(base::DeviceType device_type) override;
 
@@ -84,6 +96,18 @@ class Qwen3Model : public Model {
   int32_t post_processing(const tensor::Tensor& pos, bool is_prompt) const override;
 
  private:
+  /// Qwen3 才有逐 head 的 q/k rmsnorm，llama2 系没有
+  bool use_qk_norm() const { return weight_layout_ == WeightLayout::kQwen3; }
+
+  /// RoPE 底数：llama2 系为 1e4，Qwen2/Qwen3 为 1e6
+  float rope_theta() const {
+    return weight_layout_ == WeightLayout::kLlama2C ? 10000.0f : 1000000.0f;
+  }
+
+  /// llama2.c 用相邻配对，Qwen3(HF) 用半分割配对
+  bool rope_interleaved() const { return weight_layout_ == WeightLayout::kLlama2C; }
+
+  WeightLayout weight_layout_ = WeightLayout::kQwen3;
   std::shared_ptr<kernel::CudaConfig> cuda_config_;
   std::unique_ptr<Qwen3Layers> qwen_layers_;
 };

@@ -3,11 +3,13 @@
 #include "kernels/cpu/rope_kernel.h"
 #include "kernels/kernels_interface.h"
 namespace op {
-RoPELayer::RoPELayer(base::DeviceType device_type, int32_t dim, int32_t kv_dim, int32_t head_size)
+RoPELayer::RoPELayer(base::DeviceType device_type, int32_t dim, int32_t kv_dim, int32_t head_size,
+                     bool interleaved)
     : Layer(device_type, LayerType::kLayerRoPe, "RoPe"),
       dim_(dim),
       kv_dim_(kv_dim),
-      head_size_(head_size) {
+      head_size_(head_size),
+      interleaved_(interleaved) {
   reset_input_size(5);
   reset_output_size(1);
 }
@@ -30,7 +32,8 @@ base::Status RoPELayer::forward() {
   }
   kernel::get_rope_kernel(device_type_)(dim_, kv_dim_, head_size_, input_q, input_k, input_pos,
                                         sin_cache, cos_cache,
-                                        cuda_config_ ? cuda_config_->stream : nullptr);
+                                        cuda_config_ ? cuda_config_->stream : nullptr,
+                                        interleaved_);
   return base::error::Success();
 }
 
