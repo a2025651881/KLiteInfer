@@ -8,7 +8,7 @@ CPU / CUDA 双后端，约 1.9 万行 C++/CUDA。已跑通
 - **多模态全流程自研**：SigLIP ViT（27 层 + 2D RoPE + 双向注意力）→ Projector（2×2 spatial merge）→ ERNIE4.5 解码器（GQA + 3D-MRoPE）
 - **与 HuggingFace 逐字对齐**：官方测试图 7/7 OCR 结果完全一致，中间张量 8 个阶段余弦相似度均为 `1.00000000`
 - **端到端快 10.9×**：同精度同解码条件下对比 HF Transformers
-- **44 个单测**：每个 CUDA kernel 都有 CPU 对照实现与一致性测试
+- **69 个单测**：每个 CUDA kernel 都有 CPU 对照实现与一致性测试，含服务端 HTTP 与历史 bug 的回归
 
 ---
 
@@ -119,7 +119,7 @@ curl -s localhost:8080/generate -d '{"prompt":"你好","max_tokens":128}'
 ## 测试
 
 ```bash
-bash tools/run_demos.sh                    # 一键回归：3 个 demo + 数值校验 + 44 个单测
+bash tools/run_demos.sh                    # 一键回归：3 个 demo + 数值校验 + 69 个单测
 python3 tools/compare_paddleocr.py <dir>   # 逐阶段数值比对，定位首个发散点
 python3 tools/ocr_eval.py <hf_dir> <image_dir> <out_dir>   # 多图 OCR 对比，算 CER
 python3 tools/benchmark_vs.py ocr <hf_dir> <image> --ref-dir <dir>   # 与 HF 同条件测速
